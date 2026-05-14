@@ -1,0 +1,872 @@
+[
+  {
+    "id": "olayan-financing-company",
+    "name": "Olayan Financing Company",
+    "family": "Olayan",
+    "country": "Saudi Arabia",
+    "city": "Riyadh",
+    "estAumUsd": null,
+    "status": "active",
+    "tags": [
+      "Direct",
+      "Tech",
+      "Consumer",
+      "AI"
+    ],
+    "lpActivityNotes": "No confirmed LP-in-VC-fund evidence found in public sources.",
+    "directInvestNotes": "Invested in CloudPay Series G ($120M round) Aug 2024; backed Pure Harvest Smart Farms $180.5M growth round Jun 2022; invested in Breadfast $50M pre-Series C Feb 2026.",
+    "sourceUrls": [
+      "https://www.cloudpay.com/press-releases/cloudpay-secures-120-million-dollars-funding/",
+      "https://agfundernews.com/pure-harvest-raises-180-million-in-round-backed-by-billionaire-olayans",
+      "https://www.bloomberg.com/news/articles/2026-02-16/mubadala-saudi-billionaire-family-invest-in-egypt-s-breadfast",
+      "https://www.cbinsights.com/investor/olayan-financing-company"
+    ],
+    "confidence": "public",
+    "lastKnownActivityYear": 2026,
+    "lastContactedAt": null
+  },
+  {
+    "id": "jimco",
+    "name": "JIMCO (Jameel Investment Management Company)",
+    "family": "Jameel",
+    "country": "Saudi Arabia",
+    "city": "Riyadh",
+    "estAumUsd": 2500000000,
+    "status": "active",
+    "tags": [
+      "Direct",
+      "Fintech",
+      "Tech",
+      "Biotech",
+      "AI"
+    ],
+    "lpActivityNotes": "JIMCO Technology Fund ($500M evergreen) invests in select global VC funds alongside direct deals; LP in funds targeting MENA fintech.",
+    "directInvestNotes": "Direct investments include Tabby (BNPL, Series A & B), Lean Technologies (API fintech, seed), Rain (crypto exchange Bahrain, Series A $6M), Starship Technologies (Series C $50M robotics), Commonwealth Fusion Systems Series B $1.8B (2021).",
+    "sourceUrls": [
+      "https://jimco.com/en/funds/technology/",
+      "https://jimco.com/en/portfolio/lean-technologies/",
+      "https://jimco.com/en/in-the-news/rain-to-increase-cryptocurrency-adoption-raising-us-6-million-series-a-funding/",
+      "https://jimco.com/en/portfolio/"
+    ],
+    "confidence": "public",
+    "lastKnownActivityYear": 2024,
+    "lastContactedAt": null
+  },
+  {
+    "id": "kingdom-holding-company",
+    "name": "Kingdom Holding Company",
+    "family": "Al Saud (Alwaleed bin Talal)",
+    "country": "Saudi Arabia",
+    "city": "Riyadh",
+    "estAumUsd": 18000000000,
+    "status": "active",
+    "tags": [
+      "Direct",
+      "Tech",
+      "AI"
+    ],
+    "lpActivityNotes": "No sub-$100M VC fund LP evidence found; participates in large-cap rounds.",
+    "directInvestNotes": "Invested $400M in xAI Series B (May 2024) and additional $400M in xAI Series C (Dec 2024); total $800M in Elon Musk's AI startup. Prior direct bets include Lyft and Careem.",
+    "sourceUrls": [
+      "https://www.wamda.com/en/2024/05/kingdom-holding-participates-musk-xai-6-billion-series-b-round",
+      "https://x.com/Kingdom_KHC/status/1871909848071463318",
+      "https://techcrunch.com/2024/05/26/elon-musks-xai-raises-6b-from-valor-a16z-and-sequoia/"
+    ],
+    "confidence": "public",
+    "lastKnownActivityYear": 2024,
+    "lastContactedAt": null
+  },
+  {
+    "id": "man-capital",
+    "name": "Man Capital",
+    "family": "Mansour",
+    "country": "Egypt",
+    "city": "London",
+    "estAumUsd": null,
+    "status": "active",
+    "tags": [
+      "Direct",
+      "Tech",
+      "Fintech",
+      "Consumer"
+    ],
+    "lpActivityNotes": "No confirmed LP-in-VC-fund evidence found.",
+    "directInvestNotes": "Direct investments include FreightMango (logistics SaaS, undisclosed round), Oceanscan (Oct 2024, marine survey tech). Averages ~2 deals/year across logistics, healthcare, renewable energy, and tech globally.",
+    "sourceUrls": [
+      "https://www.man-capital.com/our-global-portfolio/",
+      "https://www.cbinsights.com/investor/man-capital",
+      "https://pitchbook.com/profiles/investor/109442-35"
+    ],
+    "confidence": "public",
+    "lastKnownActivityYear": 2024,
+    "lastContactedAt": null
+  },
+  {
+    "id": "alrajhi-partners",
+    "name": "AlRajhi Partners",
+    "family": "Al Rajhi",
+    "country": "Saudi Arabia",
+    "city": "Riyadh",
+    "estAumUsd": null,
+    "status": "active",
+    "tags": [
+      "Direct",
+      "Tech",
+      "Consumer",
+      "Fintech"
+    ],
+    "lpActivityNotes": "No LP-in-sub-$100M-VC-fund evidence confirmed.",
+    "directInvestNotes": "Invested in Soum $18M Series A (Dec 2023, secondhand marketplace); participated in Invygo $8M Series A extension (Oct 2024, car subscription). Founded 2019 by subset of Al Rajhi banking family.",
+    "sourceUrls": [
+      "https://www.wamda.com/en/2023/12/soum-raises-18-million-series-round-led-jahez",
+      "https://pitchbook.com/profiles/investor/466459-93",
+      "https://alrajhi-partners.com/"
+    ],
+    "confidence": "public",
+    "lastKnownActivityYear": 2024,
+    "lastContactedAt": null
+  },
+  {
+    "id": "masic",
+    "name": "MASIC (Mohammed Ibrahim Alsubeaei & Sons Investment)",
+    "family": "Alsubeaei",
+    "country": "Saudi Arabia",
+    "city": "Riyadh",
+    "estAumUsd": null,
+    "status": "active",
+    "tags": [
+      "LP",
+      "Tech",
+      "Fintech"
+    ],
+    "lpActivityNotes": "LP strategy explicitly targets US VC emerging managers (Fund I-III); prefers funds <=$150M. Commits $20M-$150M tickets to first and second-time fund managers. Expanding to healthcare and fintech specialisation.",
+    "directInvestNotes": "No confirmed direct startup investments in MENA found.",
+    "sourceUrls": [
+      "https://sites.duke.edu/finance/2024/12/03/the-wisdom-of-ramzi-samara-co-head-of-private-funds-at-masic/",
+      "https://masic.com.sa/",
+      "https://www.preqin.com/data/profile/investor/masic/61881"
+    ],
+    "confidence": "public",
+    "lastKnownActivityYear": 2024,
+    "lastContactedAt": null
+  },
+  {
+    "id": "sedco-holding",
+    "name": "SEDCO Holding",
+    "family": "Bin Mahfouz",
+    "country": "Saudi Arabia",
+    "city": "Jeddah",
+    "estAumUsd": null,
+    "status": "active",
+    "tags": [
+      "LP",
+      "Tech"
+    ],
+    "lpActivityNotes": "SEDCO invests as LP in local and international VC and PE funds targeting IT, logistics, and infrastructure (per 2024 annual review). Confirmed indirect allocation to VC/PE fund managers.",
+    "directInvestNotes": "No confirmed named direct startup investments.",
+    "sourceUrls": [
+      "https://annualreview.sedco.com/investment_impact/corporate_investment.html",
+      "https://sedco.com/en/investments/",
+      "https://pitchbook.com/profiles/limited-partner/63587-08"
+    ],
+    "confidence": "public",
+    "lastKnownActivityYear": 2024,
+    "lastContactedAt": null
+  },
+  {
+    "id": "al-faisaliah-group",
+    "name": "Al Faisaliah Group",
+    "family": "Al Faisaliah",
+    "country": "Saudi Arabia",
+    "city": "Riyadh",
+    "estAumUsd": null,
+    "status": "active",
+    "tags": [
+      "LP",
+      "Tech",
+      "Fintech",
+      "Consumer"
+    ],
+    "lpActivityNotes": "Anchor LP in Nuwa Capital Fund I (~$100M target, 2021 first close at $75M); strategic investor and partner helping portfolio cos enter Saudi market. Fund covers seed to Series B in MENA/Turkey/Pakistan.",
+    "directInvestNotes": "No confirmed direct startup investments in press.",
+    "sourceUrls": [
+      "https://www.menabytes.com/nuwa-capital-first-close/",
+      "https://www.arabnews.com/node/1810151/business-economy",
+      "https://www.cbinsights.com/investor/al-faisaliah-group"
+    ],
+    "confidence": "public",
+    "lastKnownActivityYear": 2021,
+    "lastContactedAt": null
+  },
+  {
+    "id": "kbw-ventures",
+    "name": "KBW Ventures",
+    "family": "Al Saud (Khaled bin Alwaleed)",
+    "country": "Saudi Arabia",
+    "city": "Dubai",
+    "estAumUsd": null,
+    "status": "active",
+    "tags": [
+      "Direct",
+      "Tech",
+      "AI",
+      "Fintech",
+      "Crypto"
+    ],
+    "lpActivityNotes": "No LP-in-sub-$100M-VC-fund evidence found; operates own CVC platform.",
+    "directInvestNotes": "Portfolio of 64 companies including unicorns Bird, Carta, Square (IPO). CIO Ekta Tolani joined early 2024 shifting focus to AI-driven businesses and growth equity. Sector focus: food tech, AI, blockchain, fintech.",
+    "sourceUrls": [
+      "https://kbw-ventures.com/about-us/",
+      "https://www.swfinstitute.org/profile/5e39a4b8fcbe7e8ca71c42ad",
+      "https://www.cbinsights.com/investor/kbw-ventures"
+    ],
+    "confidence": "public",
+    "lastKnownActivityYear": 2024,
+    "lastContactedAt": null
+  },
+  {
+    "id": "al-rajhi-family-office",
+    "name": "Al Rajhi Family Office",
+    "family": "Al Rajhi (AbdulAziz branch)",
+    "country": "Saudi Arabia",
+    "city": "Riyadh",
+    "estAumUsd": null,
+    "status": "active",
+    "tags": [
+      "Direct",
+      "Consumer",
+      "Tech"
+    ],
+    "lpActivityNotes": "No confirmed LP-in-VC-fund evidence found.",
+    "directInvestNotes": "Led seed round in Calo (food subscription app) Seed VC-II Dec 2022. Family of AbdulAziz Al Rajhi, distinct from AlRajhi Partners and Tamasuk Al Rajhi.",
+    "sourceUrls": [
+      "https://magnitt.com/investors/al-rajhi-family-office-51170",
+      "https://www.cbinsights.com/investor/al-rajhi-family-office"
+    ],
+    "confidence": "confirmed",
+    "lastKnownActivityYear": 2022,
+    "lastContactedAt": null
+  },
+  {
+    "id": "tamasuk-al-rajhi",
+    "name": "Tamasuk Al Rajhi",
+    "family": "Al Rajhi (Saleh branch)",
+    "country": "Saudi Arabia",
+    "city": "Riyadh",
+    "estAumUsd": null,
+    "status": "active",
+    "tags": [
+      "Direct",
+      "Tech",
+      "Fintech",
+      "AI",
+      "Industrial"
+    ],
+    "lpActivityNotes": "No confirmed LP-in-sub-$100M-VC-fund evidence; invests directly.",
+    "directInvestNotes": "Focuses on fintech, AI, industrial, and mobility sectors per public profile. Established just before COVID-19 by Abdulaziz and Saud Al Rajhi (sons of Sheikh Saleh Abdulaziz Al Rajhi).",
+    "sourceUrls": [
+      "https://tamasukalrajhi.com/our-organisation/meet-the-team/",
+      "https://www.institutionalinvestor.com/article/younger-gulf-dynasties-are-reinventing-family-office",
+      "https://www.crunchbase.com/organization/tamasuk-al-rajhi"
+    ],
+    "confidence": "confirmed",
+    "lastKnownActivityYear": 2024,
+    "lastContactedAt": null
+  },
+  {
+    "id": "alajlan-family-office",
+    "name": "Alajlan Family Office",
+    "family": "Alajlan (Ajlan & Bros branch)",
+    "country": "Saudi Arabia",
+    "city": "Riyadh",
+    "estAumUsd": null,
+    "status": "active",
+    "tags": [
+      "Direct",
+      "Tech",
+      "Fintech"
+    ],
+    "lpActivityNotes": "No confirmed LP-in-VC-fund evidence; deploys directly.",
+    "directInvestNotes": "11 portfolio companies including Robinhood (NASDAQ IPO), Coursera (NYSE IPO), Plaid, Sila Nanotechnologies. Primary focus pre-seed/seed in B2B SaaS, future of work, PropTech, EduTech, developer tools. Founded 2022.",
+    "sourceUrls": [
+      "https://alajlanfamilyoffice.com/vc",
+      "https://tracxn.com/d/single-family-office/alajlan-family-office"
+    ],
+    "confidence": "confirmed",
+    "lastKnownActivityYear": 2024,
+    "lastContactedAt": null
+  },
+  {
+    "id": "waad-investment",
+    "name": "Waad Investment",
+    "family": "AlMajed & AlMisfer families",
+    "country": "Saudi Arabia",
+    "city": "Riyadh",
+    "estAumUsd": null,
+    "status": "active",
+    "tags": [
+      "Direct",
+      "Tech",
+      "Fintech",
+      "Consumer"
+    ],
+    "lpActivityNotes": "GCC family offices coalition fund; SAR 750M ($200M) target for growth-stage startups. AlMajed (Almajdiah Group) and AlMisfer (BINYAH/Saudi Real Estate Infrastructure) are named co-anchors. Additional unnamed Gulf FO LPs.",
+    "directInvestNotes": "23 portfolio companies listed on website including CanGo (smart cane), fintech and AI cos. Founded 2024.",
+    "sourceUrls": [
+      "https://www.agbi.com/banking-finance/2024/08/gulf-startup-fund-launched-by-saudi-investors/",
+      "https://waya.media/saudi-arabia-waad-investment-commits-usd-200m-to-fuel-startup-growth/",
+      "https://www.waadinvest.sa/"
+    ],
+    "confidence": "public",
+    "lastKnownActivityYear": 2024,
+    "lastContactedAt": null
+  },
+  {
+    "id": "ce-ventures-crescent",
+    "name": "CE-Ventures (Crescent Enterprises)",
+    "family": "Jafar",
+    "country": "United Arab Emirates",
+    "city": "Sharjah",
+    "estAumUsd": null,
+    "status": "active",
+    "tags": [
+      "LP",
+      "Direct",
+      "Tech",
+      "Fintech",
+      "Biotech"
+    ],
+    "lpActivityNotes": "LP in Wamda Capital Fund I, Jungle Ventures Fund III (LPAC member), B Capital Fund II, DCVC Fund VI. $500M+ deployed across VC funds and direct co-investments globally.",
+    "directInvestNotes": "Direct investments include Freya Biosciences $38M round (2024, women's health biotech), Anomali, Vezeeta, Kitopi, FreshtoHome. CE-Creates arm committed AED 250M ($68M) in 2025 for venture building.",
+    "sourceUrls": [
+      "https://www.crescententerprises.com/what-we-do/ce-ventures/",
+      "https://www.cbinsights.com/investor/crescent-enterprises-ventures",
+      "https://www.wamda.com/2025/10/crescent-enterprises-commits-68-million-build-globally-competitive-ventures-uae"
+    ],
+    "confidence": "public",
+    "lastKnownActivityYear": 2024,
+    "lastContactedAt": null
+  },
+  {
+    "id": "annex-investments",
+    "name": "Annex Investments",
+    "family": "Al Nowais",
+    "country": "United Arab Emirates",
+    "city": "Abu Dhabi",
+    "estAumUsd": null,
+    "status": "active",
+    "tags": [
+      "Direct",
+      "Tech",
+      "Consumer",
+      "Fintech"
+    ],
+    "lpActivityNotes": "No confirmed LP-in-VC-fund evidence; operates as hybrid venture SFO.",
+    "directInvestNotes": "Portfolio includes Dukkantek (SME POS, UAE) and Alma Health (digital healthcare). Sector-agnostic with emphasis on transformative tech, sustainability, and impact. Founded by Ahmed Nasser Al Nowais; ~15 yrs experience.",
+    "sourceUrls": [
+      "https://annexinvestments.com/",
+      "https://www.cbinsights.com/investor/man-capital",
+      "https://www.crunchbase.com/organization/annex-investments"
+    ],
+    "confidence": "confirmed",
+    "lastKnownActivityYear": 2024,
+    "lastContactedAt": null
+  },
+  {
+    "id": "seed-group",
+    "name": "The Private Office of Sheikh Saeed bin Ahmed Al Maktoum (Seed Group)",
+    "family": "Al Maktoum (Saeed branch)",
+    "country": "United Arab Emirates",
+    "city": "Dubai",
+    "estAumUsd": null,
+    "status": "active",
+    "tags": [
+      "Direct",
+      "Tech",
+      "Crypto"
+    ],
+    "lpActivityNotes": "No sub-$100M VC fund LP evidence found.",
+    "directInvestNotes": "Made 2 confirmed investments per CB Insights: gennius.xyz (seed, May 2023), Fantom Foundation (blockchain, Jan 2019), SmartCargo (Mar 2019). Manages $1.6B+ in investments across tech partnerships in MENA.",
+    "sourceUrls": [
+      "https://seedgroup.com/",
+      "https://www.cbinsights.com/investor/seed-group",
+      "https://www.fintrx.com/blog/3-middle-eastern-family-offices-investing-in-technology-companies"
+    ],
+    "confidence": "public",
+    "lastKnownActivityYear": 2023,
+    "lastContactedAt": null
+  },
+  {
+    "id": "majid-al-futtaim-trust",
+    "name": "Majid Al Futtaim Trust",
+    "family": "Al Futtaim (Majid branch)",
+    "country": "United Arab Emirates",
+    "city": "Dubai",
+    "estAumUsd": null,
+    "status": "active",
+    "tags": [
+      "Direct",
+      "Consumer",
+      "Fintech"
+    ],
+    "lpActivityNotes": "No confirmed LP-in-VC-fund evidence found.",
+    "directInvestNotes": "Invested in BALY (seed VC, Jan 2022). Investment range typically $0-50M. Sector focus: B2B, consumer, fintech, media. Operates as single family office alongside the larger MAF conglomerate.",
+    "sourceUrls": [
+      "https://www.swfinstitute.org/profile/598cdaa50124e9fd2d05b6ed",
+      "https://www.cbinsights.com/investor/majid-al-futtaim-ventures"
+    ],
+    "confidence": "confirmed",
+    "lastKnownActivityYear": 2022,
+    "lastContactedAt": null
+  },
+  {
+    "id": "al-ghurair-investment",
+    "name": "Al Ghurair Investment",
+    "family": "Al Ghurair",
+    "country": "United Arab Emirates",
+    "city": "Dubai",
+    "estAumUsd": null,
+    "status": "active",
+    "tags": [
+      "Direct",
+      "Consumer",
+      "Tech"
+    ],
+    "lpActivityNotes": "No confirmed LP-in-sub-$100M-VC-fund evidence found.",
+    "directInvestNotes": "Actively investing in AgriTech startups addressing UAE food security per multiple sources. Single-family office managing patient capital across public and private markets. Founded 1960s.",
+    "sourceUrls": [
+      "https://www.preqin.com/data/profile/investor/al-ghurair-investment/56768",
+      "https://www.cfainstitute.org/insights/articles/family-offices-middle-east-expansion"
+    ],
+    "confidence": "confirmed",
+    "lastKnownActivityYear": 2024,
+    "lastContactedAt": null
+  },
+  {
+    "id": "chalhoub-venture-fund",
+    "name": "Chalhoub Venture Fund",
+    "family": "Chalhoub",
+    "country": "United Arab Emirates",
+    "city": "Dubai",
+    "estAumUsd": null,
+    "status": "active",
+    "tags": [
+      "Direct",
+      "Consumer",
+      "Tech"
+    ],
+    "lpActivityNotes": "No confirmed LP evidence found; operates own CVC arm.",
+    "directInvestNotes": "Invested in Wethenew (Series B, May 2023, luxury sneaker resale) and Willy Chavarria (fashion brand strategic stake). Chalhoub Corporate Ventures and Acquisitions I (2017 vintage fund) has invested in Nafsika Skourti, Pearl Brands, The Modist.",
+    "sourceUrls": [
+      "https://pitchbook.com/profiles/investor/229912-12",
+      "https://www.cbinsights.com/investor/chalhoub-group",
+      "https://www.chalhoubgroup.com/en"
+    ],
+    "confidence": "public",
+    "lastKnownActivityYear": 2023,
+    "lastContactedAt": null
+  },
+  {
+    "id": "alabbar-enterprises",
+    "name": "Mohamed Alabbar / Alabbar Enterprises",
+    "family": "Alabbar",
+    "country": "United Arab Emirates",
+    "city": "Dubai",
+    "estAumUsd": null,
+    "status": "active",
+    "tags": [
+      "Direct",
+      "Tech",
+      "Consumer",
+      "Fintech"
+    ],
+    "lpActivityNotes": "Acquired ~50% stake in MEVP (the VC firm), effectively co-managing MEVF III ($250M) and MEVF IV as a GP-level investor rather than LP.",
+    "directInvestNotes": "Direct portfolio includes Noon (e-commerce, co-founded with PIF). Through MEVP stake: Kitopi, Vezeeta, and other MENA tech cos are portfolio companies.",
+    "sourceUrls": [
+      "https://www.menabytes.com/mevp-250-million/",
+      "https://www.thenationalnews.com/business/technology/mevp-and-alabbar-launch-250m-technology-investment-fund-1.662095",
+      "https://magnitt.com/news/mohamed-alabbar-and-mevp-launch-250-million-mena-focused-venture-capital-fund-21036"
+    ],
+    "confidence": "public",
+    "lastKnownActivityYear": 2024,
+    "lastContactedAt": null
+  },
+  {
+    "id": "al-khor-holding",
+    "name": "Al Khor Holding",
+    "family": "Al Khor (Qatar)",
+    "country": "Qatar",
+    "city": "Doha",
+    "estAumUsd": null,
+    "status": "active",
+    "tags": [
+      "LP",
+      "Tech",
+      "AI",
+      "Climate",
+      "Fintech"
+    ],
+    "lpActivityNotes": "Anchor LP in Golden Gate Ventures MENA Fund I ($100M, first close May 2024); part of $20M total Qatari family commitment. 60 years of heritage; focused on developing new industries in Qatar.",
+    "directInvestNotes": "No confirmed direct startup investments found.",
+    "sourceUrls": [
+      "https://www.qfc.qa/en/media-centre/news/list/qfc-golden-gate-mou",
+      "https://asiatechdaily.com/golden-gate-ventures-launches-100m-mena-fund-with-20m-backing-from-qatars-prominent-families/"
+    ],
+    "confidence": "public",
+    "lastKnownActivityYear": 2024,
+    "lastContactedAt": null
+  },
+  {
+    "id": "al-attiya-group",
+    "name": "Al Attiya Group",
+    "family": "Al Attiya",
+    "country": "Qatar",
+    "city": "Doha",
+    "estAumUsd": null,
+    "status": "active",
+    "tags": [
+      "LP",
+      "Tech",
+      "AI",
+      "Fintech",
+      "Climate"
+    ],
+    "lpActivityNotes": "LP in Golden Gate Ventures MENA Fund I ($100M); part of $20M commitment alongside Al Khor Holding and Sheikh Jassim bin Jabor Al Thani (May 2024). Fund focuses on alternative energy, green tech, B2B AI, fintech, healthtech.",
+    "directInvestNotes": "No confirmed direct startup investments found.",
+    "sourceUrls": [
+      "https://www.qfc.qa/en/media-centre/news/list/qfc-golden-gate-mou",
+      "https://www.alattiyagroup.com/en"
+    ],
+    "confidence": "public",
+    "lastKnownActivityYear": 2024,
+    "lastContactedAt": null
+  },
+  {
+    "id": "sheikh-jassim-bin-jabor-al-thani",
+    "name": "Sheikh Jassim Bin Jabor Al Thani (Private)",
+    "family": "Al Thani",
+    "country": "Qatar",
+    "city": "Doha",
+    "estAumUsd": null,
+    "status": "active",
+    "tags": [
+      "LP",
+      "Tech",
+      "AI",
+      "Climate"
+    ],
+    "lpActivityNotes": "Individual LP in Golden Gate Ventures MENA Fund I as part of $20M Qatari family commitment (May 2024). Distinct from QIA (sovereign fund).",
+    "directInvestNotes": "No confirmed direct startup investments found.",
+    "sourceUrls": [
+      "https://www.qfc.qa/en/media-centre/news/list/qfc-golden-gate-mou",
+      "https://www.gulf-times.com/article/682609/business/golden-gate-launches-100mn-mena-fund-i-first-global-venture-capital-fund-managed-in-qatar"
+    ],
+    "confidence": "public",
+    "lastKnownActivityYear": 2024,
+    "lastContactedAt": null
+  },
+  {
+    "id": "al-faisal-holding",
+    "name": "Al Faisal Holding",
+    "family": "Al Thani (Faisal Bin Qassim branch)",
+    "country": "Qatar",
+    "city": "Doha",
+    "estAumUsd": null,
+    "status": "active",
+    "tags": [
+      "Direct",
+      "Tech",
+      "AI",
+      "Fintech",
+      "RealEstate"
+    ],
+    "lpActivityNotes": "No confirmed LP-in-VC-fund evidence found.",
+    "directInvestNotes": "Shifting toward tech, healthcare, and energy partnerships aligned with Qatar NV2030; focus on AI, fintech, cloud computing, telecom per CIOO Ali Mahmoudy. Founded 1964 by H.E. Sheikh Faisal Bin Qassim Al Thani.",
+    "sourceUrls": [
+      "https://www.institutionalinvestor.com/article/qatari-family-office-al-faisal-holding-charts-new-course-beyond-real-estate"
+    ],
+    "confidence": "confirmed",
+    "lastKnownActivityYear": 2024,
+    "lastContactedAt": null
+  },
+  {
+    "id": "alzayani-investments",
+    "name": "Alzayani Investments (Zayani Venture Capital)",
+    "family": "Al Zayani",
+    "country": "Bahrain",
+    "city": "Manama",
+    "estAumUsd": null,
+    "status": "active",
+    "tags": [
+      "Direct",
+      "Tech",
+      "Consumer"
+    ],
+    "lpActivityNotes": "Launched dedicated Zayani Venture Capital arm in 2020/2021. 10 portfolio companies per Tracxn (as of 2023); primary focus is seed-stage MENA/Pakistan startups. Portfolio includes Trukkr and Qureos.",
+    "directInvestNotes": "No LP-in-VC-fund evidence found; direct-only model.",
+    "sourceUrls": [
+      "https://www.wamda.com/2021/02/al-zayani-investments-group-launches-venture-capital-fund",
+      "https://tracxn.com/d/venture-capital/al-zayani-investments"
+    ],
+    "confidence": "public",
+    "lastKnownActivityYear": 2023,
+    "lastContactedAt": null
+  },
+  {
+    "id": "yba-kanoo",
+    "name": "Yusuf Bin Ahmed Kanoo Group",
+    "family": "Kanoo",
+    "country": "Bahrain",
+    "city": "Manama",
+    "estAumUsd": null,
+    "status": "unknown",
+    "tags": [
+      "Direct",
+      "RealEstate",
+      "Industrial"
+    ],
+    "lpActivityNotes": "Kanoo Capital manages group investments; investment approach described as 'hybrid direct securities and long-term.' No VC fund LP evidence confirmed.",
+    "directInvestNotes": "No specific startup or VC direct investments confirmed for 2020-2026 period.",
+    "sourceUrls": [
+      "https://www.swfinstitute.org/profile/604bb97095633a76cef4ff0b",
+      "https://altss.com/profile/yusuf-bin-ahmed-kanoo-group-kanoo-family-office"
+    ],
+    "confidence": "rumored",
+    "lastKnownActivityYear": 2024,
+    "lastContactedAt": null
+  },
+  {
+    "id": "nns-group",
+    "name": "NNS Group (Nassef Sawiris Family Office)",
+    "family": "Sawiris (Nassef branch)",
+    "country": "Egypt",
+    "city": "Abu Dhabi",
+    "estAumUsd": null,
+    "status": "active",
+    "tags": [
+      "Direct",
+      "Tech",
+      "Fintech",
+      "Consumer"
+    ],
+    "lpActivityNotes": "No confirmed LP-in-VC-fund evidence; primarily direct investments through NNS.",
+    "directInvestNotes": "Invested in Solva $20M Series B (Jan 2024) via Sawiris FO entity. NNS Group invests across enterprise, fintech, consumer, digital health globally. Redomiciled to ADGM Abu Dhabi late 2023.",
+    "sourceUrls": [
+      "https://www.thenationalnews.com/business/money/2023/12/05/egyptian-billionaire-nassef-sawiris-to-move-family-office-to-abu-dhabi/",
+      "https://www.adgm.com/media/announcements/nns-group-announces-redomicile-plans-to-abu-dhabis-ifc",
+      "https://tracxn.com/d/single-family-office/sawiris-family-office"
+    ],
+    "confidence": "public",
+    "lastKnownActivityYear": 2024,
+    "lastContactedAt": null
+  },
+  {
+    "id": "sawiris-family-office",
+    "name": "Sawiris Family Office (Naguib branch)",
+    "family": "Sawiris (Naguib branch)",
+    "country": "Egypt",
+    "city": "Cairo",
+    "estAumUsd": null,
+    "status": "active",
+    "tags": [
+      "Direct",
+      "Tech",
+      "RealEstate"
+    ],
+    "lpActivityNotes": "No confirmed LP-in-VC-fund evidence.",
+    "directInvestNotes": "Led seed investment in Nawy (Egyptian PropTech, 7-figure seed, 2021). Portfolio primarily seed-stage Egypt-based startups. Onsi Naguib Sawiris heads the office.",
+    "sourceUrls": [
+      "https://www.dailynewsegypt.com/2021/07/25/egyptian-proptech-startup-nawy-raises-7-figure-investment-led-by-sawiris-family-office/",
+      "https://magnitt.com/investors/sawiris-family-office-53092"
+    ],
+    "confidence": "public",
+    "lastKnownActivityYear": 2021,
+    "lastContactedAt": null
+  },
+  {
+    "id": "almajdiah-investment",
+    "name": "Almajdiah Investment Company",
+    "family": "AlMajed",
+    "country": "Saudi Arabia",
+    "city": "Riyadh",
+    "estAumUsd": null,
+    "status": "active",
+    "tags": [
+      "Direct",
+      "Tech",
+      "Fintech",
+      "Consumer"
+    ],
+    "lpActivityNotes": "Co-anchor of Waad Investment ($200M growth fund, 2024) alongside AlMisfer family. Named lead investor.",
+    "directInvestNotes": "9 portfolio companies including Almenu (B2B productivity), Tech Maal (fintech). Latest investment Oct 2024 in Almenu.",
+    "sourceUrls": [
+      "https://pitchbook.com/profiles/investor/520827-13",
+      "https://www.agbi.com/banking-finance/2024/08/gulf-startup-fund-launched-by-saudi-investors/"
+    ],
+    "confidence": "public",
+    "lastKnownActivityYear": 2024,
+    "lastContactedAt": null
+  },
+  {
+    "id": "alghanim-industries",
+    "name": "Alghanim Industries",
+    "family": "Alghanim",
+    "country": "Kuwait",
+    "city": "Kuwait City",
+    "estAumUsd": null,
+    "status": "unknown",
+    "tags": [
+      "Direct",
+      "Consumer",
+      "Tech"
+    ],
+    "lpActivityNotes": "No confirmed LP-in-VC-fund evidence found.",
+    "directInvestNotes": "Consumer goods, e-commerce, and logistics startup fund referenced but not publicly named or confirmed. One of Gulf's largest privately-owned conglomerates (~30 business units across 40 countries).",
+    "sourceUrls": [
+      "https://www.alghanim.com/",
+      "https://www.swfinstitute.org/profile/605033dc95633a76cef50814"
+    ],
+    "confidence": "rumored",
+    "lastKnownActivityYear": 2024,
+    "lastContactedAt": null
+  },
+  {
+    "id": "kbw-investments",
+    "name": "KBW Investments",
+    "family": "Bin Laden (Khaled branch)",
+    "country": "Saudi Arabia",
+    "city": "Riyadh",
+    "estAumUsd": null,
+    "status": "unknown",
+    "tags": [
+      "Direct",
+      "Tech",
+      "Industrial"
+    ],
+    "lpActivityNotes": "No confirmed VC activity separate from KBW Ventures; conflated in some sources.",
+    "directInvestNotes": "KBW Investments is the parent entity of KBW Ventures; Riyadh HQ. Distinct from KBW Ventures (Dubai-based CVC).",
+    "sourceUrls": [
+      "https://www.swfinstitute.org/profile/5e39a4b8fcbe7e8ca71c42ad"
+    ],
+    "confidence": "rumored",
+    "lastKnownActivityYear": 2024,
+    "lastContactedAt": null
+  },
+  {
+    "id": "injaz-capital",
+    "name": "Injaz Capital",
+    "family": "Undisclosed Saudi family",
+    "country": "Saudi Arabia",
+    "city": "Riyadh",
+    "estAumUsd": null,
+    "status": "active",
+    "tags": [
+      "Direct",
+      "Tech",
+      "Fintech",
+      "Healthcare"
+    ],
+    "lpActivityNotes": "No confirmed LP-in-VC-fund evidence.",
+    "directInvestNotes": "Invested in Xpence (smart business spend platform, Saudi) and MENA Hayah (healthtech). Active deal sourcing for Saudi family offices at early and growth stage.",
+    "sourceUrls": [
+      "https://www.arabnews.com/node/2593586/business-economy",
+      "https://www.injaz-capital.com/our-team"
+    ],
+    "confidence": "confirmed",
+    "lastKnownActivityYear": 2024,
+    "lastContactedAt": null
+  },
+  {
+    "id": "al-ahly-capital-holding",
+    "name": "Al Ahly Capital Holding",
+    "family": "National Bank of Egypt (state-linked family)",
+    "country": "Egypt",
+    "city": "Cairo",
+    "estAumUsd": null,
+    "status": "active",
+    "tags": [
+      "Direct",
+      "Healthcare",
+      "Fintech"
+    ],
+    "lpActivityNotes": "No VC fund LP evidence. Primarily PE and direct investment arm.",
+    "directInvestNotes": "Invested EGP 200M in DAWI Clinics (outpatient chain expansion, Apr 2023). Acquired stake in Easy Lease (Apr 2024). PE arm of National Bank of Egypt; founded 2008.",
+    "sourceUrls": [
+      "https://alahlycapital.com/our-portfolio/",
+      "https://pitchbook.com/profiles/investor/170312-68"
+    ],
+    "confidence": "public",
+    "lastKnownActivityYear": 2024,
+    "lastContactedAt": null
+  },
+  {
+    "id": "private-office-sheikh-saeed-al-maktoum",
+    "name": "Private Office of Sheikh Saeed Al Maktoum",
+    "family": "Al Maktoum (Saeed bin Ahmed)",
+    "country": "United Arab Emirates",
+    "city": "Dubai",
+    "estAumUsd": null,
+    "status": "active",
+    "tags": [
+      "Direct",
+      "Tech",
+      "Crypto"
+    ],
+    "lpActivityNotes": "No confirmed LP-in-VC-fund evidence.",
+    "directInvestNotes": "Estimated net worth ~$38B. Investments range $2M-$5M per ticket via Seed Group subsidiary. Confirmed investments: Fantom Foundation (blockchain, Jan 2019), SmartCargo (logistics, Mar 2019), Servion Global Solutions (digital exp., Jul 2021).",
+    "sourceUrls": [
+      "https://www.fintrx.com/blog/3-middle-eastern-family-offices-investing-in-technology-companies",
+      "https://seedgroup.com/"
+    ],
+    "confidence": "public",
+    "lastKnownActivityYear": 2021,
+    "lastContactedAt": null
+  },
+  {
+    "id": "al-nowais-investments",
+    "name": "Al Nowais Investments",
+    "family": "Al Nowais",
+    "country": "United Arab Emirates",
+    "city": "Abu Dhabi",
+    "estAumUsd": null,
+    "status": "active",
+    "tags": [
+      "Direct",
+      "Tech",
+      "Healthcare",
+      "Climate"
+    ],
+    "lpActivityNotes": "No confirmed LP-in-VC-fund evidence.",
+    "directInvestNotes": "UAE-based holding company (est. 1979); renewable energy, healthcare, and tech focus aligned with food security and climate. Invests in MENA tech startups. Sheikha Amal Al Nowais invested in Inventure Metal Industries Dec 2023.",
+    "sourceUrls": [
+      "https://www.alnowais.com/about/",
+      "https://en.wikipedia.org/wiki/Al_Nowais_Investments"
+    ],
+    "confidence": "confirmed",
+    "lastKnownActivityYear": 2023,
+    "lastContactedAt": null
+  },
+  {
+    "id": "waha-capital",
+    "name": "Waha Capital",
+    "family": "Al Qubaisi (publicly listed; Abu Dhabi anchor)",
+    "country": "United Arab Emirates",
+    "city": "Abu Dhabi",
+    "estAumUsd": null,
+    "status": "active",
+    "tags": [
+      "Direct",
+      "Tech",
+      "Fintech"
+    ],
+    "lpActivityNotes": "No sub-$100M VC fund LP evidence found; manages own fund strategies.",
+    "directInvestNotes": "26 investments total; latest direct investment in Conpal (network management software, Germany) Mar 2023. Mubadala is anchor shareholder; listed on ADX. Asset classes include fintech and healthcare alongside PE.",
+    "sourceUrls": [
+      "https://www.wahacapital.com/",
+      "https://www.cbinsights.com/investor/waha-capital"
+    ],
+    "confidence": "public",
+    "lastKnownActivityYear": 2023,
+    "lastContactedAt": null
+  }
+]

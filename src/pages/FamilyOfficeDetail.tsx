@@ -1,14 +1,40 @@
 import { useParams, Link } from 'react-router-dom'
-import { ArrowLeft, ExternalLink, MapPin, Building2 } from 'lucide-react'
-import { familyOffices } from '@/data/familyOffices'
+import {
+  ArrowLeft,
+  ExternalLink,
+  MapPin,
+  Building2,
+  Linkedin,
+  Mail,
+  CalendarClock,
+  Users,
+} from 'lucide-react'
+import { familyOffices, contacts, type Contact } from '@/data/familyOffices'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { formatAum } from '@/lib/utils'
+import { Button } from '@/components/ui/button'
+import { formatAum, countryFlag, urlHostname, cn } from '@/lib/utils'
+
+// ---- badge helpers -------------------------------------------------------
 
 function ConfidenceBadge({ confidence }: { confidence: 'rumored' | 'confirmed' | 'public' }) {
-  if (confidence === 'public') return <Badge variant="success">Public</Badge>
-  if (confidence === 'confirmed') return <Badge variant="default">Confirmed</Badge>
-  return <Badge variant="outline">Rumored</Badge>
+  if (confidence === 'public')
+    return (
+      <Badge className="border-emerald-200 bg-emerald-50 text-emerald-800 dark:border-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">
+        Public
+      </Badge>
+    )
+  if (confidence === 'confirmed')
+    return (
+      <Badge className="border-amber-200 bg-amber-50 text-amber-800 dark:border-amber-800 dark:bg-amber-950 dark:text-amber-300">
+        Confirmed
+      </Badge>
+    )
+  return (
+    <Badge variant="outline" className="text-muted-foreground">
+      Rumored
+    </Badge>
+  )
 }
 
 function StatusBadge({ status }: { status: 'active' | 'dormant' | 'unknown' }) {
@@ -17,12 +43,102 @@ function StatusBadge({ status }: { status: 'active' | 'dormant' | 'unknown' }) {
   return <Badge variant="muted">Unknown</Badge>
 }
 
-const PLACEHOLDER_SECTIONS: { title: string; sprint: string }[] = [
-  { title: 'Contacts', sprint: 'Sprint 3' },
-  { title: 'LP Positions', sprint: 'Sprint 4' },
-  { title: 'Direct Investments', sprint: 'Sprint 4' },
-  { title: 'Interactions & Tasks', sprint: 'Sprint 5' },
-]
+function SeniorityChip({ seniority }: { seniority: Contact['seniority'] }) {
+  const labels: Record<Contact['seniority'], string> = {
+    principal: 'Principal',
+    executive: 'Executive',
+    investment_team: 'Investment team',
+    advisor: 'Advisor',
+  }
+  return (
+    <Badge variant="secondary" className="text-[10px]">
+      {labels[seniority]}
+    </Badge>
+  )
+}
+
+function ConfidenceDot({ confidence }: { confidence: 'rumored' | 'confirmed' | 'public' }) {
+  const cls =
+    confidence === 'public'
+      ? 'bg-emerald-500'
+      : confidence === 'confirmed'
+      ? 'bg-amber-400'
+      : 'bg-slate-400'
+  return (
+    <span
+      title={confidence}
+      className={cn('inline-block h-2 w-2 rounded-full shrink-0 mt-1', cls)}
+    />
+  )
+}
+
+// ---- section card --------------------------------------------------------
+
+function Section({
+  title,
+  icon: Icon,
+  children,
+}: {
+  title: string
+  icon?: React.ElementType
+  children: React.ReactNode
+}) {
+  return (
+    <Card className="border-border">
+      <CardHeader className="pb-3">
+        <CardTitle className="flex items-center gap-2 text-base font-semibold text-foreground">
+          {Icon && <Icon className="h-4 w-4 text-muted-foreground" />}
+          {title}
+        </CardTitle>
+      </CardHeader>
+      <CardContent>{children}</CardContent>
+    </Card>
+  )
+}
+
+// ---- contact card --------------------------------------------------------
+
+function ContactCard({ contact }: { contact: Contact }) {
+  return (
+    <div className="flex items-start gap-3 py-3 border-b border-border last:border-0">
+      <ConfidenceDot confidence={contact.confidence} />
+      <div className="flex-1 min-w-0 space-y-1">
+        <div className="flex flex-wrap items-center gap-2">
+          <span className="text-sm font-medium text-foreground">{contact.name}</span>
+          <SeniorityChip seniority={contact.seniority} />
+        </div>
+        <p className="text-xs text-muted-foreground">{contact.role}</p>
+        {contact.notes && (
+          <p className="text-xs text-muted-foreground leading-relaxed">{contact.notes}</p>
+        )}
+        <div className="flex gap-2 mt-1.5">
+          {contact.linkedinUrl && (
+            <a
+              href={contact.linkedinUrl}
+              target="_blank"
+              rel="noreferrer noopener"
+              className="inline-flex items-center gap-1 text-xs text-primary hover:underline"
+            >
+              <Linkedin className="h-3 w-3" />
+              LinkedIn
+            </a>
+          )}
+          {contact.email && (
+            <a
+              href={`mailto:${contact.email}`}
+              className="inline-flex items-center gap-1 text-xs text-primary hover:underline"
+            >
+              <Mail className="h-3 w-3" />
+              Email
+            </a>
+          )}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+// ---- main component ------------------------------------------------------
 
 export function FamilyOfficeDetail() {
   const { id } = useParams<{ id: string }>()
@@ -30,55 +146,81 @@ export function FamilyOfficeDetail() {
 
   if (!fo) {
     return (
-      <div className="py-20 text-center space-y-4">
-        <p className="text-lg font-semibold text-slate-700">Family office not found.</p>
-        <p className="text-sm text-slate-500">
-          No record exists for ID <code className="bg-slate-100 rounded px-1.5 py-0.5 text-xs">{id}</code>.
+      <div className="py-20 text-center space-y-4 max-w-md mx-auto">
+        <div className="text-4xl text-muted-foreground/20 select-none">
+          <Building2 className="mx-auto h-12 w-12" />
+        </div>
+        <p className="text-lg font-semibold text-foreground">Family office not found.</p>
+        <p className="text-sm text-muted-foreground">
+          No record exists for{' '}
+          <code className="bg-muted rounded px-1.5 py-0.5 text-xs font-mono">{id}</code>.
         </p>
-        <Link
-          to="/"
-          className="inline-flex items-center gap-1.5 text-sm text-slate-600 hover:text-slate-900 underline underline-offset-2"
-        >
-          <ArrowLeft className="h-4 w-4" />
-          Back to list
-        </Link>
+        <Button variant="outline" asChild>
+          <Link to="/">
+            <ArrowLeft className="h-4 w-4 mr-1.5" />
+            Back to list
+          </Link>
+        </Button>
       </div>
     )
   }
 
+  const foContacts = contacts.filter((c) => c.familyOfficeId === fo.id)
+
   return (
-    <div className="space-y-6 max-w-3xl">
+    <div className="space-y-8 max-w-3xl">
       {/* Back link */}
       <Link
         to="/"
-        className="inline-flex items-center gap-1.5 text-sm text-slate-500 hover:text-slate-800 transition-colors"
+        className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors"
       >
         <ArrowLeft className="h-4 w-4" />
         All family offices
       </Link>
 
-      {/* Header */}
-      <div className="space-y-3">
-        <div className="flex items-start justify-between gap-4 flex-wrap">
-          <h1 className="text-2xl font-bold text-slate-900 tracking-tight">{fo.name}</h1>
-          <div className="flex items-center gap-2 flex-wrap">
+      {/* Hero */}
+      <div className="space-y-4">
+        {/* Name + badges */}
+        <div>
+          <h1 className="text-3xl font-bold text-foreground tracking-tight leading-tight">
+            {fo.name}
+          </h1>
+          <div className="mt-2 flex flex-wrap items-center gap-2">
             <StatusBadge status={fo.status} />
             <ConfidenceBadge confidence={fo.confidence} />
           </div>
         </div>
 
-        <div className="flex flex-wrap gap-x-5 gap-y-1.5 text-sm text-slate-600">
+        {/* Meta row */}
+        <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-muted-foreground">
           <span className="flex items-center gap-1.5">
-            <Building2 className="h-4 w-4 text-slate-400" />
+            <Building2 className="h-4 w-4 text-muted-foreground/60" />
             {fo.family} Family
           </span>
           <span className="flex items-center gap-1.5">
-            <MapPin className="h-4 w-4 text-slate-400" />
+            <MapPin className="h-4 w-4 text-muted-foreground/60" />
+            {countryFlag(fo.country) && (
+              <span className="mr-0.5">{countryFlag(fo.country)}</span>
+            )}
             {fo.city}, {fo.country}
           </span>
-          <span className="font-mono font-medium text-slate-700">
-            AUM: {formatAum(fo.estAumUsd)}
-          </span>
+          {fo.lastKnownActivityYear && (
+            <span className="flex items-center gap-1.5">
+              <CalendarClock className="h-4 w-4 text-muted-foreground/60" />
+              Last tracked activity: {fo.lastKnownActivityYear}
+            </span>
+          )}
+        </div>
+
+        {/* AUM */}
+        <div>
+          {fo.estAumUsd !== null ? (
+            <p className="text-2xl font-semibold text-foreground font-mono tabular-nums">
+              {formatAum(fo.estAumUsd)}
+            </p>
+          ) : (
+            <p className="text-sm text-muted-foreground italic">AUM not disclosed</p>
+          )}
         </div>
 
         {/* Tags */}
@@ -91,34 +233,76 @@ export function FamilyOfficeDetail() {
         </div>
       </div>
 
-      {/* Summary */}
-      <div className="rounded-lg border border-border bg-slate-50 px-4 py-4">
-        <p className="text-sm text-slate-700 leading-relaxed">{fo.summary}</p>
-        {fo.sourceUrl && (
-          <a
-            href={fo.sourceUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-2 inline-flex items-center gap-1.5 text-xs text-slate-500 hover:text-slate-800 underline underline-offset-2"
-          >
-            Source
-            <ExternalLink className="h-3 w-3" />
-          </a>
-        )}
-      </div>
+      {/* Content sections */}
+      <div className="space-y-4">
 
-      {/* Placeholder sections */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        {PLACEHOLDER_SECTIONS.map((section) => (
-          <Card key={section.title} className="opacity-60">
-            <CardHeader className="pb-2">
-              <CardTitle className="text-base">{section.title}</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-xs text-muted-foreground">Coming in {section.sprint}</p>
-            </CardContent>
-          </Card>
-        ))}
+        {/* LP Positions */}
+        <Section title="LP Positions">
+          {fo.lpActivityNotes ? (
+            <p className="text-sm text-foreground leading-relaxed">{fo.lpActivityNotes}</p>
+          ) : (
+            <p className="text-sm text-muted-foreground italic">
+              No LP-in-VC-fund activity in public sources.
+            </p>
+          )}
+          <p className="mt-4 text-xs text-muted-foreground border-t border-border pt-3">
+            Structured LP fund tracking coming in Sprint 4.
+          </p>
+        </Section>
+
+        {/* Direct VC Investments */}
+        <Section title="Direct VC Investments">
+          {fo.directInvestNotes ? (
+            <p className="text-sm text-foreground leading-relaxed">{fo.directInvestNotes}</p>
+          ) : (
+            <p className="text-sm text-muted-foreground italic">
+              No direct VC investment data in public sources.
+            </p>
+          )}
+          <p className="mt-4 text-xs text-muted-foreground border-t border-border pt-3">
+            Structured deal tracking coming in Sprint 4.
+          </p>
+        </Section>
+
+        {/* Contacts */}
+        <Section title="Contacts" icon={Users}>
+          {foContacts.length > 0 ? (
+            <div className="-mt-1">
+              {foContacts.map((c) => (
+                <ContactCard key={c.id} contact={c} />
+              ))}
+            </div>
+          ) : (
+            <p className="text-sm text-muted-foreground italic">
+              Contacts coming with the research drop.
+            </p>
+          )}
+        </Section>
+
+        {/* Sources */}
+        {fo.sourceUrls.length > 0 && (
+          <Section title="Sources">
+            <div className="flex flex-wrap gap-2">
+              {fo.sourceUrls.map((url) => (
+                <a
+                  key={url}
+                  href={url}
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  className="inline-flex items-center gap-1.5 rounded-full border border-border bg-muted/40 px-3 py-1 text-xs text-foreground hover:bg-muted hover:border-foreground/20 transition-colors"
+                >
+                  <ExternalLink className="h-3 w-3 text-muted-foreground" />
+                  {urlHostname(url)}
+                </a>
+              ))}
+            </div>
+          </Section>
+        )}
+
+        {/* Interactions & Tasks — Sprint 5 placeholder */}
+        <Section title="Interactions &amp; Tasks">
+          <p className="text-sm text-muted-foreground italic">Coming in Sprint 5.</p>
+        </Section>
       </div>
     </div>
   )

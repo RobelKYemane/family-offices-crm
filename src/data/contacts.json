@@ -1,0 +1,1445 @@
+[
+  {
+    "id": "contact-001",
+    "familyOfficeId": "olayan-financing-company",
+    "name": "Nabeel Al Amudi",
+    "role": "CEO",
+    "seniority": "executive",
+    "linkedinUrl": "https://www.linkedin.com/in/nabeel-alamudi/",
+    "email": null,
+    "notes": "Stanford Engineering + Harvard Law. CEO of OFC; oversees CloudPay Series G (2024) and Breadfast pre-Series C (2026) investments.",
+    "sourceUrls": [
+      "https://ofc.com/about-us/leadership/",
+      "https://www.weforum.org/people/nabeel-m-al-amudi/"
+    ],
+    "confidence": "public"
+  },
+  {
+    "id": "contact-002",
+    "familyOfficeId": "olayan-financing-company",
+    "name": "Osama Hafez",
+    "role": "Managing Director - Head of Investments",
+    "seniority": "executive",
+    "linkedinUrl": "https://sa.linkedin.com/in/osama-hafez-0658091a0/",
+    "email": null,
+    "notes": "Heads all listed and private equity investments at OFC. Primary decision-maker for direct deals.",
+    "sourceUrls": [
+      "https://ofc.com/about-us/leadership/",
+      "https://rocketreach.co/osama-hafez-email_277791085"
+    ],
+    "confidence": "public"
+  },
+  {
+    "id": "contact-003",
+    "familyOfficeId": "olayan-financing-company",
+    "name": "Lubna Olayan",
+    "role": "Chair",
+    "seniority": "principal",
+    "linkedinUrl": null,
+    "email": null,
+    "notes": "Family principal and former CEO of OFC until 2019. Key Olayan Group figurehead shaping FO strategy.",
+    "sourceUrls": [
+      "https://ofc.com/about-us/leadership/",
+      "https://en.wikipedia.org/wiki/Lubna_Olayan"
+    ],
+    "confidence": "public"
+  },
+  {
+    "id": "contact-004",
+    "familyOfficeId": "olayan-financing-company",
+    "name": "Ziad Nohra",
+    "role": "CFO",
+    "seniority": "executive",
+    "linkedinUrl": null,
+    "email": null,
+    "notes": "Chief Financial Officer of Olayan Financing Company.",
+    "sourceUrls": [
+      "https://ofc.com/about-us/leadership/"
+    ],
+    "confidence": "public"
+  },
+  {
+    "id": "contact-005",
+    "familyOfficeId": "jimco",
+    "name": "Mohammed Jameel KBE",
+    "role": "Chairman",
+    "seniority": "principal",
+    "linkedinUrl": null,
+    "email": null,
+    "notes": "Chairman of Abdul Latif Jameel and JIMCO's ultimate principal. Family patriarch.",
+    "sourceUrls": [
+      "https://jimco.com/en/who-we-are/our-people/"
+    ],
+    "confidence": "public"
+  },
+  {
+    "id": "contact-006",
+    "familyOfficeId": "jimco",
+    "name": "Sidhesh Kaul",
+    "role": "CEO",
+    "seniority": "executive",
+    "linkedinUrl": "https://www.linkedin.com/in/sidheshkaul/",
+    "email": null,
+    "notes": "CEO of JIMCO with 30+ yrs experience in family office investment management. Former VP Finance & Legal for ALJ group.",
+    "sourceUrls": [
+      "https://jimco.com/en/who-we-are/our-people/sidhesh-kaul/"
+    ],
+    "confidence": "public"
+  },
+  {
+    "id": "contact-007",
+    "familyOfficeId": "jimco",
+    "name": "Onur Aydin",
+    "role": "Managing Director - Technology Fund",
+    "seniority": "investment_team",
+    "linkedinUrl": null,
+    "email": null,
+    "notes": "Leads JIMCO's $500M evergreen VC fund. Led deals in Tabby / Lean / Rain / Commonwealth Fusion. Primary LP and direct co-invest contact for tech/fintech.",
+    "sourceUrls": [
+      "https://jimco.com/en/who-we-are/our-people/onur-aydin/",
+      "https://jimco.com/en/insights/investing-in-a-bigger-picture/"
+    ],
+    "confidence": "public"
+  },
+  {
+    "id": "contact-008",
+    "familyOfficeId": "jimco",
+    "name": "Bruce Currie",
+    "role": "Managing Director - Life Sciences Fund",
+    "seniority": "investment_team",
+    "linkedinUrl": "https://www.linkedin.com/in/bruce-currie-6243225/",
+    "email": null,
+    "notes": "Head of JIMCO London office. Former Oxford University Endowment Investment Director (2013-2018).",
+    "sourceUrls": [
+      "https://jimco.com/en/who-we-are/our-people/bruce-currie/"
+    ],
+    "confidence": "public"
+  },
+  {
+    "id": "contact-009",
+    "familyOfficeId": "jimco",
+    "name": "Stephen D. Saint Leger",
+    "role": "Managing Director - Strategic Asset Fund",
+    "seniority": "investment_team",
+    "linkedinUrl": null,
+    "email": null,
+    "notes": "Head of JIMCO Strategic Asset Fund. Former Cambridge Associates advisor to Jameel Family. JIMCO Executive Committee member.",
+    "sourceUrls": [
+      "https://jimco.com/en/who-we-are/our-people/stephen-d-saint-leger/"
+    ],
+    "confidence": "public"
+  },
+  {
+    "id": "contact-010",
+    "familyOfficeId": "jimco",
+    "name": "Hassan Jameel",
+    "role": "Vice Chairman Saudi Arabia",
+    "seniority": "principal",
+    "linkedinUrl": null,
+    "email": null,
+    "notes": "Family principal overseeing Saudi Arabia operations for Abdul Latif Jameel / JIMCO.",
+    "sourceUrls": [
+      "https://jimco.com/en/who-we-are/our-people/"
+    ],
+    "confidence": "public"
+  },
+  {
+    "id": "contact-011",
+    "familyOfficeId": "kingdom-holding-company",
+    "name": "HRH Prince AlWaleed Bin Talal Al Saud",
+    "role": "Chairman / Founder",
+    "seniority": "principal",
+    "linkedinUrl": null,
+    "email": null,
+    "notes": "Founder and controlling shareholder of Kingdom Holding. All major investment decisions including $800M xAI commitment flow through him.",
+    "sourceUrls": [
+      "https://kingdom.com.sa/leadership",
+      "https://en.wikipedia.org/wiki/Kingdom_Holding_Company"
+    ],
+    "confidence": "public"
+  },
+  {
+    "id": "contact-012",
+    "familyOfficeId": "kingdom-holding-company",
+    "name": "Talal AlMaiman",
+    "role": "CEO",
+    "seniority": "executive",
+    "linkedinUrl": null,
+    "email": null,
+    "notes": "Executive Board Member and CEO of Kingdom Holding Company.",
+    "sourceUrls": [
+      "https://kingdom.com.sa/leadership"
+    ],
+    "confidence": "public"
+  },
+  {
+    "id": "contact-013",
+    "familyOfficeId": "kingdom-holding-company",
+    "name": "Tamim Jabr",
+    "role": "Chief International Investment Officer",
+    "seniority": "executive",
+    "linkedinUrl": "https://www.linkedin.com/in/tamim-jabr-73886179/",
+    "email": null,
+    "notes": "Executive Board Member responsible for international investments. 16 yrs at Deutsche Bank. Key gatekeeper for international VC/tech direct deals.",
+    "sourceUrls": [
+      "https://kingdom.com.sa/leadership",
+      "https://www.bloomberg.com/profile/person/18917056"
+    ],
+    "confidence": "public"
+  },
+  {
+    "id": "contact-014",
+    "familyOfficeId": "kingdom-holding-company",
+    "name": "Khalid Kreidie",
+    "role": "Chief of Domestic Investments",
+    "seniority": "executive",
+    "linkedinUrl": null,
+    "email": null,
+    "notes": "Oversees KHC's listed and private domestic Saudi portfolio. Investment Committee member.",
+    "sourceUrls": [
+      "https://kingdom.com.sa/leadership"
+    ],
+    "confidence": "public"
+  },
+  {
+    "id": "contact-015",
+    "familyOfficeId": "man-capital",
+    "name": "Sir Mohamed Mansour",
+    "role": "Founder & Chairman",
+    "seniority": "principal",
+    "linkedinUrl": null,
+    "email": null,
+    "notes": "Egyptian billionaire; 2024 UK knighthood. Co-founder Man Capital (2010). Final word on all investment decisions.",
+    "sourceUrls": [
+      "https://www.man-capital.com/about-us/",
+      "https://www.man-capital.com/about-us/mohamed-mansour/"
+    ],
+    "confidence": "public"
+  },
+  {
+    "id": "contact-016",
+    "familyOfficeId": "man-capital",
+    "name": "Loutfy Mansour",
+    "role": "CEO",
+    "seniority": "principal",
+    "linkedinUrl": "https://uk.linkedin.com/in/loutfy-mansour-16b323a6",
+    "email": null,
+    "notes": "Co-founder and CEO. Son of Sir Mohamed. Former Goldman Sachs IB analyst. Runs day-to-day operations.",
+    "sourceUrls": [
+      "https://www.man-capital.com/about-us/loutfy-mansour/",
+      "https://www.crunchbase.com/person/loutfy-mansour"
+    ],
+    "confidence": "public"
+  },
+  {
+    "id": "contact-017",
+    "familyOfficeId": "alrajhi-partners",
+    "name": "Saad AlGheriri",
+    "role": "CEO",
+    "seniority": "executive",
+    "linkedinUrl": null,
+    "email": null,
+    "notes": "CEO with 15+ yrs investment experience. Previously led AlRajhi Alpha investments.",
+    "sourceUrls": [
+      "https://alrajhi-partners.com/our-team/",
+      "https://alrajhi-partners.com/saad-algheriri/"
+    ],
+    "confidence": "public"
+  },
+  {
+    "id": "contact-018",
+    "familyOfficeId": "alrajhi-partners",
+    "name": "Abdulsalam S. AlRajhi",
+    "role": "Managing Director",
+    "seniority": "principal",
+    "linkedinUrl": null,
+    "email": null,
+    "notes": "Al Rajhi family principal serving as MD. Co-anchor of the family investment vehicle.",
+    "sourceUrls": [
+      "https://alrajhi-partners.com/our-team/"
+    ],
+    "confidence": "public"
+  },
+  {
+    "id": "contact-019",
+    "familyOfficeId": "alrajhi-partners",
+    "name": "Mosbah Kahaleh",
+    "role": "Director of Investments",
+    "seniority": "investment_team",
+    "linkedinUrl": null,
+    "email": null,
+    "notes": "Harvard MBA. Leads fintech and AI investments. Ex-PwC / Accenture / SEDCO Capital. Primary contact for tech deal flow.",
+    "sourceUrls": [
+      "https://alrajhi-partners.com/our-team/",
+      "https://informaconnect.com/education-investment-saudi.com/speakers/mosbah-kahaleh/"
+    ],
+    "confidence": "public"
+  },
+  {
+    "id": "contact-020",
+    "familyOfficeId": "alrajhi-partners",
+    "name": "Nasser Alajroush",
+    "role": "Managing Director",
+    "seniority": "investment_team",
+    "linkedinUrl": null,
+    "email": null,
+    "notes": "Managing Director at AlRajhi Partners involved in deal execution.",
+    "sourceUrls": [
+      "https://alrajhi-partners.com/our-team/"
+    ],
+    "confidence": "public"
+  },
+  {
+    "id": "contact-021",
+    "familyOfficeId": "alrajhi-partners",
+    "name": "Nahar Alrasheed",
+    "role": "Senior Vice President",
+    "seniority": "investment_team",
+    "linkedinUrl": null,
+    "email": null,
+    "notes": "Senior Vice President at AlRajhi Partners.",
+    "sourceUrls": [
+      "https://alrajhi-partners.com/our-team/"
+    ],
+    "confidence": "public"
+  },
+  {
+    "id": "contact-022",
+    "familyOfficeId": "masic",
+    "name": "Nasser M. Alsubeaei",
+    "role": "Chairman",
+    "seniority": "principal",
+    "linkedinUrl": null,
+    "email": null,
+    "notes": "Family principal and Chairman. Son of the late founder Mohammed I. Alsubeaei.",
+    "sourceUrls": [
+      "https://masic.com.sa/about/"
+    ],
+    "confidence": "confirmed"
+  },
+  {
+    "id": "contact-023",
+    "familyOfficeId": "masic",
+    "name": "Hani Halawani",
+    "role": "CEO",
+    "seniority": "executive",
+    "linkedinUrl": "https://www.linkedin.com/in/hani-halawani-b40812/",
+    "email": null,
+    "notes": "CEO since Aug 2021. Yale MBA; former CIO at Sanabil Investments and World Bank IFC. Oversees VC LP program.",
+    "sourceUrls": [
+      "https://informaconnect.com/superreturn-saudi-arabia/speakers/hani-halawani/",
+      "https://theorg.com/org/masic/org-chart/hani-halawani"
+    ],
+    "confidence": "confirmed"
+  },
+  {
+    "id": "contact-024",
+    "familyOfficeId": "masic",
+    "name": "Ramzi Samara",
+    "role": "Co-Head of Private Funds (VC)",
+    "seniority": "investment_team",
+    "linkedinUrl": null,
+    "email": null,
+    "notes": "Primary decision-maker for MASIC's US VC emerging manager LP program ($20M-$150M tickets). Featured in Duke Finance LP strategy interview Dec 2024 and How I Invest podcast.",
+    "sourceUrls": [
+      "https://sites.duke.edu/finance/2024/12/03/the-wisdom-of-ramzi-samara-co-head-of-private-funds-at-masic/",
+      "https://howiinvestpodcast.com/episodes/IgrMeICLmWK"
+    ],
+    "confidence": "public"
+  },
+  {
+    "id": "contact-025",
+    "familyOfficeId": "masic",
+    "name": "Joseph Hakme",
+    "role": "Co-Head of Direct Investments",
+    "seniority": "investment_team",
+    "linkedinUrl": null,
+    "email": null,
+    "notes": "Co-Head of Direct Investments at MASIC alongside Serge Cherfan.",
+    "sourceUrls": [
+      "https://masic.com.sa/"
+    ],
+    "confidence": "confirmed"
+  },
+  {
+    "id": "contact-026",
+    "familyOfficeId": "masic",
+    "name": "Serge Cherfan",
+    "role": "Co-Head of Direct Investments",
+    "seniority": "investment_team",
+    "linkedinUrl": null,
+    "email": null,
+    "notes": "Co-Head of Direct Investments at MASIC alongside Joseph Hakme.",
+    "sourceUrls": [
+      "https://masic.com.sa/"
+    ],
+    "confidence": "confirmed"
+  },
+  {
+    "id": "contact-027",
+    "familyOfficeId": "sedco-holding",
+    "name": "Rayyan Nagadi",
+    "role": "CEO",
+    "seniority": "executive",
+    "linkedinUrl": "https://www.linkedin.com/in/rayyan-nagadi/",
+    "email": null,
+    "notes": "CEO of SEDCO Holding with 20+ yrs experience. Also serves on SEDCO Capital board.",
+    "sourceUrls": [
+      "https://annualreview.sedco.com/our_ethics/executive_team.html",
+      "https://sedcocapital.com/board-members/rayyan-nagadi/"
+    ],
+    "confidence": "public"
+  },
+  {
+    "id": "contact-028",
+    "familyOfficeId": "sedco-holding",
+    "name": "Ossama Banaja",
+    "role": "Chief Investments Officer",
+    "seniority": "executive",
+    "linkedinUrl": "https://www.linkedin.com/in/ossama-banaja-4a82b9b/",
+    "email": null,
+    "notes": "CIO overseeing LP investments in VC/PE funds and direct corporate investments. Former PIF Director of Local Holdings and Jadwa Investment VP PE.",
+    "sourceUrls": [
+      "https://annualreview.sedco.com/our_ethics/executive_team.html",
+      "https://theorg.com/org/saudi-economic-and-development-company-limited/org-chart/ossama-banaja"
+    ],
+    "confidence": "public"
+  },
+  {
+    "id": "contact-029",
+    "familyOfficeId": "sedco-holding",
+    "name": "Tharwat Amer",
+    "role": "CFO",
+    "seniority": "executive",
+    "linkedinUrl": null,
+    "email": null,
+    "notes": "Chief Financial Officer of SEDCO Holding.",
+    "sourceUrls": [
+      "https://annualreview.sedco.com/our_ethics/executive_team.html"
+    ],
+    "confidence": "public"
+  },
+  {
+    "id": "contact-030",
+    "familyOfficeId": "al-faisaliah-group",
+    "name": "HRH Mohammed K.A. Al Faisal",
+    "role": "Group President",
+    "seniority": "principal",
+    "linkedinUrl": null,
+    "email": null,
+    "notes": "Group President since 2002. Al Faisal royal family principal. Strategic anchor for Nuwa Capital LP anchor commitment.",
+    "sourceUrls": [
+      "https://www.alfaisaliah.com/Site/EN/management.html",
+      "https://www.jpmorgan.com/content/dam/jpm/global/disclosures/us/sa_bio_prince.pdf"
+    ],
+    "confidence": "public"
+  },
+  {
+    "id": "contact-031",
+    "familyOfficeId": "al-faisaliah-group",
+    "name": "Ziad Al Tunisi",
+    "role": "Group CEO",
+    "seniority": "executive",
+    "linkedinUrl": null,
+    "email": null,
+    "notes": "CEO since 2017; previously CFO/Investment Officer since 2002. Established AFG Capital as investment arm. Key contact for LP discussions.",
+    "sourceUrls": [
+      "https://www.alfaisaliah.com/Site/EN/management.html",
+      "https://www.crunchbase.com/person/ziad-al-tunisi"
+    ],
+    "confidence": "public"
+  },
+  {
+    "id": "contact-032",
+    "familyOfficeId": "al-faisaliah-group",
+    "name": "Abdullah Ahmed Alkenany",
+    "role": "EVP Strategy and Development",
+    "seniority": "investment_team",
+    "linkedinUrl": null,
+    "email": null,
+    "notes": "Chief Investment Portfolio Officer overseeing strategic development and investment portfolio at Al Faisaliah Group.",
+    "sourceUrls": [
+      "https://www.alfaisaliah.com/Site/EN/management.html"
+    ],
+    "confidence": "confirmed"
+  },
+  {
+    "id": "contact-033",
+    "familyOfficeId": "kbw-ventures",
+    "name": "HRH Prince Khaled bin Alwaleed bin Talal Al Saud",
+    "role": "Founder & CEO",
+    "seniority": "principal",
+    "linkedinUrl": null,
+    "email": null,
+    "notes": "Founder and CEO of KBW Ventures. Saudi royal; son of KHC chairman. Makes all portfolio decisions across 64+ investments in AI / cleantech / fintech.",
+    "sourceUrls": [
+      "https://kbw-ventures.com/about-us/",
+      "https://www.cbinsights.com/investor/kbw-ventures"
+    ],
+    "confidence": "public"
+  },
+  {
+    "id": "contact-034",
+    "familyOfficeId": "kbw-ventures",
+    "name": "Ekta Tolani",
+    "role": "CIO",
+    "seniority": "executive",
+    "linkedinUrl": "https://ae.linkedin.com/in/ekta-tolani",
+    "email": null,
+    "notes": "CIO since Jan 2024. 15 yrs deploying $1B+ in PE/VC globally. Shifted KBW focus to AI-driven growth equity. Primary contact for co-invest discussions.",
+    "sourceUrls": [
+      "https://kbw-ventures.com/our-team/ekta-tolani/",
+      "https://mena.entrepreneur.com/finance/vc-voices-ekta-tolani-chief-investment-officer-kbw/495459"
+    ],
+    "confidence": "public"
+  },
+  {
+    "id": "contact-035",
+    "familyOfficeId": "al-rajhi-family-office",
+    "name": "AbdulAziz Al Rajhi",
+    "role": "Family Principal",
+    "seniority": "principal",
+    "linkedinUrl": null,
+    "email": null,
+    "notes": "Head of the AbdulAziz branch Al Rajhi Family Office. Led seed round in Calo food subscription app (2022). Distinct entity from Tamasuk and AlRajhi Partners.",
+    "sourceUrls": [
+      "https://magnitt.com/investors/al-rajhi-family-office-51170",
+      "https://www.cbinsights.com/investor/al-rajhi-family-office"
+    ],
+    "confidence": "confirmed"
+  },
+  {
+    "id": "contact-036",
+    "familyOfficeId": "tamasuk-al-rajhi",
+    "name": "Abdulaziz Al-Rajhi",
+    "role": "Chairman",
+    "seniority": "principal",
+    "linkedinUrl": null,
+    "email": null,
+    "notes": "Chairman and co-founder of Tamasuk Al Rajhi. Son of Sheikh Saleh Abdulaziz Al Rajhi. Drives institutional investor model across fintech / AI / industrial.",
+    "sourceUrls": [
+      "https://tamasukalrajhi.com/our-organisation/meet-the-team/",
+      "https://www.institutionalinvestor.com/article/younger-gulf-dynasties-are-reinventing-family-office"
+    ],
+    "confidence": "confirmed"
+  },
+  {
+    "id": "contact-037",
+    "familyOfficeId": "tamasuk-al-rajhi",
+    "name": "Saud Al-Rajhi",
+    "role": "Vice Chairman",
+    "seniority": "principal",
+    "linkedinUrl": null,
+    "email": null,
+    "notes": "Co-founder and Vice Chairman. Brother of Abdulaziz. Next-generation Al Rajhi family leadership.",
+    "sourceUrls": [
+      "https://tamasukalrajhi.com/our-organisation/meet-the-team/"
+    ],
+    "confidence": "confirmed"
+  },
+  {
+    "id": "contact-038",
+    "familyOfficeId": "tamasuk-al-rajhi",
+    "name": "Mohammad Shahid Motan",
+    "role": "CEO",
+    "seniority": "executive",
+    "linkedinUrl": null,
+    "email": null,
+    "notes": "CEO since Nov 2019. 30+ yrs in Shariah-compliant investment structuring. Previously helped transform MASIC.",
+    "sourceUrls": [
+      "https://tamasukalrajhi.com/our-organisation/meet-the-team/",
+      "https://www.institutionalinvestor.com/article/younger-gulf-dynasties-are-reinventing-family-office"
+    ],
+    "confidence": "confirmed"
+  },
+  {
+    "id": "contact-039",
+    "familyOfficeId": "tamasuk-al-rajhi",
+    "name": "Waleed Hussain",
+    "role": "Director of Investments",
+    "seniority": "investment_team",
+    "linkedinUrl": "https://sa.linkedin.com/in/waleed-hussain-cfa-02879622",
+    "email": null,
+    "notes": "CFA + CAIA. Head of investments. Former MASIC (6 yrs). Primary gatekeeper for deal flow and co-invest at Tamasuk.",
+    "sourceUrls": [
+      "https://tamasukalrajhi.com/our-organisation/meet-the-team/",
+      "https://rocketreach.co/waleed-hussain-email_376858415"
+    ],
+    "confidence": "confirmed"
+  },
+  {
+    "id": "contact-040",
+    "familyOfficeId": "alajlan-family-office",
+    "name": "Ziyad Alajlan",
+    "role": "Founder / Board Member",
+    "seniority": "principal",
+    "linkedinUrl": null,
+    "email": null,
+    "notes": "Founder of Alajlan Family Office (est. 2022). Ajlan & Bros family branch. Portfolio includes Robinhood / Coursera / Plaid. Only publicly named contact.",
+    "sourceUrls": [
+      "https://alajlanfamilyoffice.com/",
+      "https://tracxn.com/d/single-family-office/alajlan-family-office"
+    ],
+    "confidence": "confirmed"
+  },
+  {
+    "id": "contact-041",
+    "familyOfficeId": "waad-investment",
+    "name": "Nasser AlMajed",
+    "role": "CEO & Managing Director",
+    "seniority": "executive",
+    "linkedinUrl": null,
+    "email": null,
+    "notes": "CEO of Waad Investment and CEO of Almajdiah Group. Co-anchor investor. Led $200M fund launch Aug 2024.",
+    "sourceUrls": [
+      "https://www.agbi.com/banking-finance/2024/08/gulf-startup-fund-launched-by-saudi-investors/",
+      "https://waya.media/saudi-arabia-waad-investment-commits-usd-200m-to-fuel-startup-growth/"
+    ],
+    "confidence": "public"
+  },
+  {
+    "id": "contact-042",
+    "familyOfficeId": "waad-investment",
+    "name": "Yaser AlGhamdi",
+    "role": "Founder & CIOO",
+    "seniority": "executive",
+    "linkedinUrl": null,
+    "email": null,
+    "notes": "Founder and Chief Investment Operations Officer. Leads operational investment platform across 35+ growth-stage portfolio companies.",
+    "sourceUrls": [
+      "https://www.wamda.com/2024/08/gulf-investors-launch-200-million-waad-investment-firm-support-regional-startups",
+      "https://waya.media/saudi-arabia-waad-investment-commits-usd-200m-to-fuel-startup-growth/"
+    ],
+    "confidence": "public"
+  },
+  {
+    "id": "contact-043",
+    "familyOfficeId": "waad-investment",
+    "name": "Fahad Almesfir",
+    "role": "Family Co-Anchor / CEO BINYAH",
+    "seniority": "principal",
+    "linkedinUrl": "https://www.linkedin.com/in/falmesfir/",
+    "email": null,
+    "notes": "CEO of Saudi Real Estate Infrastructure (BINYAH) and AlMisfer family anchor in Waad Investment. Named co-funder of the $200M coalition fund.",
+    "sourceUrls": [
+      "https://www.agbi.com/banking-finance/2024/08/gulf-startup-fund-launched-by-saudi-investors/",
+      "https://www.cbnme.com/power-hour-2024/15-fahad-almesfir-ceo-binyah/"
+    ],
+    "confidence": "public"
+  },
+  {
+    "id": "contact-044",
+    "familyOfficeId": "ce-ventures-crescent",
+    "name": "Badr Jafar",
+    "role": "CEO",
+    "seniority": "principal",
+    "linkedinUrl": null,
+    "email": null,
+    "notes": "CEO of Crescent Enterprises. Jafar family heir. Sets overall strategy for CE-Ventures LP and direct investment program.",
+    "sourceUrls": [
+      "https://www.crescententerprises.com/our-people/",
+      "https://en.wikipedia.org/wiki/Crescent_Enterprises"
+    ],
+    "confidence": "public"
+  },
+  {
+    "id": "contact-045",
+    "familyOfficeId": "ce-ventures-crescent",
+    "name": "Tushar Singhvi",
+    "role": "Deputy CEO & Head of Investments",
+    "seniority": "executive",
+    "linkedinUrl": null,
+    "email": null,
+    "notes": "Primary LP and co-invest decision maker across all Crescent Enterprises investment arms including CE-Ventures.",
+    "sourceUrls": [
+      "https://www.crescententerprises.com/our-people/",
+      "https://www.cbinsights.com/investor/crescent-enterprises-ventures"
+    ],
+    "confidence": "public"
+  },
+  {
+    "id": "contact-046",
+    "familyOfficeId": "ce-ventures-crescent",
+    "name": "Sudarshan Pareek",
+    "role": "Senior VP - CE-Ventures",
+    "seniority": "investment_team",
+    "linkedinUrl": null,
+    "email": null,
+    "notes": "Heads CE-Ventures day-to-day. Oversees VC fund portfolio including Jungle Ventures LPAC seat and B Capital co-invests.",
+    "sourceUrls": [
+      "https://www.crescententerprises.com/our-people/"
+    ],
+    "confidence": "public"
+  },
+  {
+    "id": "contact-047",
+    "familyOfficeId": "ce-ventures-crescent",
+    "name": "Caroline Souchet",
+    "role": "Investment Manager - CE-Ventures",
+    "seniority": "investment_team",
+    "linkedinUrl": null,
+    "email": null,
+    "notes": "15 yrs VC experience. Focuses on healthtech and biotech in US / Europe / MENA. Led Freya Biosciences diligence ($38M round 2024).",
+    "sourceUrls": [
+      "https://www.crescententerprises.com/our-people/"
+    ],
+    "confidence": "public"
+  },
+  {
+    "id": "contact-048",
+    "familyOfficeId": "ce-ventures-crescent",
+    "name": "Ghada Abdelkader",
+    "role": "Senior VP - CE-Invests",
+    "seniority": "investment_team",
+    "linkedinUrl": null,
+    "email": null,
+    "notes": "SVP overseeing CE-Invests direct investment portfolio at Crescent Enterprises.",
+    "sourceUrls": [
+      "https://www.crescententerprises.com/our-people/"
+    ],
+    "confidence": "public"
+  },
+  {
+    "id": "contact-049",
+    "familyOfficeId": "ce-ventures-crescent",
+    "name": "Siddharth Havaldar",
+    "role": "Senior Associate - CE-Ventures",
+    "seniority": "investment_team",
+    "linkedinUrl": null,
+    "email": null,
+    "notes": "8+ yrs VC investing experience across US / MENA / India at early and growth stages.",
+    "sourceUrls": [
+      "https://www.crescententerprises.com/our-people/"
+    ],
+    "confidence": "public"
+  },
+  {
+    "id": "contact-050",
+    "familyOfficeId": "annex-investments",
+    "name": "Ahmed Nasser Al Nowais",
+    "role": "Founder & CEO",
+    "seniority": "principal",
+    "linkedinUrl": "https://www.linkedin.com/in/ahmednasseralnowais/",
+    "email": null,
+    "notes": "Founder of Annex Investments. 15+ yrs experience. Founding board member Emirates Family Offices Association. Drives all investment decisions.",
+    "sourceUrls": [
+      "https://annexinvestments.com/",
+      "https://www.crunchbase.com/person/ahmed-nasser-al-nowais"
+    ],
+    "confidence": "confirmed"
+  },
+  {
+    "id": "contact-051",
+    "familyOfficeId": "annex-investments",
+    "name": "Kareem Anabtawi",
+    "role": "Co-Founder & Partner",
+    "seniority": "investment_team",
+    "linkedinUrl": null,
+    "email": null,
+    "notes": "Co-founder and investment partner at Annex Investments.",
+    "sourceUrls": [
+      "https://annexinvestments.com/"
+    ],
+    "confidence": "confirmed"
+  },
+  {
+    "id": "contact-052",
+    "familyOfficeId": "annex-investments",
+    "name": "Dr. Abed Benaichouche",
+    "role": "CSO & Advisor",
+    "seniority": "advisor",
+    "linkedinUrl": null,
+    "email": null,
+    "notes": "Chief Strategy Officer and Advisor at Annex Investments.",
+    "sourceUrls": [
+      "https://annexinvestments.com/"
+    ],
+    "confidence": "confirmed"
+  },
+  {
+    "id": "contact-053",
+    "familyOfficeId": "seed-group",
+    "name": "Sheikh Saeed bin Ahmed Al Maktoum",
+    "role": "Founder / Family Principal",
+    "seniority": "principal",
+    "linkedinUrl": null,
+    "email": null,
+    "notes": "Dubai royal family principal. Established Private Office for tech / crypto investments. Estimated $38B net worth.",
+    "sourceUrls": [
+      "https://seedgroup.com/",
+      "https://www.fintrx.com/blog/3-middle-eastern-family-offices-investing-in-technology-companies"
+    ],
+    "confidence": "public"
+  },
+  {
+    "id": "contact-054",
+    "familyOfficeId": "seed-group",
+    "name": "Hisham Al Gurg",
+    "role": "Group CEO",
+    "seniority": "executive",
+    "linkedinUrl": "https://www.linkedin.com/in/hisham-al-gurg-87aa5410/",
+    "email": null,
+    "notes": "CEO of Private Office and Seed Group. Oversees $1.06B+ global investments across 12+ countries. 18+ yrs MENA venture experience.",
+    "sourceUrls": [
+      "https://www.sme10x.com/people/10x-exclusive-in-conversation-with-hisham-al-gurg-ceo-of-the-private-office-seed-group",
+      "https://contactout.com/Hisham-Al-Gurg-115142646"
+    ],
+    "confidence": "public"
+  },
+  {
+    "id": "contact-055",
+    "familyOfficeId": "majid-al-futtaim-trust",
+    "name": "Souheil Hajjar",
+    "role": "CEO",
+    "seniority": "executive",
+    "linkedinUrl": "https://www.linkedin.com/in/souheil-hajjar-14200485/",
+    "email": null,
+    "notes": "CEO of MAF Trust 2008 to early 2026 (departed per Mar 2026 LinkedIn post). 25+ yrs investment management. Successor not yet publicly named.",
+    "sourceUrls": [
+      "https://www.thetrustedinsight.com/investment-professional/SouheilHajjar/",
+      "https://rocketreach.co/souheil-hajjar-email_9211689"
+    ],
+    "confidence": "public"
+  },
+  {
+    "id": "contact-056",
+    "familyOfficeId": "al-ghurair-investment",
+    "name": "Iyad Malas",
+    "role": "Group CEO",
+    "seniority": "executive",
+    "linkedinUrl": null,
+    "email": null,
+    "notes": "Group CEO overseeing Al Ghurair investment portfolio. Former PE Partner at Gateway Partners. Sits on Mashreq Bank board.",
+    "sourceUrls": [
+      "https://www.alghurair.com/our-people/",
+      "https://www.crunchbase.com/person/iyad-malas"
+    ],
+    "confidence": "public"
+  },
+  {
+    "id": "contact-057",
+    "familyOfficeId": "al-ghurair-investment",
+    "name": "Paul Justin Hughes",
+    "role": "Group Chief Strategy Officer",
+    "seniority": "executive",
+    "linkedinUrl": null,
+    "email": null,
+    "notes": "Responsible for capital allocation / performance monitoring / investment and growth initiatives across Al Ghurair group.",
+    "sourceUrls": [
+      "https://www.alghurair.com/our-people/"
+    ],
+    "confidence": "public"
+  },
+  {
+    "id": "contact-058",
+    "familyOfficeId": "chalhoub-venture-fund",
+    "name": "Patrick Chalhoub",
+    "role": "Executive Chairman",
+    "seniority": "principal",
+    "linkedinUrl": null,
+    "email": null,
+    "notes": "Co-founder and Executive Chairman of Chalhoub Group. Family principal driving long-term investment strategy.",
+    "sourceUrls": [
+      "https://www.chalhoubgroup.com/en/leadership"
+    ],
+    "confidence": "public"
+  },
+  {
+    "id": "contact-059",
+    "familyOfficeId": "chalhoub-venture-fund",
+    "name": "Michael Chalhoub",
+    "role": "CEO",
+    "seniority": "principal",
+    "linkedinUrl": null,
+    "email": null,
+    "notes": "CEO of Chalhoub Group. Previously led JV / strategy / innovation / investment divisions before becoming CEO.",
+    "sourceUrls": [
+      "https://www.chalhoubgroup.com/en/leadership",
+      "https://milkeninstitute.org/events/middle-east-and-africa-summit-2025/speakers/michael-chalhoub"
+    ],
+    "confidence": "public"
+  },
+  {
+    "id": "contact-060",
+    "familyOfficeId": "chalhoub-venture-fund",
+    "name": "Zahra Kassim-Lakha",
+    "role": "CIO",
+    "seniority": "executive",
+    "linkedinUrl": "https://ae.linkedin.com/in/zahra-kassim-lakha-2ab3964",
+    "email": null,
+    "notes": "CIO since 2024. Drives Chalhoub Venture Fund portfolio including Willy Chavarria investment. Harvard MBA. Quoted in BoF on evolving luxury investment thesis.",
+    "sourceUrls": [
+      "https://ae.linkedin.com/in/zahra-kassim-lakha-2ab3964",
+      "https://www.businessoffashion.com/news/luxury/chalhoub-group-invests-in-willy-chavarria/"
+    ],
+    "confidence": "confirmed"
+  },
+  {
+    "id": "contact-061",
+    "familyOfficeId": "alabbar-enterprises",
+    "name": "Mohamed Alabbar",
+    "role": "Founder / Family Principal",
+    "seniority": "principal",
+    "linkedinUrl": null,
+    "email": null,
+    "notes": "Founder of Emaar and Alabbar Enterprises. Acquired ~50% of MEVP creating MEVF III ($250M). Co-founded Noon e-commerce platform.",
+    "sourceUrls": [
+      "https://www.menabytes.com/mevp-250-million/",
+      "https://www.mohamedalabbar.com/"
+    ],
+    "confidence": "public"
+  },
+  {
+    "id": "contact-062",
+    "familyOfficeId": "alabbar-enterprises",
+    "name": "Rashid Mohamed Alabbar",
+    "role": "Board Member MEVP",
+    "seniority": "principal",
+    "linkedinUrl": null,
+    "email": null,
+    "notes": "Son of Mohamed Alabbar. Board Member at MEVP. Active VC investor alongside his father across MENA tech.",
+    "sourceUrls": [
+      "https://mevp.com/team/rashid-mohamed-alabbar",
+      "https://www.dayofdubai.com/news/mohamed-alabbar-acquires-large-stake-middle-east-venture-partners-mevp-create-leading-venture"
+    ],
+    "confidence": "public"
+  },
+  {
+    "id": "contact-063",
+    "familyOfficeId": "al-khor-holding",
+    "name": "Ahmed Hakim",
+    "role": "CEO",
+    "seniority": "executive",
+    "linkedinUrl": null,
+    "email": null,
+    "notes": "CEO of Al Khor Holding. Oversees investment operations for the Al Misnad family group (60+ yr heritage).",
+    "sourceUrls": [
+      "https://www.alkhorholding.com/exec.php"
+    ],
+    "confidence": "public"
+  },
+  {
+    "id": "contact-064",
+    "familyOfficeId": "al-khor-holding",
+    "name": "Anggelos Skutaris",
+    "role": "CIO",
+    "seniority": "executive",
+    "linkedinUrl": null,
+    "email": null,
+    "notes": "Chief Investment Officer. Primary contact for VC LP discussions; anchor LP in Golden Gate Ventures MENA Fund I.",
+    "sourceUrls": [
+      "https://www.alkhorholding.com/exec.php",
+      "https://www.qfc.qa/en/media-centre/news/list/qfc-golden-gate-mou"
+    ],
+    "confidence": "confirmed"
+  },
+  {
+    "id": "contact-065",
+    "familyOfficeId": "al-khor-holding",
+    "name": "Nasser Al-Mesnad",
+    "role": "Managing Director",
+    "seniority": "executive",
+    "linkedinUrl": null,
+    "email": null,
+    "notes": "MD of Al Khor Holding. Former QIA professional. Family representative in investment management.",
+    "sourceUrls": [
+      "https://rocketreach.co/nasser-al-mesnad-email_99361010"
+    ],
+    "confidence": "confirmed"
+  },
+  {
+    "id": "contact-066",
+    "familyOfficeId": "al-khor-holding",
+    "name": "Ahmed Hosny Ezzat",
+    "role": "CFO",
+    "seniority": "executive",
+    "linkedinUrl": null,
+    "email": null,
+    "notes": "Chief Financial Officer at Al Khor Holding.",
+    "sourceUrls": [
+      "https://www.alkhorholding.com/exec.php"
+    ],
+    "confidence": "public"
+  },
+  {
+    "id": "contact-067",
+    "familyOfficeId": "sheikh-jassim-bin-jabor-al-thani",
+    "name": "Sheikh Jassim Bin Jabor Al Thani",
+    "role": "Family Principal / LP Investor",
+    "seniority": "principal",
+    "linkedinUrl": null,
+    "email": null,
+    "notes": "Individual anchor LP in Golden Gate Ventures MENA Fund I ($100M first close May 2024). Qatari family principal investing alongside Al Khor and Al Attiya.",
+    "sourceUrls": [
+      "https://www.qfc.qa/en/media-centre/news/list/qfc-golden-gate-mou",
+      "https://www.gulf-times.com/article/682609/business/golden-gate-launches-100mn-mena-fund-i-first-global-venture-capital-fund-managed-in-qatar"
+    ],
+    "confidence": "public"
+  },
+  {
+    "id": "contact-068",
+    "familyOfficeId": "al-faisal-holding",
+    "name": "H.E. Sheikh Faisal Bin Qassim Al Thani",
+    "role": "Chairman / Founder",
+    "seniority": "principal",
+    "linkedinUrl": null,
+    "email": null,
+    "notes": "Founder of Al Faisal Holding (1964). Sets overall investment direction including tech pivot per Qatar NV2030.",
+    "sourceUrls": [
+      "https://oxfordbusinessgroup.com/articles-interviews/sheikh-faisal-bin-qassim-al-thani-chairman-al-faisal-holding-qatar-is-actualising-its-potential-in-diverse-sectors-to-attract-increased-foreign-investment-inflows-economic-viewpoint/"
+    ],
+    "confidence": "public"
+  },
+  {
+    "id": "contact-069",
+    "familyOfficeId": "al-faisal-holding",
+    "name": "Ali Mahmoudy",
+    "role": "Chief Investment and Strategy Officer",
+    "seniority": "executive",
+    "linkedinUrl": "https://www.linkedin.com/in/ali-mahmoudy-0905a35/",
+    "email": null,
+    "notes": "CISO driving Al Faisal's pivot to tech / AI / fintech / cloud. Featured in Institutional Investor profile on Qatari FO tech strategy. Primary LP/direct contact.",
+    "sourceUrls": [
+      "https://www.institutionalinvestor.com/article/qatari-family-office-al-faisal-holding-charts-new-course-beyond-real-estate",
+      "https://rocketreach.co/ali-mahmoudy-email_13543122"
+    ],
+    "confidence": "public"
+  },
+  {
+    "id": "contact-070",
+    "familyOfficeId": "alzayani-investments",
+    "name": "Zayed R. Alzayani",
+    "role": "Chairman",
+    "seniority": "principal",
+    "linkedinUrl": null,
+    "email": null,
+    "notes": "Chairman of Alzayani Investments. Returned from 8-yr Bahrain government service. Family head overseeing Zayani Venture Capital arm.",
+    "sourceUrls": [
+      "https://www.alzayani.com/about"
+    ],
+    "confidence": "public"
+  },
+  {
+    "id": "contact-071",
+    "familyOfficeId": "alzayani-investments",
+    "name": "Majid Alzayani",
+    "role": "Managing Director",
+    "seniority": "principal",
+    "linkedinUrl": "https://www.linkedin.com/in/majid-alzayani-091644264/",
+    "email": null,
+    "notes": "MD of Alzayani Investments overseeing Zayani Venture Capital portfolio of seed-stage MENA / Pakistan startups (Trukkr / Qureos).",
+    "sourceUrls": [
+      "https://www.alzayani.com/",
+      "https://tracxn.com/d/venture-capital/al-zayani-investments"
+    ],
+    "confidence": "public"
+  },
+  {
+    "id": "contact-072",
+    "familyOfficeId": "yba-kanoo",
+    "name": "Fawzi Ahmed Kanoo",
+    "role": "Group Chairman",
+    "seniority": "principal",
+    "linkedinUrl": null,
+    "email": null,
+    "notes": "Chairman of YBA Kanoo Group. Family principal leading the 130+ yr old conglomerate.",
+    "sourceUrls": [
+      "https://www.kanoo.com/board-of-directors/"
+    ],
+    "confidence": "public"
+  },
+  {
+    "id": "contact-073",
+    "familyOfficeId": "yba-kanoo",
+    "name": "Dr. Faisal Khalid Kanoo",
+    "role": "Deputy Chairman",
+    "seniority": "principal",
+    "linkedinUrl": null,
+    "email": null,
+    "notes": "Deputy Chairman of YBA Kanoo Group. Family principal.",
+    "sourceUrls": [
+      "https://www.kanoo.com/board-of-directors/"
+    ],
+    "confidence": "public"
+  },
+  {
+    "id": "contact-074",
+    "familyOfficeId": "yba-kanoo",
+    "name": "Sean Daykin",
+    "role": "CIO - Kanoo Global Investments",
+    "seniority": "executive",
+    "linkedinUrl": "https://www.linkedin.com/in/sean-daykin-5308b82/",
+    "email": null,
+    "notes": "CIO managing YBA Kanoo family wealth globally across all asset classes. 20+ yrs MENA experience. CFA and CISI Chartered Fellow. Speaker at SuperReturn ME 2024.",
+    "sourceUrls": [
+      "https://informaconnect.com/superreturn-me/speakers/sean-daykin/",
+      "https://www.kanoo.com/the-management/"
+    ],
+    "confidence": "public"
+  },
+  {
+    "id": "contact-075",
+    "familyOfficeId": "yba-kanoo",
+    "name": "Mohamed Alkooheji",
+    "role": "Group CEO",
+    "seniority": "executive",
+    "linkedinUrl": null,
+    "email": null,
+    "notes": "Group CEO of YBA Kanoo overseeing all business units including Kanoo Capital investment arm.",
+    "sourceUrls": [
+      "https://www.kanoo.com/the-management/"
+    ],
+    "confidence": "public"
+  },
+  {
+    "id": "contact-076",
+    "familyOfficeId": "nns-group",
+    "name": "Nassef Sawiris",
+    "role": "Executive Chairman",
+    "seniority": "principal",
+    "linkedinUrl": null,
+    "email": null,
+    "notes": "Executive Chairman of NNS Group (redomiciled ADGM Abu Dhabi 2024). Egypt's richest man. Concentrated long-term stakes in Adidas / Aston Villa / OCI.",
+    "sourceUrls": [
+      "https://www.adgm.com/media/announcements/nns-group-announces-redomicile-plans-to-abu-dhabis-ifc",
+      "https://www.thenationalnews.com/business/money/2023/12/05/egyptian-billionaire-nassef-sawiris-to-move-family-office-to-abu-dhabi/"
+    ],
+    "confidence": "public"
+  },
+  {
+    "id": "contact-077",
+    "familyOfficeId": "sawiris-family-office",
+    "name": "Naguib Sawiris",
+    "role": "Chairman / Founder",
+    "seniority": "principal",
+    "linkedinUrl": null,
+    "email": null,
+    "notes": "Chairman of Orascom Investment Holding. Egyptian telecom billionaire. Led Nawy PropTech seed investment (2021). Distinct from NNS Group (brother Nassef).",
+    "sourceUrls": [
+      "https://magnitt.com/investors/sawiris-family-office-53092",
+      "https://en.wikipedia.org/wiki/Naguib_Sawiris"
+    ],
+    "confidence": "public"
+  },
+  {
+    "id": "contact-078",
+    "familyOfficeId": "sawiris-family-office",
+    "name": "Wafaa Latif",
+    "role": "President - Gemini Holding",
+    "seniority": "executive",
+    "linkedinUrl": null,
+    "email": null,
+    "notes": "President of Gemini Holding (global investment company serving Sawiris family) since Nov 2011. 30+ yrs with the Sawiris group.",
+    "sourceUrls": [
+      "https://193countriesconsortium.com/2025/01/visionary-billionaire-naguib-sawiris-transforming-industries-and-emerging-markets-in-2024/"
+    ],
+    "confidence": "confirmed"
+  },
+  {
+    "id": "contact-079",
+    "familyOfficeId": "almajdiah-investment",
+    "name": "Nasser AlMajed",
+    "role": "CEO",
+    "seniority": "executive",
+    "linkedinUrl": null,
+    "email": null,
+    "notes": "CEO of Almajdiah Investment Company. Co-anchor of Waad Investment ($200M). Latest investment Oct 2024 in Almenu B2B productivity SaaS.",
+    "sourceUrls": [
+      "https://pitchbook.com/profiles/investor/520827-13",
+      "https://waya.media/saudi-arabia-waad-investment-commits-usd-200m-to-fuel-startup-growth/"
+    ],
+    "confidence": "public"
+  },
+  {
+    "id": "contact-080",
+    "familyOfficeId": "alghanim-industries",
+    "name": "Kutayba Y. Alghanim",
+    "role": "Executive Chairman",
+    "seniority": "principal",
+    "linkedinUrl": null,
+    "email": null,
+    "notes": "Executive Chairman of Alghanim Industries. Family patriarch. Oversees all group strategy.",
+    "sourceUrls": [
+      "https://www.alghanim.com/about-us/executive-team/kutayba-y-alghanim",
+      "https://en.wikipedia.org/wiki/Alghanim_Industries"
+    ],
+    "confidence": "public"
+  },
+  {
+    "id": "contact-081",
+    "familyOfficeId": "alghanim-industries",
+    "name": "Mahmoud Samara",
+    "role": "CEO",
+    "seniority": "executive",
+    "linkedinUrl": null,
+    "email": null,
+    "notes": "CEO since Jan 2024. Former General Motors senior leader across Europe / North America / Middle East.",
+    "sourceUrls": [
+      "https://www.highperformr.ai/company/alghanim-industries",
+      "https://en.wikipedia.org/wiki/Alghanim_Industries"
+    ],
+    "confidence": "public"
+  },
+  {
+    "id": "contact-082",
+    "familyOfficeId": "alghanim-industries",
+    "name": "Omar K. Alghanim",
+    "role": "Former CEO / Impact Investor",
+    "seniority": "principal",
+    "linkedinUrl": null,
+    "email": null,
+    "notes": "Former CEO 2005-2019. Founder of YAKOA impact investment fund. Goldman Sachs and Morgan Stanley alumni. Family board influence continues.",
+    "sourceUrls": [
+      "https://fbc-gulf.org/en/about/board-of-directors/omar-kutayba-alghanim",
+      "https://www.hks.harvard.edu/about/omar-alghanim"
+    ],
+    "confidence": "public"
+  },
+  {
+    "id": "contact-083",
+    "familyOfficeId": "injaz-capital",
+    "name": "Paula Tavangar",
+    "role": "CIO",
+    "seniority": "executive",
+    "linkedinUrl": "https://www.linkedin.com/in/paulatavangar/",
+    "email": null,
+    "notes": "CIO at Injaz Capital. Fintech / blockchain / quantitative finance background. Former SwissBorg Ventures. Leads deal execution for Saudi FO-backed vehicle.",
+    "sourceUrls": [
+      "https://www.injaz-capital.com/our-team",
+      "https://www.linkedin.com/in/paulatavangar/"
+    ],
+    "confidence": "confirmed"
+  },
+  {
+    "id": "contact-084",
+    "familyOfficeId": "injaz-capital",
+    "name": "Yassine Bouhmad",
+    "role": "Investment Director",
+    "seniority": "investment_team",
+    "linkedinUrl": "https://www.linkedin.com/in/yassine-bouhmad-36b753159/",
+    "email": null,
+    "notes": "Investment director. Ex-Darius Capital / Natixis / Emirates NBD. Covers deal sourcing and structuring.",
+    "sourceUrls": [
+      "https://www.injaz-capital.com/our-team",
+      "https://www.linkedin.com/in/yassine-bouhmad-36b753159/"
+    ],
+    "confidence": "confirmed"
+  },
+  {
+    "id": "contact-085",
+    "familyOfficeId": "al-ahly-capital-holding",
+    "name": "Mohamed El Etreby",
+    "role": "Chairman",
+    "seniority": "principal",
+    "linkedinUrl": null,
+    "email": null,
+    "notes": "Chairman of Al Ahly Capital Holding board. National Bank of Egypt representative.",
+    "sourceUrls": [
+      "https://alahlycapital.com/our-people/"
+    ],
+    "confidence": "public"
+  },
+  {
+    "id": "contact-086",
+    "familyOfficeId": "al-ahly-capital-holding",
+    "name": "Karim Saada",
+    "role": "CEO & Managing Director",
+    "seniority": "executive",
+    "linkedinUrl": null,
+    "email": null,
+    "notes": "CEO and MD. Oversees DAWI Clinics (EGP 200M) and Easy Lease investments.",
+    "sourceUrls": [
+      "https://alahlycapital.com/our-people/",
+      "https://www.amcham.org.eg/membership/members-database/3190/al-ahly-capital-holding"
+    ],
+    "confidence": "public"
+  },
+  {
+    "id": "contact-087",
+    "familyOfficeId": "al-ahly-capital-holding",
+    "name": "Kareem AboulNaga",
+    "role": "CIO",
+    "seniority": "executive",
+    "linkedinUrl": null,
+    "email": null,
+    "notes": "Chief Investment Officer leading deal evaluation at Al Ahly Capital Holding.",
+    "sourceUrls": [
+      "https://alahlycapital.com/our-people/"
+    ],
+    "confidence": "public"
+  },
+  {
+    "id": "contact-088",
+    "familyOfficeId": "al-ahly-capital-holding",
+    "name": "May Asfour",
+    "role": "CIO",
+    "seniority": "executive",
+    "linkedinUrl": null,
+    "email": null,
+    "notes": "Co-CIO at Al Ahly Capital Holding. Executive Board Member of Al Ahly Payments.",
+    "sourceUrls": [
+      "https://alahlycapital.com/our-people/"
+    ],
+    "confidence": "public"
+  },
+  {
+    "id": "contact-089",
+    "familyOfficeId": "al-ahly-capital-holding",
+    "name": "Mahitab Orabi",
+    "role": "Investment Executive Director",
+    "seniority": "investment_team",
+    "linkedinUrl": null,
+    "email": null,
+    "notes": "Investment Executive Director at Al Ahly Capital Holding.",
+    "sourceUrls": [
+      "https://alahlycapital.com/our-people/"
+    ],
+    "confidence": "public"
+  },
+  {
+    "id": "contact-090",
+    "familyOfficeId": "private-office-sheikh-saeed-al-maktoum",
+    "name": "Sheikh Saeed bin Ahmed Al Maktoum",
+    "role": "Founder / Family Principal",
+    "seniority": "principal",
+    "linkedinUrl": null,
+    "email": null,
+    "notes": "Dubai royal family principal. Founded Private Office to invest in tech / crypto. Estimated $38B net worth. Identical entity to Seed Group FO.",
+    "sourceUrls": [
+      "https://seedgroup.com/",
+      "https://www.fintrx.com/blog/3-middle-eastern-family-offices-investing-in-technology-companies"
+    ],
+    "confidence": "public"
+  },
+  {
+    "id": "contact-091",
+    "familyOfficeId": "private-office-sheikh-saeed-al-maktoum",
+    "name": "Hisham Al Gurg",
+    "role": "CEO",
+    "seniority": "executive",
+    "linkedinUrl": "https://www.linkedin.com/in/hisham-al-gurg-87aa5410/",
+    "email": null,
+    "notes": "CEO of Private Office of Sheikh Saeed Al Maktoum and Seed Group. Oversees $1B+ global investments across 12+ countries.",
+    "sourceUrls": [
+      "https://contactout.com/Hisham-Al-Gurg-115142646",
+      "https://www.sme10x.com/people/10x-exclusive-in-conversation-with-hisham-al-gurg-ceo-of-the-private-office-seed-group"
+    ],
+    "confidence": "public"
+  },
+  {
+    "id": "contact-092",
+    "familyOfficeId": "al-nowais-investments",
+    "name": "Hussain Jasim Al Nowais",
+    "role": "Chairman",
+    "seniority": "principal",
+    "linkedinUrl": null,
+    "email": null,
+    "notes": "Chairman of Al Nowais Investments and AMEA Power. UAE industrialist with 35+ yrs across banking / energy / infrastructure. Vice-Chairman of Abu Dhabi Commercial Bank.",
+    "sourceUrls": [
+      "https://en.wikipedia.org/wiki/Hussain_Al_Nowais",
+      "https://www.alnowais.com/team/he-hussain-al-nowais/"
+    ],
+    "confidence": "public"
+  },
+  {
+    "id": "contact-093",
+    "familyOfficeId": "al-nowais-investments",
+    "name": "Kassem Tawil",
+    "role": "Director of Investments",
+    "seniority": "investment_team",
+    "linkedinUrl": "https://ae.linkedin.com/in/kassem-tawil-31804aaa",
+    "email": null,
+    "notes": "Director overseeing direct investment structuring and management. Cornell MBA. Focuses on manufacturing / real estate / building materials.",
+    "sourceUrls": [
+      "https://www.alnowais.com/about/executive-team/",
+      "https://rocketreach.co/kassem-tawil-email_376858415"
+    ],
+    "confidence": "confirmed"
+  },
+  {
+    "id": "contact-094",
+    "familyOfficeId": "waha-capital",
+    "name": "Waleed Al Mokarrab Al Muhairi",
+    "role": "Chairman",
+    "seniority": "principal",
+    "linkedinUrl": null,
+    "email": null,
+    "notes": "Chairman of Waha Capital and Mubadala Deputy Group CEO. Sets high-level investment mandate.",
+    "sourceUrls": [
+      "https://www.wahacapital.com/team/waleed-al-mokarrab-al-muhairi"
+    ],
+    "confidence": "public"
+  },
+  {
+    "id": "contact-095",
+    "familyOfficeId": "waha-capital",
+    "name": "Mohamed Hussain Al Nowais",
+    "role": "Managing Director",
+    "seniority": "executive",
+    "linkedinUrl": null,
+    "email": null,
+    "notes": "MD since May 2023. Drives investment strategy and portfolio management.",
+    "sourceUrls": [
+      "https://www.wahacapital.com/team/mohamed-al-nowais",
+      "https://www.zawya.com/en/press-release/people-in-the-news/waha-capital-appoints-mohamed-al-nowais-as-managing-director-jyqqmpei"
+    ],
+    "confidence": "public"
+  },
+  {
+    "id": "contact-096",
+    "familyOfficeId": "waha-capital",
+    "name": "Hashem Dabbas",
+    "role": "CIO - Private Investments",
+    "seniority": "executive",
+    "linkedinUrl": null,
+    "email": null,
+    "notes": "CIO of Private Investments since Sept 2021. Former ADIC Head of Special Situations and Morgan Stanley NY investment banker.",
+    "sourceUrls": [
+      "https://www.zawya.com/en/press-release/waha-capital-hires-hashem-dabbas-as-cio-of-private-investments-business-mri66a8f"
+    ],
+    "confidence": "confirmed"
+  },
+  {
+    "id": "contact-097",
+    "familyOfficeId": "waha-capital",
+    "name": "Ahmed Al Dhaheri",
+    "role": "Vice Chairman",
+    "seniority": "principal",
+    "linkedinUrl": null,
+    "email": null,
+    "notes": "Vice Chairman of Waha Capital board. Honorary Chairman of Ali and Sons Holdings LLC.",
+    "sourceUrls": [
+      "https://www.wahacapital.com/board-management/board-of-directors"
+    ],
+    "confidence": "public"
+  },
+  {
+    "id": "contact-098",
+    "familyOfficeId": "waha-capital",
+    "name": "James Finucane",
+    "role": "CFO",
+    "seniority": "executive",
+    "linkedinUrl": null,
+    "email": null,
+    "notes": "CFO since March 2024. Former Group Treasurer at Aldar Properties.",
+    "sourceUrls": [
+      "https://www.wahacapital.com/board-management/board-of-directors"
+    ],
+    "confidence": "public"
+  },
+  {
+    "id": "contact-099",
+    "familyOfficeId": "kbw-investments",
+    "name": "HRH Prince Khaled bin Alwaleed bin Talal Al Saud",
+    "role": "Founder / Chairman",
+    "seniority": "principal",
+    "linkedinUrl": null,
+    "email": null,
+    "notes": "Founder of KBW Investments (parent entity of KBW Ventures). All VC activity flows through KBW Ventures. Noted here as parent-entity principal.",
+    "sourceUrls": [
+      "https://www.swfinstitute.org/profile/5e39a4b8fcbe7e8ca71c42ad",
+      "https://kbw-ventures.com/about-us/"
+    ],
+    "confidence": "rumored"
+  }
+]
