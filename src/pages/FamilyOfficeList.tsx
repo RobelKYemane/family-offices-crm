@@ -1,23 +1,21 @@
 import { useState, useMemo } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Search, X, ChevronUp, ChevronDown, SlidersHorizontal } from 'lucide-react'
-import { familyOffices, type FamilyOffice } from '@/data/familyOffices'
+import { Search, X, ChevronUp, ChevronDown, SlidersHorizontal, Star, Eye } from 'lucide-react'
+import { familyOffices as seedFOs } from '@/data/familyOffices'
+import type { FamilyOffice } from '@/data/familyOffices'
 import { Badge } from '@/components/ui/badge'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { formatAum, countryFlag } from '@/lib/utils'
 import { cn } from '@/lib/utils'
+import {
+  useAllFOs,
+  useHiddenFOs,
+  useStore,
+} from '@/lib/store'
 
 type SortField = 'name' | 'aum' | 'activity'
 type SortDir = 'asc' | 'desc'
-
-const ALL_COUNTRIES = [...new Set(familyOffices.map((fo) => fo.country))].sort()
-const ALL_STATUSES = [...new Set(familyOffices.map((fo) => fo.status))].sort() as FamilyOffice['status'][]
-const ALL_TAGS = [...new Set(familyOffices.flatMap((fo) => fo.tags))].sort()
-
-function countryCount(country: string) {
-  return familyOffices.filter((fo) => fo.country === country).length
-}
 
 function toggleSet<T>(set: Set<T>, value: T): Set<T> {
   const next = new Set(set)
@@ -49,8 +47,65 @@ function ConfidenceDot({ confidence }: { confidence: FamilyOffice['confidence'] 
   )
 }
 
+/** Small dot indicating user-created or edited records */
+function RecordTypeDot({ foId, foCreatedIds, foOverrideIds }: {
+  foId: string
+  foCreatedIds: Set<string>
+  foOverrideIds: Set<string>
+}) {
+  if (foCreatedIds.has(foId)) {
+    return (
+      <span
+        title="User-created"
+        className="inline-block h-1.5 w-1.5 rounded-full bg-primary shrink-0"
+      />
+    )
+  }
+  if (foOverrideIds.has(foId)) {
+    return (
+      <span
+        title="Edited"
+        className="inline-block h-1.5 w-1.5 rounded-full bg-amber-400 shrink-0"
+      />
+    )
+  }
+  return null
+}
+
+function StarButton({ foId }: { foId: string }) {
+  const isFav = useStore((s) => s.favorites.includes(foId))
+  const toggle = useStore((s) => s.toggleFavorite)
+  return (
+    <button
+      onClick={(e) => { e.stopPropagation(); toggle(foId) }}
+      aria-label={isFav ? 'Remove from favorites' : 'Add to favorites'}
+      className={cn(
+        'rounded p-0.5 transition-colors',
+        isFav
+          ? 'text-amber-400 hover:text-amber-500'
+          : 'text-muted-foreground/30 hover:text-amber-400'
+      )}
+    >
+      <Star className={cn('h-3.5 w-3.5', isFav && 'fill-current')} />
+    </button>
+  )
+}
+
 export function FamilyOfficeList() {
   const navigate = useNavigate()
+  const allFOs = useAllFOs()
+  const hiddenFOs = useHiddenFOs()
+  const restoreFO = useStore((s) => s.restoreFO)
+  const favorites = useStore((s) => s.favorites)
+  const foOverrides = useStore((s) => s.foOverrides)
+  const foCreated = useStore((s) => s.foCreated)
+
+  const foCreatedIds = useMemo(() => new Set(foCreated.map((f) => f.id)), [foCreated])
+  const foOverrideIds = useMemo(
+    () => new Set(Object.keys(foOverrides).filter((k) => Object.keys(foOverrides[k] ?? {}).length > 0)),
+    [foOverrides]
+  )
+
   const [search, setSearch] = useState('')
   const [selectedCountries, setSelectedCountries] = useState<Set<string>>(new Set())
   const [selectedStatuses, setSelectedStatuses] = useState<Set<string>>(new Set())
@@ -59,11 +114,34 @@ export function FamilyOfficeList() {
   const [sortDir, setSortDir] = useState<SortDir>('asc')
   const [infoDismissed, setInfoDismissed] = useState(false)
   const [filtersOpen, setFiltersOpen] = useState(false)
+  const [favoritesOnly, setFavoritesOnly] = useState(false)
+  const [showHidden, setShowHidden] = useState(false)
+
+  // Derive filter options from the merged (visible) list
+  const allCountries = useMemo(
+    () => [...new Set(allFOs.map((fo) => fo.country))].sort(),
+    [allFOs]
+  )
+  const allStatuses = useMemo(
+    () => [...new Set(allFOs.map((fo) => fo.status))].sort() as FamilyOffice['status'][],
+    [allFOs]
+  )
+  const allTags = useMemo(
+    () => [...new Set(allFOs.flatMap((fo) => fo.tags))].sort(),
+    [allFOs]
+  )
+
+  function countryCount(country: string) {
+    return allFOs.filter((fo) => fo.country === country).length
+  }
+
+  const favCount = favorites.length
 
   const filtered = useMemo(() => {
     const q = search.toLowerCase().trim()
-    return familyOffices
+    return allFOs
       .filter((fo) => {
+        if (favoritesOnly && !favorites.includes(fo.id)) return false
         if (
           q &&
           !fo.name.toLowerCase().includes(q) &&
@@ -89,12 +167,11 @@ export function FamilyOfficeList() {
           const bVal = b.estAumUsd ?? -1
           return sortDir === 'asc' ? aVal - bVal : bVal - aVal
         }
-        // activity year
         const aVal = a.lastKnownActivityYear ?? 0
         const bVal = b.lastKnownActivityYear ?? 0
         return sortDir === 'asc' ? aVal - bVal : bVal - aVal
       })
-  }, [search, selectedCountries, selectedStatuses, selectedTags, sortField, sortDir])
+  }, [allFOs, search, selectedCountries, selectedStatuses, selectedTags, sortField, sortDir, favoritesOnly, favorites])
 
   function handleSort(field: SortField) {
     if (sortField === field) {
@@ -119,14 +196,18 @@ export function FamilyOfficeList() {
     !!search ||
     selectedCountries.size > 0 ||
     selectedStatuses.size > 0 ||
-    selectedTags.size > 0
+    selectedTags.size > 0 ||
+    favoritesOnly
 
   function clearFilters() {
     setSearch('')
     setSelectedCountries(new Set())
     setSelectedStatuses(new Set())
     setSelectedTags(new Set())
+    setFavoritesOnly(false)
   }
+
+  const totalCount = allFOs.length
 
   return (
     <div className="space-y-6">
@@ -134,14 +215,14 @@ export function FamilyOfficeList() {
       <div className="flex items-baseline gap-3">
         <h1 className="text-2xl font-bold text-foreground tracking-tight">Family Offices</h1>
         <span className="text-sm text-muted-foreground tabular-nums">
-          {filtered.length} of {familyOffices.length}
+          {filtered.length} of {totalCount}
         </span>
       </div>
 
       {/* Info pill */}
       {!infoDismissed && (
         <div className="flex items-center justify-between gap-3 rounded-full border border-border bg-muted/50 px-4 py-1.5 text-xs text-muted-foreground w-fit max-w-full">
-          <span>v0.2 &mdash; 36 entities, mostly public confidence</span>
+          <span>v0.3 &mdash; {seedFOs.length} seed entities + your additions</span>
           <button
             onClick={() => setInfoDismissed(true)}
             className="rounded-full p-0.5 hover:bg-muted transition-colors"
@@ -185,25 +266,64 @@ export function FamilyOfficeList() {
           </Button>
         </div>
 
+        {/* Quick chips: Favorites + Hidden toggle */}
+        <div className="flex items-center gap-2 flex-wrap">
+          <button
+            onClick={() => setFavoritesOnly((v) => !v)}
+            className={cn(
+              'inline-flex items-center gap-1.5 rounded-full border px-2.5 py-0.5 text-xs font-medium transition-colors',
+              favoritesOnly
+                ? 'border-amber-400 bg-amber-400/10 text-amber-500'
+                : 'border-border text-muted-foreground hover:border-foreground/30 hover:text-foreground'
+            )}
+          >
+            <Star className={cn('h-3 w-3', favoritesOnly && 'fill-current')} />
+            Favorites
+            {favCount > 0 && (
+              <span className={cn('tabular-nums', favoritesOnly ? 'opacity-80' : 'opacity-60')}>
+                {favCount}
+              </span>
+            )}
+          </button>
+
+          {hiddenFOs.length > 0 && (
+            <button
+              onClick={() => setShowHidden((v) => !v)}
+              className={cn(
+                'inline-flex items-center gap-1.5 rounded-full border px-2.5 py-0.5 text-xs font-medium transition-colors',
+                showHidden
+                  ? 'border-primary bg-primary/10 text-primary'
+                  : 'border-border text-muted-foreground hover:border-foreground/30 hover:text-foreground'
+              )}
+            >
+              <Eye className="h-3 w-3" />
+              Hidden
+              <span className={cn('tabular-nums', showHidden ? 'opacity-80' : 'opacity-60')}>
+                {hiddenFOs.length}
+              </span>
+            </button>
+          )}
+        </div>
+
         {/* Filter panel */}
         {filtersOpen && (
           <div className="rounded-lg border border-border bg-card p-4 space-y-3">
             <FilterRow
               label="Country"
-              options={ALL_COUNTRIES}
+              options={allCountries}
               selected={selectedCountries}
               onToggle={(v) => setSelectedCountries((s) => toggleSet(s, v))}
               getCount={countryCount}
             />
             <FilterRow
               label="Status"
-              options={ALL_STATUSES}
+              options={allStatuses}
               selected={selectedStatuses}
               onToggle={(v) => setSelectedStatuses((s) => toggleSet(s, v))}
             />
             <FilterRow
               label="Tag"
-              options={ALL_TAGS}
+              options={allTags}
               selected={selectedTags}
               onToggle={(v) => setSelectedTags((s) => toggleSet(s, v))}
             />
@@ -245,6 +365,26 @@ export function FamilyOfficeList() {
         </div>
       </div>
 
+      {/* Hidden FOs panel */}
+      {showHidden && hiddenFOs.length > 0 && (
+        <div className="rounded-lg border border-dashed border-border bg-muted/20 p-4 space-y-2">
+          <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
+            Hidden family offices ({hiddenFOs.length})
+          </p>
+          {hiddenFOs.map((fo) => (
+            <div key={fo.id} className="flex items-center justify-between gap-3 py-1.5">
+              <span className="text-sm text-foreground/70">{fo.name}</span>
+              <button
+                onClick={() => restoreFO(fo.id)}
+                className="text-xs text-primary hover:underline underline-offset-2 shrink-0"
+              >
+                Restore
+              </button>
+            </div>
+          ))}
+        </div>
+      )}
+
       {/* Desktop table */}
       <div className="hidden md:block">
         {filtered.length === 0 ? (
@@ -254,7 +394,8 @@ export function FamilyOfficeList() {
             <table className="w-full text-sm">
               <thead>
                 <tr className="border-b border-border bg-muted/40 text-left">
-                  <th className="px-4 py-3 font-medium text-muted-foreground w-[35%]">
+                  <th className="px-2 py-3 w-8" aria-label="Favorite" />
+                  <th className="px-4 py-3 font-medium text-muted-foreground w-[34%]">
                     <button
                       onClick={() => handleSort('name')}
                       className="inline-flex items-center gap-1 hover:text-foreground transition-colors"
@@ -298,13 +439,25 @@ export function FamilyOfficeList() {
                     }}
                     className="cursor-pointer hover:bg-muted/30 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring"
                   >
+                    <td className="px-2 py-3" onClick={(e) => e.stopPropagation()}>
+                      <StarButton foId={fo.id} />
+                    </td>
                     <td className="px-4 py-3">
-                      <p className="font-medium text-foreground">{fo.name}</p>
-                      <p className="text-xs text-muted-foreground mt-0.5">{fo.family}</p>
+                      <div className="flex items-center gap-1.5">
+                        <RecordTypeDot
+                          foId={fo.id}
+                          foCreatedIds={foCreatedIds}
+                          foOverrideIds={foOverrideIds}
+                        />
+                        <div>
+                          <p className="font-medium text-foreground">{fo.name}</p>
+                          <p className="text-xs text-muted-foreground mt-0.5">{fo.family}</p>
+                        </div>
+                      </div>
                     </td>
                     <td className="px-4 py-3 text-muted-foreground">
                       <span className="mr-1">{countryFlag(fo.country)}</span>
-                      {fo.city}, {fo.country}
+                      {fo.city}{fo.city && fo.country ? ', ' : ''}{fo.country}
                     </td>
                     <td className="px-4 py-3 font-mono text-foreground/80 tabular-nums text-sm">
                       {formatAum(fo.estAumUsd)}
@@ -355,18 +508,30 @@ export function FamilyOfficeList() {
                 className="w-full text-left rounded-lg border border-border bg-card p-4 hover:border-primary/40 hover:bg-muted/20 transition-all active:scale-[0.99] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               >
                 <div className="flex items-start justify-between gap-2">
-                  <div className="min-w-0">
-                    <p className="font-semibold text-foreground text-sm leading-snug">{fo.name}</p>
-                    <p className="text-xs text-muted-foreground mt-0.5 truncate">
-                      {fo.family}
-                    </p>
+                  <div className="min-w-0 flex items-start gap-2">
+                    <RecordTypeDot
+                      foId={fo.id}
+                      foCreatedIds={foCreatedIds}
+                      foOverrideIds={foOverrideIds}
+                    />
+                    <div className="min-w-0">
+                      <p className="font-semibold text-foreground text-sm leading-snug">{fo.name}</p>
+                      <p className="text-xs text-muted-foreground mt-0.5 truncate">
+                        {fo.family}
+                      </p>
+                    </div>
                   </div>
-                  <StatusBadge status={fo.status} />
+                  <div className="flex items-center gap-1.5 shrink-0">
+                    <div onClick={(e) => e.stopPropagation()}>
+                      <StarButton foId={fo.id} />
+                    </div>
+                    <StatusBadge status={fo.status} />
+                  </div>
                 </div>
 
                 <div className="mt-2 flex items-center gap-1.5 text-xs text-muted-foreground">
                   <span>{countryFlag(fo.country)}</span>
-                  <span>{fo.city}, {fo.country}</span>
+                  <span>{fo.city}{fo.city && fo.country ? ', ' : ''}{fo.country}</span>
                 </div>
 
                 <div className="mt-2 flex items-center justify-between gap-2">
@@ -461,3 +626,5 @@ function EmptyState({ onClear }: { onClear?: () => void }) {
     </div>
   )
 }
+
+

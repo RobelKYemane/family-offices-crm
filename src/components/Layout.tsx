@@ -1,6 +1,18 @@
-import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
-import { Sun, Moon } from 'lucide-react'
+import { useEffect, useRef, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import { Sun, Moon, Plus, MoreVertical, Download, Upload, RotateCcw, Settings } from 'lucide-react'
+import { Button } from '@/components/ui/button'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu'
+import { FODialog } from '@/components/FODialog'
+import { ConfirmDialog } from '@/components/ConfirmDialog'
+import { useStore } from '@/lib/store'
 
 interface LayoutProps {
   children: React.ReactNode
@@ -14,6 +26,14 @@ function getInitialTheme(): 'dark' | 'light' {
 
 export function Layout({ children }: LayoutProps) {
   const [theme, setTheme] = useState<'dark' | 'light'>(getInitialTheme)
+  const [newFOOpen, setNewFOOpen] = useState(false)
+  const [resetOpen, setResetOpen] = useState(false)
+  const navigate = useNavigate()
+
+  const resetAll = useStore((s) => s.resetAll)
+  const exportJSON = useStore((s) => s.exportJSON)
+  const importJSON = useStore((s) => s.importJSON)
+  const fileInputRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
     const root = document.documentElement
@@ -27,6 +47,36 @@ export function Layout({ children }: LayoutProps) {
 
   function toggleTheme() {
     setTheme((t) => (t === 'dark' ? 'light' : 'dark'))
+  }
+
+  function handleExport() {
+    const json = exportJSON()
+    const blob = new Blob([json], { type: 'application/json' })
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = `family-offices-crm-export-${new Date().toISOString().slice(0, 10)}.json`
+    a.click()
+    URL.revokeObjectURL(url)
+  }
+
+  function handleImportClick() {
+    fileInputRef.current?.click()
+  }
+
+  function handleImportFile(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0]
+    if (!file) return
+    const reader = new FileReader()
+    reader.onload = () => {
+      try {
+        importJSON(reader.result as string)
+      } catch {
+        alert('Import failed: invalid JSON file.')
+      }
+    }
+    reader.readAsText(file)
+    e.target.value = ''
   }
 
   return (
@@ -45,17 +95,65 @@ export function Layout({ children }: LayoutProps) {
             </span>
           </Link>
 
-          <button
-            onClick={toggleTheme}
-            aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
-            className="rounded-md p-2 text-muted-foreground hover:text-foreground hover:bg-muted transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-          >
-            {theme === 'dark' ? (
-              <Sun className="h-4 w-4" />
-            ) : (
-              <Moon className="h-4 w-4" />
-            )}
-          </button>
+          <div className="flex items-center gap-1.5">
+            {/* New FO button */}
+            <Button
+              size="sm"
+              onClick={() => setNewFOOpen(true)}
+              className="h-8 gap-1.5 px-3 text-xs"
+            >
+              <Plus className="h-3.5 w-3.5" />
+              New
+            </Button>
+
+            {/* Dark mode toggle */}
+            <button
+              onClick={toggleTheme}
+              aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+              className="rounded-md p-2 text-muted-foreground hover:text-foreground hover:bg-muted transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            >
+              {theme === 'dark' ? (
+                <Sun className="h-4 w-4" />
+              ) : (
+                <Moon className="h-4 w-4" />
+              )}
+            </button>
+
+            {/* Settings kebab */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <button
+                  aria-label="Settings menu"
+                  className="rounded-md p-2 text-muted-foreground hover:text-foreground hover:bg-muted transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                >
+                  <MoreVertical className="h-4 w-4" />
+                </button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuLabel>Data</DropdownMenuLabel>
+                <DropdownMenuItem onClick={() => navigate('/settings')}>
+                  <Settings className="mr-2 h-4 w-4" />
+                  Settings
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={handleExport}>
+                  <Download className="mr-2 h-4 w-4" />
+                  Export data (JSON)
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={handleImportClick}>
+                  <Upload className="mr-2 h-4 w-4" />
+                  Import data (JSON)
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem
+                  className="text-destructive focus:text-destructive"
+                  onClick={() => setResetOpen(true)}
+                >
+                  <RotateCcw className="mr-2 h-4 w-4" />
+                  Reset to defaults
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
         </div>
       </header>
 
@@ -66,10 +164,37 @@ export function Layout({ children }: LayoutProps) {
       <footer className="border-t border-border mt-auto">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 h-10 flex items-center">
           <p className="text-xs text-muted-foreground">
-            v0.2.0 &mdash; Sprint 2 &mdash; 36 ME family offices
+            v0.3.0 &mdash; Sprint 3 &mdash; full CRUD
           </p>
         </div>
       </footer>
+
+      {/* New FO dialog */}
+      <FODialog
+        open={newFOOpen}
+        onOpenChange={setNewFOOpen}
+        mode="create"
+      />
+
+      {/* Reset confirm */}
+      <ConfirmDialog
+        open={resetOpen}
+        onOpenChange={setResetOpen}
+        title="Reset everything?"
+        description="This will permanently delete all your edits, created records, and favorites. The seed data will be restored. This cannot be undone."
+        confirmLabel="Reset to defaults"
+        destructive
+        onConfirm={resetAll}
+      />
+
+      {/* Hidden file input for import */}
+      <input
+        ref={fileInputRef}
+        type="file"
+        accept=".json,application/json"
+        className="hidden"
+        onChange={handleImportFile}
+      />
     </div>
   )
 }

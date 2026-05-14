@@ -1,19 +1,46 @@
-import { useParams, Link } from 'react-router-dom'
+import { useState } from 'react'
+import { useParams, Link, useNavigate } from 'react-router-dom'
 import {
   ArrowLeft,
-  ExternalLink,
   MapPin,
   Building2,
   Linkedin,
   Mail,
   CalendarClock,
   Users,
+  Star,
+  Pencil,
+  Trash2,
+  MoreVertical,
+  Plus,
 } from 'lucide-react'
-import { familyOffices, contacts, type Contact } from '@/data/familyOffices'
+import { familyOffices as seedFOs } from '@/data/familyOffices'
+import type { Contact } from '@/data/familyOffices'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-import { formatAum, countryFlag, urlHostname, cn } from '@/lib/utils'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu'
+import { FaviconChip } from '@/components/FaviconChip'
+import { FODialog } from '@/components/FODialog'
+import { ContactDialog } from '@/components/ContactDialog'
+import { ConfirmDialog } from '@/components/ConfirmDialog'
+import { formatAum, countryFlag, cn } from '@/lib/utils'
+import {
+  useFO,
+  useContactsForFO,
+  useIsFavorite,
+  useIsEdited,
+  useIsCreated,
+  useStore,
+} from '@/lib/store'
+
+const seedIdSet = new Set(seedFOs.map((f) => f.id))
 
 // ---- badge helpers -------------------------------------------------------
 
@@ -98,9 +125,17 @@ function Section({
 
 // ---- contact card --------------------------------------------------------
 
-function ContactCard({ contact }: { contact: Contact }) {
+function ContactCard({
+  contact,
+  onEdit,
+  onDelete,
+}: {
+  contact: Contact
+  onEdit: (c: Contact) => void
+  onDelete: (c: Contact) => void
+}) {
   return (
-    <div className="flex items-start gap-3 py-3 border-b border-border last:border-0">
+    <div className="group flex items-start gap-3 py-3 border-b border-border last:border-0">
       <ConfidenceDot confidence={contact.confidence} />
       <div className="flex-1 min-w-0 space-y-1">
         <div className="flex flex-wrap items-center gap-2">
@@ -134,6 +169,23 @@ function ContactCard({ contact }: { contact: Contact }) {
           )}
         </div>
       </div>
+      {/* Edit / delete — always visible on mobile, hover on desktop */}
+      <div className="flex items-center gap-1 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity shrink-0">
+        <button
+          onClick={() => onEdit(contact)}
+          aria-label="Edit contact"
+          className="rounded p-1 text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+        >
+          <Pencil className="h-3.5 w-3.5" />
+        </button>
+        <button
+          onClick={() => onDelete(contact)}
+          aria-label="Delete contact"
+          className="rounded p-1 text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition-colors"
+        >
+          <Trash2 className="h-3.5 w-3.5" />
+        </button>
+      </div>
     </div>
   )
 }
@@ -142,7 +194,23 @@ function ContactCard({ contact }: { contact: Contact }) {
 
 export function FamilyOfficeDetail() {
   const { id } = useParams<{ id: string }>()
-  const fo = familyOffices.find((f) => f.id === id)
+  const navigate = useNavigate()
+  const fo = useFO(id)
+  const foContacts = useContactsForFO(id ?? '')
+  const isFav = useIsFavorite(id ?? '')
+  const isEdited = useIsEdited(id ?? '')
+  const isCreated = useIsCreated(id ?? '')
+  const isSeed = id ? seedIdSet.has(id) : false
+
+  const toggleFavorite = useStore((s) => s.toggleFavorite)
+  const deleteFO = useStore((s) => s.deleteFO)
+  const deleteContact = useStore((s) => s.deleteContact)
+
+  const [editFOOpen, setEditFOOpen] = useState(false)
+  const [deleteFOOpen, setDeleteFOOpen] = useState(false)
+  const [addContactOpen, setAddContactOpen] = useState(false)
+  const [editingContact, setEditingContact] = useState<Contact | null>(null)
+  const [deletingContact, setDeletingContact] = useState<Contact | null>(null)
 
   if (!fo) {
     return (
@@ -165,7 +233,11 @@ export function FamilyOfficeDetail() {
     )
   }
 
-  const foContacts = contacts.filter((c) => c.familyOfficeId === fo.id)
+  function handleDeleteFO() {
+    if (!id) return
+    deleteFO(id)
+    navigate('/')
+  }
 
   return (
     <div className="space-y-8 max-w-3xl">
@@ -180,14 +252,73 @@ export function FamilyOfficeDetail() {
 
       {/* Hero */}
       <div className="space-y-4">
-        {/* Name + badges */}
+        {/* Name + badges + actions */}
         <div>
-          <h1 className="text-3xl font-bold text-foreground tracking-tight leading-tight">
-            {fo.name}
-          </h1>
+          <div className="flex items-start gap-3">
+            <h1 className="text-3xl font-bold text-foreground tracking-tight leading-tight flex-1">
+              {fo.name}
+            </h1>
+            {/* Star */}
+            <button
+              onClick={() => toggleFavorite(fo.id)}
+              aria-label={isFav ? 'Remove from favorites' : 'Add to favorites'}
+              className={cn(
+                'mt-1 rounded-md p-1.5 transition-colors',
+                isFav
+                  ? 'text-amber-400 hover:text-amber-500 hover:bg-amber-400/10'
+                  : 'text-muted-foreground hover:text-amber-400 hover:bg-muted'
+              )}
+            >
+              <Star className={cn('h-5 w-5', isFav && 'fill-current')} />
+            </button>
+            {/* Edit pencil */}
+            <button
+              onClick={() => setEditFOOpen(true)}
+              aria-label="Edit family office"
+              className="mt-1 rounded-md p-1.5 text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+            >
+              <Pencil className="h-4 w-4" />
+            </button>
+            {/* Kebab menu */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <button
+                  aria-label="More options"
+                  className="mt-1 rounded-md p-1.5 text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+                >
+                  <MoreVertical className="h-4 w-4" />
+                </button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuItem onClick={() => setEditFOOpen(true)}>
+                  <Pencil className="mr-2 h-4 w-4" />
+                  Edit details
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem
+                  className="text-destructive focus:text-destructive"
+                  onClick={() => setDeleteFOOpen(true)}
+                >
+                  <Trash2 className="mr-2 h-4 w-4" />
+                  {isSeed ? 'Hide from list' : 'Delete permanently'}
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
+
           <div className="mt-2 flex flex-wrap items-center gap-2">
             <StatusBadge status={fo.status} />
             <ConfidenceBadge confidence={fo.confidence} />
+            {isEdited && !isCreated && (
+              <Badge variant="muted" className="text-[10px]">
+                Edited
+              </Badge>
+            )}
+            {isCreated && (
+              <Badge variant="muted" className="text-[10px]">
+                User-created
+              </Badge>
+            )}
           </div>
         </div>
 
@@ -202,7 +333,7 @@ export function FamilyOfficeDetail() {
             {countryFlag(fo.country) && (
               <span className="mr-0.5">{countryFlag(fo.country)}</span>
             )}
-            {fo.city}, {fo.country}
+            {fo.city}{fo.city && fo.country ? ', ' : ''}{fo.country}
           </span>
           {fo.lastKnownActivityYear && (
             <span className="flex items-center gap-1.5">
@@ -224,13 +355,15 @@ export function FamilyOfficeDetail() {
         </div>
 
         {/* Tags */}
-        <div className="flex flex-wrap gap-1.5">
-          {fo.tags.map((tag) => (
-            <Badge key={tag} variant="secondary" className="text-xs">
-              {tag}
-            </Badge>
-          ))}
-        </div>
+        {fo.tags.length > 0 && (
+          <div className="flex flex-wrap gap-1.5">
+            {fo.tags.map((tag) => (
+              <Badge key={tag} variant="secondary" className="text-xs">
+                {tag}
+              </Badge>
+            ))}
+          </div>
+        )}
       </div>
 
       {/* Content sections */}
@@ -269,14 +402,30 @@ export function FamilyOfficeDetail() {
           {foContacts.length > 0 ? (
             <div className="-mt-1">
               {foContacts.map((c) => (
-                <ContactCard key={c.id} contact={c} />
+                <ContactCard
+                  key={c.id}
+                  contact={c}
+                  onEdit={(contact) => setEditingContact(contact)}
+                  onDelete={(contact) => setDeletingContact(contact)}
+                />
               ))}
             </div>
           ) : (
-            <p className="text-sm text-muted-foreground italic">
-              Contacts coming with the research drop.
+            <p className="text-sm text-muted-foreground italic mb-4">
+              No contacts yet.
             </p>
           )}
+          <div className={foContacts.length > 0 ? 'mt-3' : ''}>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => setAddContactOpen(true)}
+              className="gap-1.5"
+            >
+              <Plus className="h-3.5 w-3.5" />
+              Add contact
+            </Button>
+          </div>
         </Section>
 
         {/* Sources */}
@@ -284,16 +433,7 @@ export function FamilyOfficeDetail() {
           <Section title="Sources">
             <div className="flex flex-wrap gap-2">
               {fo.sourceUrls.map((url) => (
-                <a
-                  key={url}
-                  href={url}
-                  target="_blank"
-                  rel="noreferrer noopener"
-                  className="inline-flex items-center gap-1.5 rounded-full border border-border bg-muted/40 px-3 py-1 text-xs text-foreground hover:bg-muted hover:border-foreground/20 transition-colors"
-                >
-                  <ExternalLink className="h-3 w-3 text-muted-foreground" />
-                  {urlHostname(url)}
-                </a>
+                <FaviconChip key={url} url={url} />
               ))}
             </div>
           </Section>
@@ -304,6 +444,61 @@ export function FamilyOfficeDetail() {
           <p className="text-sm text-muted-foreground italic">Coming in Sprint 5.</p>
         </Section>
       </div>
+
+      {/* Edit FO dialog */}
+      <FODialog
+        open={editFOOpen}
+        onOpenChange={setEditFOOpen}
+        mode="edit"
+        initial={fo}
+      />
+
+      {/* Delete FO confirm */}
+      <ConfirmDialog
+        open={deleteFOOpen}
+        onOpenChange={setDeleteFOOpen}
+        title={isSeed ? 'Hide this family office?' : 'Delete this family office?'}
+        description={
+          isSeed
+            ? 'This seed entry will be hidden from the list. You can restore it from the list view or Settings.'
+            : 'This user-created record will be permanently deleted.'
+        }
+        confirmLabel={isSeed ? 'Hide' : 'Delete'}
+        destructive
+        onConfirm={handleDeleteFO}
+      />
+
+      {/* Add contact dialog */}
+      <ContactDialog
+        open={addContactOpen}
+        onOpenChange={setAddContactOpen}
+        mode="create"
+        familyOfficeId={fo.id}
+      />
+
+      {/* Edit contact dialog */}
+      {editingContact && (
+        <ContactDialog
+          open={!!editingContact}
+          onOpenChange={(open) => { if (!open) setEditingContact(null) }}
+          mode="edit"
+          familyOfficeId={fo.id}
+          initial={editingContact}
+        />
+      )}
+
+      {/* Delete contact confirm */}
+      {deletingContact && (
+        <ConfirmDialog
+          open={!!deletingContact}
+          onOpenChange={(open) => { if (!open) setDeletingContact(null) }}
+          title="Delete contact?"
+          description={`Remove ${deletingContact.name} from this family office?`}
+          confirmLabel="Delete"
+          destructive
+          onConfirm={() => deleteContact(deletingContact.id)}
+        />
+      )}
     </div>
   )
 }
