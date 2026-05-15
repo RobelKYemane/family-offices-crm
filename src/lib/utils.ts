@@ -53,3 +53,52 @@ export function urlHostname(url: string): string {
     return url
   }
 }
+
+/** Format a USD number with B/M/K suffix. Alias of formatAum for semantic clarity. */
+export function formatUsd(usd: number | null): string {
+  return formatAum(usd)
+}
+
+/**
+ * Format a partial ISO date string.
+ * '2024'       → '2024'
+ * '2024-05'    → 'May 2024'
+ * '2024-05-15' → 'May 15, 2024'
+ */
+export function formatDate(s: string | null): string {
+  if (!s) return '—'
+  const parts = s.split('-')
+  if (parts.length === 1) return parts[0] // YYYY only
+  try {
+    const monthNames = [
+      'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+      'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec',
+    ]
+    const monthIdx = parseInt(parts[1], 10) - 1
+    const month = monthNames[monthIdx] ?? '?'
+    if (parts.length === 2) return `${month} ${parts[0]}`
+    return `${month} ${parseInt(parts[2], 10)}, ${parts[0]}`
+  } catch {
+    return s
+  }
+}
+
+/**
+ * Parse a partial date string to a JS Date for comparison.
+ * Treats 'YYYY' as Jan 1 of that year, 'YYYY-MM' as the 1st of that month.
+ * Returns null if unparseable.
+ */
+export function parseDateLoose(s: string | null): Date | null {
+  if (!s) return null
+  const parts = s.split('-')
+  try {
+    const year = parseInt(parts[0], 10)
+    const month = parts[1] ? parseInt(parts[1], 10) - 1 : 0
+    const day = parts[2] ? parseInt(parts[2], 10) : 1
+    const d = new Date(year, month, day)
+    if (isNaN(d.getTime())) return null
+    return d
+  } catch {
+    return null
+  }
+}

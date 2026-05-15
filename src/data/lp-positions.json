@@ -1,0 +1,82 @@
+[
+  {
+    "id": "lp-001",
+    "familyOfficeId": "al-khor-holding",
+    "fundId": "golden-gate-ventures-mena-fund-i",
+    "commitmentAmountUsd": null,
+    "commitmentDate": "2024-05",
+    "notes": "Anchor LP. Part of $20M total Qatari family commitment alongside Al Attiya and Sheikh Jassim.",
+    "sourceUrls": ["https://www.qfc.qa/en/media-centre/news/list/qfc-golden-gate-mou"],
+    "confidence": "public"
+  },
+  {
+    "id": "lp-002",
+    "familyOfficeId": "al-attiya-group",
+    "fundId": "golden-gate-ventures-mena-fund-i",
+    "commitmentAmountUsd": null,
+    "commitmentDate": "2024-05",
+    "notes": "Anchor LP. Part of $20M Qatari family commitment.",
+    "sourceUrls": ["https://www.qfc.qa/en/media-centre/news/list/qfc-golden-gate-mou"],
+    "confidence": "public"
+  },
+  {
+    "id": "lp-003",
+    "familyOfficeId": "sheikh-jassim-bin-jabor-al-thani",
+    "fundId": "golden-gate-ventures-mena-fund-i",
+    "commitmentAmountUsd": null,
+    "commitmentDate": "2024-05",
+    "notes": "Individual LP. Part of $20M Qatari family commitment.",
+    "sourceUrls": ["https://www.qfc.qa/en/media-centre/news/list/qfc-golden-gate-mou", "https://www.gulf-times.com/article/682609/business/golden-gate-launches-100mn-mena-fund-i-first-global-venture-capital-fund-managed-in-qatar"],
+    "confidence": "public"
+  },
+  {
+    "id": "lp-004",
+    "familyOfficeId": "al-faisaliah-group",
+    "fundId": "nuwa-capital-fund-i",
+    "commitmentAmountUsd": null,
+    "commitmentDate": "2021",
+    "notes": "Anchor LP at first close ($75M). Strategic partner helping portfolio cos enter Saudi market.",
+    "sourceUrls": ["https://www.menabytes.com/nuwa-capital-first-close/"],
+    "confidence": "public"
+  },
+  {
+    "id": "lp-005",
+    "familyOfficeId": "ce-ventures-crescent",
+    "fundId": "wamda-capital-fund-i",
+    "commitmentAmountUsd": null,
+    "commitmentDate": null,
+    "notes": "Named LP per CE-Ventures public profile.",
+    "sourceUrls": ["https://www.crescententerprises.com/what-we-do/ce-ventures/"],
+    "confidence": "public"
+  },
+  {
+    "id": "lp-006",
+    "familyOfficeId": "ce-ventures-crescent",
+    "fundId": "jungle-ventures-iii",
+    "commitmentAmountUsd": null,
+    "commitmentDate": null,
+    "notes": "LPAC member.",
+    "sourceUrls": ["https://www.crescententerprises.com/what-we-do/ce-ventures/"],
+    "confidence": "public"
+  },
+  {
+    "id": "lp-007",
+    "familyOfficeId": "ce-ventures-crescent",
+    "fundId": "b-capital-ii",
+    "commitmentAmountUsd": null,
+    "commitmentDate": null,
+    "notes": "Named LP.",
+    "sourceUrls": ["https://www.crescententerprises.com/what-we-do/ce-ventures/"],
+    "confidence": "public"
+  },
+  {
+    "id": "lp-008",
+    "familyOfficeId": "ce-ventures-crescent",
+    "fundId": "dcvc-vi",
+    "commitmentAmountUsd": null,
+    "commitmentDate": null,
+    "notes": "Named LP.",
+    "sourceUrls": ["https://www.crescententerprises.com/what-we-do/ce-ventures/"],
+    "confidence": "public"
+  }
+]

@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { Sun, Moon, Plus, MoreVertical, Download, Upload, RotateCcw, Settings } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import {
@@ -29,6 +29,7 @@ export function Layout({ children }: LayoutProps) {
   const [newFOOpen, setNewFOOpen] = useState(false)
   const [resetOpen, setResetOpen] = useState(false)
   const navigate = useNavigate()
+  const location = useLocation()
 
   const resetAll = useStore((s) => s.resetAll)
   const exportJSON = useStore((s) => s.exportJSON)
@@ -83,17 +84,44 @@ export function Layout({ children }: LayoutProps) {
     <div className="min-h-screen flex flex-col bg-background">
       <header className="sticky top-0 z-20 border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between gap-4">
-          <Link
-            to="/"
-            className="flex flex-col leading-tight hover:opacity-80 transition-opacity"
-          >
-            <span className="text-sm font-semibold text-foreground tracking-tight">
-              Family Offices CRM
-            </span>
-            <span className="text-[10px] text-muted-foreground font-normal tracking-wide uppercase">
-              ME family offices &mdash; sub-$100M VC
-            </span>
-          </Link>
+          <div className="flex items-center gap-4">
+            <Link
+              to="/"
+              className="flex flex-col leading-tight hover:opacity-80 transition-opacity"
+            >
+              <span className="text-sm font-semibold text-foreground tracking-tight">
+                Family Offices CRM
+              </span>
+              <span className="text-[10px] text-muted-foreground font-normal tracking-wide uppercase">
+                ME family offices &mdash; sub-$100M VC
+              </span>
+            </Link>
+            {/* Top-level nav */}
+            <nav className="hidden sm:flex items-center gap-1">
+              <Link
+                to="/"
+                className={
+                  'rounded-md px-3 py-1.5 text-xs font-medium transition-colors ' +
+                  (location.pathname === '/'
+                    ? 'bg-primary/10 text-primary'
+                    : 'text-muted-foreground hover:text-foreground hover:bg-muted')
+                }
+              >
+                Family Offices
+              </Link>
+              <Link
+                to="/funds"
+                className={
+                  'rounded-md px-3 py-1.5 text-xs font-medium transition-colors ' +
+                  (location.pathname.startsWith('/funds')
+                    ? 'bg-primary/10 text-primary'
+                    : 'text-muted-foreground hover:text-foreground hover:bg-muted')
+                }
+              >
+                Funds
+              </Link>
+            </nav>
+          </div>
 
           <div className="flex items-center gap-1.5">
             {/* New FO button */}
@@ -164,7 +192,7 @@ export function Layout({ children }: LayoutProps) {
       <footer className="border-t border-border mt-auto">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 h-10 flex items-center">
           <p className="text-xs text-muted-foreground">
-            v0.3.0 &mdash; Sprint 3 &mdash; full CRUD
+            v0.4.0 &mdash; Sprint 4 &mdash; Funds, LP Positions, Direct Investments
           </p>
         </div>
       </footer>

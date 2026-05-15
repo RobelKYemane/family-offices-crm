@@ -110,6 +110,30 @@ export function Settings() {
           <StatRow label="Hidden seed entries" value={stats.hiddenFOs} />
           <StatRow label="Favorited" value={stats.favorites} />
           <StatRow label="Contacts added" value={stats.createdContacts} />
+          <div className="pt-3 mt-2 border-t border-border space-y-1">
+            <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide pb-1">
+              Funds
+            </p>
+            <StatRow label="Seed funds" value={stats.seedFunds} />
+            <StatRow label="User-created funds" value={stats.createdFunds} />
+            <StatRow label="Hidden funds" value={stats.hiddenFunds} />
+          </div>
+          <div className="pt-3 mt-2 border-t border-border space-y-1">
+            <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide pb-1">
+              LP Positions
+            </p>
+            <StatRow label="Seed LP positions" value={stats.seedLPs} />
+            <StatRow label="User-created LP positions" value={stats.createdLPs} />
+            <StatRow label="Hidden LP positions" value={stats.hiddenLPs} />
+          </div>
+          <div className="pt-3 mt-2 border-t border-border space-y-1">
+            <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide pb-1">
+              Direct Investments
+            </p>
+            <StatRow label="Seed direct investments" value={stats.seedDIs} />
+            <StatRow label="User-created direct investments" value={stats.createdDIs} />
+            <StatRow label="Hidden direct investments" value={stats.hiddenDIs} />
+          </div>
           <div className="pt-3 mt-2 border-t border-border">
             <StatRow
               label="Storage used"

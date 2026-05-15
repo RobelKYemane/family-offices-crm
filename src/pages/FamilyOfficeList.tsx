@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Search, X, ChevronUp, ChevronDown, SlidersHorizontal, Star, Eye } from 'lucide-react'
+import { Search, X, ChevronUp, ChevronDown, SlidersHorizontal, Star, Eye, Clock } from 'lucide-react'
 import { familyOffices as seedFOs } from '@/data/familyOffices'
 import type { FamilyOffice } from '@/data/familyOffices'
 import { Badge } from '@/components/ui/badge'
@@ -12,6 +12,7 @@ import {
   useAllFOs,
   useHiddenFOs,
   useStore,
+  useActive24moIds,
 } from '@/lib/store'
 
 type SortField = 'name' | 'aum' | 'activity'
@@ -115,7 +116,11 @@ export function FamilyOfficeList() {
   const [infoDismissed, setInfoDismissed] = useState(false)
   const [filtersOpen, setFiltersOpen] = useState(false)
   const [favoritesOnly, setFavoritesOnly] = useState(false)
+  const [active24mo, setActive24mo] = useState(false)
   const [showHidden, setShowHidden] = useState(false)
+
+  // Pre-compute set of FO ids active in last 24 months — single store subscription.
+  const active24moIds = useActive24moIds()
 
   // Derive filter options from the merged (visible) list
   const allCountries = useMemo(
@@ -142,6 +147,7 @@ export function FamilyOfficeList() {
     return allFOs
       .filter((fo) => {
         if (favoritesOnly && !favorites.includes(fo.id)) return false
+        if (active24mo && !active24moIds.has(fo.id)) return false
         if (
           q &&
           !fo.name.toLowerCase().includes(q) &&
@@ -171,7 +177,7 @@ export function FamilyOfficeList() {
         const bVal = b.lastKnownActivityYear ?? 0
         return sortDir === 'asc' ? aVal - bVal : bVal - aVal
       })
-  }, [allFOs, search, selectedCountries, selectedStatuses, selectedTags, sortField, sortDir, favoritesOnly, favorites])
+  }, [allFOs, search, selectedCountries, selectedStatuses, selectedTags, sortField, sortDir, favoritesOnly, favorites, active24mo, active24moIds])
 
   function handleSort(field: SortField) {
     if (sortField === field) {
@@ -197,7 +203,8 @@ export function FamilyOfficeList() {
     selectedCountries.size > 0 ||
     selectedStatuses.size > 0 ||
     selectedTags.size > 0 ||
-    favoritesOnly
+    favoritesOnly ||
+    active24mo
 
   function clearFilters() {
     setSearch('')
@@ -205,6 +212,7 @@ export function FamilyOfficeList() {
     setSelectedStatuses(new Set())
     setSelectedTags(new Set())
     setFavoritesOnly(false)
+    setActive24mo(false)
   }
 
   const totalCount = allFOs.length
@@ -266,7 +274,7 @@ export function FamilyOfficeList() {
           </Button>
         </div>
 
-        {/* Quick chips: Favorites + Hidden toggle */}
+        {/* Quick chips: Favorites + Active24mo + Hidden toggle */}
         <div className="flex items-center gap-2 flex-wrap">
           <button
             onClick={() => setFavoritesOnly((v) => !v)}
@@ -283,6 +291,22 @@ export function FamilyOfficeList() {
               <span className={cn('tabular-nums', favoritesOnly ? 'opacity-80' : 'opacity-60')}>
                 {favCount}
               </span>
+            )}
+          </button>
+
+          <button
+            onClick={() => setActive24mo((v) => !v)}
+            className={cn(
+              'inline-flex items-center gap-1.5 rounded-full border px-2.5 py-0.5 text-xs font-medium transition-colors',
+              active24mo
+                ? 'border-emerald-400 bg-emerald-400/10 text-emerald-600 dark:text-emerald-400'
+                : 'border-border text-muted-foreground hover:border-foreground/30 hover:text-foreground'
+            )}
+          >
+            <Clock className="h-3 w-3" />
+            Active 24mo
+            {active24mo && active24moIds.size > 0 && (
+              <span className="tabular-nums opacity-80">{active24moIds.size}</span>
             )}
           </button>
 

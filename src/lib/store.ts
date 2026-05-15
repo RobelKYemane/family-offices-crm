@@ -3,9 +3,13 @@
  * localStorage key: 'family-offices-crm:v1'
  *
  * Architecture:
- *   - Seed data (familyOffices / contacts) is read-only.
+ *   - Seed data (familyOffices / contacts / funds / lpPositions / directInvestments) is read-only.
  *   - User edits are stored as overrides / createdRecords / hiddenIds in localStorage.
  *   - At read time the two layers are merged: seed + overrides.
+ *
+ * v1 → v2: adds fundOverrides, fundCreated, fundHidden,
+ *           lpOverrides, lpCreated, lpHidden,
+ *           diOverrides, diCreated, diHidden
  */
 
 import { create } from 'zustand'
@@ -13,9 +17,16 @@ import { persist, createJSONStorage } from 'zustand/middleware'
 import {
   familyOffices as seedFOs,
   contacts as seedContacts,
+  funds as seedFunds,
+  lpPositions as seedLPs,
+  directInvestments as seedDIs,
   type FamilyOffice,
   type Contact,
+  type Fund,
+  type LPPosition,
+  type DirectInvestment,
 } from '@/data/familyOffices'
+import { parseDateLoose } from '@/lib/utils'
 
 // ─── Persisted shape ──────────────────────────────────────────────────────────
 
@@ -27,6 +38,16 @@ export interface PersistedState {
   contactCreated: Contact[]
   contactHidden: string[]
   favorites: string[]
+  // Sprint 4
+  fundOverrides: Record<string, Partial<Fund>>
+  fundCreated: Fund[]
+  fundHidden: string[]
+  lpOverrides: Record<string, Partial<LPPosition>>
+  lpCreated: LPPosition[]
+  lpHidden: string[]
+  diOverrides: Record<string, Partial<DirectInvestment>>
+  diCreated: DirectInvestment[]
+  diHidden: string[]
 }
 
 // ─── Store actions ────────────────────────────────────────────────────────────
@@ -46,6 +67,24 @@ interface StoreActions {
 
   // Favorites
   toggleFavorite: (id: string) => void
+
+  // Fund mutations
+  createFund: (input: Omit<Fund, 'id'>) => string
+  updateFund: (id: string, patch: Partial<Fund>) => void
+  deleteFund: (id: string) => void
+  restoreFund: (id: string) => void
+
+  // LP position mutations
+  createLPPosition: (input: Omit<LPPosition, 'id'>) => string
+  updateLPPosition: (id: string, patch: Partial<LPPosition>) => void
+  deleteLPPosition: (id: string) => void
+  restoreLPPosition: (id: string) => void
+
+  // Direct investment mutations
+  createDirectInvestment: (input: Omit<DirectInvestment, 'id'>) => string
+  updateDirectInvestment: (id: string, patch: Partial<DirectInvestment>) => void
+  deleteDirectInvestment: (id: string) => void
+  restoreDirectInvestment: (id: string) => void
 
   // Data management
   resetAll: () => void
@@ -77,6 +116,16 @@ function newContactId(existing: string[]): string {
   return uniqueId(base, existing)
 }
 
+function newLPId(existing: string[]): string {
+  const base = `lp-${Date.now()}`
+  return uniqueId(base, existing)
+}
+
+function newDIId(existing: string[]): string {
+  const base = `di-${Date.now()}`
+  return uniqueId(base, existing)
+}
+
 // ─── Empty state ─────────────────────────────────────────────────────────────
 
 const emptyState: PersistedState = {
@@ -87,6 +136,16 @@ const emptyState: PersistedState = {
   contactCreated: [],
   contactHidden: [],
   favorites: [],
+  // Sprint 4
+  fundOverrides: {},
+  fundCreated: [],
+  fundHidden: [],
+  lpOverrides: {},
+  lpCreated: [],
+  lpHidden: [],
+  diOverrides: {},
+  diCreated: [],
+  diHidden: [],
 }
 
 // ─── Store ───────────────────────────────────────────────────────────────────
@@ -197,6 +256,142 @@ export const useStore = create<StoreState>()(
         }))
       },
 
+      // ── Fund mutations ───────────────────────────────────────────────────────
+
+      createFund(input) {
+        const state = get()
+        const allIds = [
+          ...seedFunds.map((f) => f.id),
+          ...state.fundCreated.map((f) => f.id),
+        ]
+        const id = uniqueId(
+          slugify(input.name) || crypto.randomUUID(),
+          allIds
+        )
+        const newFund: Fund = { id, ...input }
+        set((s) => ({ fundCreated: [...s.fundCreated, newFund] }))
+        return id
+      },
+
+      updateFund(id, patch) {
+        const isSeed = seedFunds.some((f) => f.id === id)
+        if (isSeed) {
+          set((s) => ({
+            fundOverrides: {
+              ...s.fundOverrides,
+              [id]: { ...s.fundOverrides[id], ...patch },
+            },
+          }))
+        } else {
+          set((s) => ({
+            fundCreated: s.fundCreated.map((f) =>
+              f.id === id ? { ...f, ...patch } : f
+            ),
+          }))
+        }
+      },
+
+      deleteFund(id) {
+        const isSeed = seedFunds.some((f) => f.id === id)
+        if (isSeed) {
+          set((s) => ({ fundHidden: [...s.fundHidden.filter((x) => x !== id), id] }))
+        } else {
+          set((s) => ({ fundCreated: s.fundCreated.filter((f) => f.id !== id) }))
+        }
+      },
+
+      restoreFund(id) {
+        set((s) => ({ fundHidden: s.fundHidden.filter((x) => x !== id) }))
+      },
+
+      // ── LP Position mutations ────────────────────────────────────────────────
+
+      createLPPosition(input) {
+        const allIds = [
+          ...seedLPs.map((l) => l.id),
+          ...get().lpCreated.map((l) => l.id),
+        ]
+        const id = newLPId(allIds)
+        const newLP: LPPosition = { id, ...input }
+        set((s) => ({ lpCreated: [...s.lpCreated, newLP] }))
+        return id
+      },
+
+      updateLPPosition(id, patch) {
+        const isSeed = seedLPs.some((l) => l.id === id)
+        if (isSeed) {
+          set((s) => ({
+            lpOverrides: {
+              ...s.lpOverrides,
+              [id]: { ...s.lpOverrides[id], ...patch },
+            },
+          }))
+        } else {
+          set((s) => ({
+            lpCreated: s.lpCreated.map((l) =>
+              l.id === id ? { ...l, ...patch } : l
+            ),
+          }))
+        }
+      },
+
+      deleteLPPosition(id) {
+        const isSeed = seedLPs.some((l) => l.id === id)
+        if (isSeed) {
+          set((s) => ({ lpHidden: [...s.lpHidden.filter((x) => x !== id), id] }))
+        } else {
+          set((s) => ({ lpCreated: s.lpCreated.filter((l) => l.id !== id) }))
+        }
+      },
+
+      restoreLPPosition(id) {
+        set((s) => ({ lpHidden: s.lpHidden.filter((x) => x !== id) }))
+      },
+
+      // ── Direct Investment mutations ──────────────────────────────────────────
+
+      createDirectInvestment(input) {
+        const allIds = [
+          ...seedDIs.map((d) => d.id),
+          ...get().diCreated.map((d) => d.id),
+        ]
+        const id = newDIId(allIds)
+        const newDI: DirectInvestment = { id, ...input }
+        set((s) => ({ diCreated: [...s.diCreated, newDI] }))
+        return id
+      },
+
+      updateDirectInvestment(id, patch) {
+        const isSeed = seedDIs.some((d) => d.id === id)
+        if (isSeed) {
+          set((s) => ({
+            diOverrides: {
+              ...s.diOverrides,
+              [id]: { ...s.diOverrides[id], ...patch },
+            },
+          }))
+        } else {
+          set((s) => ({
+            diCreated: s.diCreated.map((d) =>
+              d.id === id ? { ...d, ...patch } : d
+            ),
+          }))
+        }
+      },
+
+      deleteDirectInvestment(id) {
+        const isSeed = seedDIs.some((d) => d.id === id)
+        if (isSeed) {
+          set((s) => ({ diHidden: [...s.diHidden.filter((x) => x !== id), id] }))
+        } else {
+          set((s) => ({ diCreated: s.diCreated.filter((d) => d.id !== id) }))
+        }
+      },
+
+      restoreDirectInvestment(id) {
+        set((s) => ({ diHidden: s.diHidden.filter((x) => x !== id) }))
+      },
+
       // ── Data management ─────────────────────────────────────────────────────
 
       resetAll() {
@@ -212,6 +407,15 @@ export const useStore = create<StoreState>()(
           contactCreated,
           contactHidden,
           favorites,
+          fundOverrides,
+          fundCreated,
+          fundHidden,
+          lpOverrides,
+          lpCreated,
+          lpHidden,
+          diOverrides,
+          diCreated,
+          diHidden,
         } = get()
         return JSON.stringify(
           {
@@ -222,6 +426,15 @@ export const useStore = create<StoreState>()(
             contactCreated,
             contactHidden,
             favorites,
+            fundOverrides,
+            fundCreated,
+            fundHidden,
+            lpOverrides,
+            lpCreated,
+            lpHidden,
+            diOverrides,
+            diCreated,
+            diHidden,
           },
           null,
           2
@@ -239,6 +452,15 @@ export const useStore = create<StoreState>()(
             contactCreated: parsed.contactCreated ?? [],
             contactHidden: parsed.contactHidden ?? [],
             favorites: parsed.favorites ?? [],
+            fundOverrides: parsed.fundOverrides ?? {},
+            fundCreated: parsed.fundCreated ?? [],
+            fundHidden: parsed.fundHidden ?? [],
+            lpOverrides: parsed.lpOverrides ?? {},
+            lpCreated: parsed.lpCreated ?? [],
+            lpHidden: parsed.lpHidden ?? [],
+            diOverrides: parsed.diOverrides ?? {},
+            diCreated: parsed.diCreated ?? [],
+            diHidden: parsed.diHidden ?? [],
           })
         } catch {
           throw new Error('Invalid JSON — could not import.')
@@ -246,9 +468,25 @@ export const useStore = create<StoreState>()(
       },
     }),
     {
-      name: 'family-offices-crm:v1', // localStorage key
-      version: 1,
+      name: 'family-offices-crm:v1', // localStorage key stays same; version field bumped below
+      version: 2,
       storage: createJSONStorage(() => localStorage),
+      migrate(persistedState, fromVersion) {
+        const s = persistedState as Partial<PersistedState>
+        if (fromVersion < 2) {
+          // v1 → v2: add Sprint 4 fields
+          s.fundOverrides = s.fundOverrides ?? {}
+          s.fundCreated = s.fundCreated ?? []
+          s.fundHidden = s.fundHidden ?? []
+          s.lpOverrides = s.lpOverrides ?? {}
+          s.lpCreated = s.lpCreated ?? []
+          s.lpHidden = s.lpHidden ?? []
+          s.diOverrides = s.diOverrides ?? {}
+          s.diCreated = s.diCreated ?? []
+          s.diHidden = s.diHidden ?? []
+        }
+        return s as PersistedState
+      },
     }
   )
 )
@@ -337,6 +575,185 @@ export function useAllTags(): string[] {
   })
 }
 
+// ── Fund selectors ────────────────────────────────────────────────────────────
+
+/** All funds: seed (minus hidden) with overrides applied, then user-created. */
+export function useAllFunds(): Fund[] {
+  return useStore((s) => {
+    const merged = seedFunds
+      .filter((f) => !s.fundHidden.includes(f.id))
+      .map((f) =>
+        s.fundOverrides[f.id]
+          ? ({ ...f, ...s.fundOverrides[f.id] } as Fund)
+          : f
+      )
+    return [...merged, ...s.fundCreated]
+  })
+}
+
+/** Single fund by id. */
+export function useFund(id: string | undefined): Fund | undefined {
+  return useStore((s) => {
+    if (!id) return undefined
+    const seed = seedFunds.find((f) => f.id === id)
+    if (seed) return s.fundOverrides[id] ? ({ ...seed, ...s.fundOverrides[id] } as Fund) : seed
+    return s.fundCreated.find((f) => f.id === id)
+  })
+}
+
+// ── LP Position selectors ─────────────────────────────────────────────────────
+
+/** All LP positions: seed (minus hidden) with overrides, then user-created. */
+export function useAllLPPositions(): LPPosition[] {
+  return useStore((s) => {
+    const merged = seedLPs
+      .filter((l) => !s.lpHidden.includes(l.id))
+      .map((l) =>
+        s.lpOverrides[l.id]
+          ? ({ ...l, ...s.lpOverrides[l.id] } as LPPosition)
+          : l
+      )
+    return [...merged, ...s.lpCreated]
+  })
+}
+
+/** LP positions for a specific family office. */
+export function useLPPositionsForFO(foId: string): LPPosition[] {
+  return useStore((s) => {
+    const seedForFO = seedLPs
+      .filter((l) => l.familyOfficeId === foId && !s.lpHidden.includes(l.id))
+      .map((l) =>
+        s.lpOverrides[l.id]
+          ? ({ ...l, ...s.lpOverrides[l.id] } as LPPosition)
+          : l
+      )
+    const createdForFO = s.lpCreated.filter((l) => l.familyOfficeId === foId)
+    return [...seedForFO, ...createdForFO]
+  })
+}
+
+/** LP positions for a specific fund. */
+export function useLPPositionsForFund(fundId: string): LPPosition[] {
+  return useStore((s) => {
+    const seedForFund = seedLPs
+      .filter((l) => l.fundId === fundId && !s.lpHidden.includes(l.id))
+      .map((l) =>
+        s.lpOverrides[l.id]
+          ? ({ ...l, ...s.lpOverrides[l.id] } as LPPosition)
+          : l
+      )
+    const createdForFund = s.lpCreated.filter((l) => l.fundId === fundId)
+    return [...seedForFund, ...createdForFund]
+  })
+}
+
+// ── Direct Investment selectors ───────────────────────────────────────────────
+
+/** All direct investments: seed (minus hidden) with overrides, then user-created. */
+export function useAllDirectInvestments(): DirectInvestment[] {
+  return useStore((s) => {
+    const merged = seedDIs
+      .filter((d) => !s.diHidden.includes(d.id))
+      .map((d) =>
+        s.diOverrides[d.id]
+          ? ({ ...d, ...s.diOverrides[d.id] } as DirectInvestment)
+          : d
+      )
+    return [...merged, ...s.diCreated]
+  })
+}
+
+/** Direct investments for a specific family office. */
+export function useDirectInvestmentsForFO(foId: string): DirectInvestment[] {
+  return useStore((s) => {
+    const seedForFO = seedDIs
+      .filter((d) => d.familyOfficeId === foId && !s.diHidden.includes(d.id))
+      .map((d) =>
+        s.diOverrides[d.id]
+          ? ({ ...d, ...s.diOverrides[d.id] } as DirectInvestment)
+          : d
+      )
+    const createdForFO = s.diCreated.filter((d) => d.familyOfficeId === foId)
+    return [...seedForFO, ...createdForFO]
+  })
+}
+
+// ── Activity helper ───────────────────────────────────────────────────────────
+
+/** TODAY used for 24-month window (matches spec: 2026-05-15). */
+const TODAY = new Date()
+
+/**
+ * Returns true if this FO has any LP commitment or DI deal
+ * with a date within the last 24 months.
+ * Null dates → unknown → not counted as "active".
+ */
+export function useFOActiveInLast24Months(foId: string): boolean {
+  return useStore((s) => {
+    const cutoff = new Date(TODAY)
+    cutoff.setMonth(cutoff.getMonth() - 24)
+
+    const lps = [
+      ...seedLPs.filter((l) => l.familyOfficeId === foId && !s.lpHidden.includes(l.id))
+        .map((l) => s.lpOverrides[l.id] ? { ...l, ...s.lpOverrides[l.id] } as LPPosition : l),
+      ...s.lpCreated.filter((l) => l.familyOfficeId === foId),
+    ]
+    for (const lp of lps) {
+      const d = parseDateLoose(lp.commitmentDate)
+      if (d && d >= cutoff) return true
+    }
+
+    const dis = [
+      ...seedDIs.filter((d) => d.familyOfficeId === foId && !s.diHidden.includes(d.id))
+        .map((d) => s.diOverrides[d.id] ? { ...d, ...s.diOverrides[d.id] } as DirectInvestment : d),
+      ...s.diCreated.filter((d) => d.familyOfficeId === foId),
+    ]
+    for (const di of dis) {
+      const d = parseDateLoose(di.dealDate)
+      if (d && d >= cutoff) return true
+    }
+
+    return false
+  })
+}
+
+/**
+ * Returns a Set of FO ids that have LP commitment or DI deal within last 24 months.
+ * Single store subscription — safe to use in list components.
+ */
+export function useActive24moIds(): Set<string> {
+  return useStore((s) => {
+    const cutoff = new Date()
+    cutoff.setMonth(cutoff.getMonth() - 24)
+
+    const activeIds = new Set<string>()
+
+    const allLPs = [
+      ...seedLPs
+        .filter((l) => !s.lpHidden.includes(l.id))
+        .map((l) => s.lpOverrides[l.id] ? { ...l, ...s.lpOverrides[l.id] } as LPPosition : l),
+      ...s.lpCreated,
+    ]
+    for (const lp of allLPs) {
+      const d = parseDateLoose(lp.commitmentDate)
+      if (d && d >= cutoff) activeIds.add(lp.familyOfficeId)
+    }
+
+    const allDIs = [
+      ...seedDIs
+        .filter((d) => !s.diHidden.includes(d.id))
+        .map((d) => s.diOverrides[d.id] ? { ...d, ...s.diOverrides[d.id] } as DirectInvestment : d),
+      ...s.diCreated,
+    ]
+    for (const di of allDIs) {
+      const d = parseDateLoose(di.dealDate)
+      if (d && d >= cutoff) activeIds.add(di.familyOfficeId)
+    }
+
+    return activeIds
+  })
+}
+
 /** Count stats for settings page. */
 export function useStats() {
   return useStore((s) => ({
@@ -348,5 +765,15 @@ export function useStats() {
     hiddenFOs: s.foHidden.length,
     favorites: s.favorites.length,
     createdContacts: s.contactCreated.length,
+    // Sprint 4
+    seedFunds: seedFunds.length,
+    createdFunds: s.fundCreated.length,
+    hiddenFunds: s.fundHidden.length,
+    seedLPs: seedLPs.length,
+    createdLPs: s.lpCreated.length,
+    hiddenLPs: s.lpHidden.length,
+    seedDIs: seedDIs.length,
+    createdDIs: s.diCreated.length,
+    hiddenDIs: s.diHidden.length,
   }))
 }

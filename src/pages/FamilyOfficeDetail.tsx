@@ -13,9 +13,11 @@ import {
   Trash2,
   MoreVertical,
   Plus,
+  TrendingUp,
+  Layers,
 } from 'lucide-react'
 import { familyOffices as seedFOs } from '@/data/familyOffices'
-import type { Contact } from '@/data/familyOffices'
+import type { Contact, LPPosition, DirectInvestment } from '@/data/familyOffices'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
@@ -29,8 +31,10 @@ import {
 import { FaviconChip } from '@/components/FaviconChip'
 import { FODialog } from '@/components/FODialog'
 import { ContactDialog } from '@/components/ContactDialog'
+import { LPPositionDialog } from '@/components/LPPositionDialog'
+import { DirectInvestmentDialog } from '@/components/DirectInvestmentDialog'
 import { ConfirmDialog } from '@/components/ConfirmDialog'
-import { formatAum, countryFlag, cn } from '@/lib/utils'
+import { formatAum, formatUsd, formatDate, countryFlag, cn } from '@/lib/utils'
 import {
   useFO,
   useContactsForFO,
@@ -38,6 +42,9 @@ import {
   useIsEdited,
   useIsCreated,
   useStore,
+  useLPPositionsForFO,
+  useDirectInvestmentsForFO,
+  useFund,
 } from '@/lib/store'
 
 const seedIdSet = new Set(seedFOs.map((f) => f.id))
@@ -169,7 +176,6 @@ function ContactCard({
           )}
         </div>
       </div>
-      {/* Edit / delete — always visible on mobile, hover on desktop */}
       <div className="flex items-center gap-1 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity shrink-0">
         <button
           onClick={() => onEdit(contact)}
@@ -190,6 +196,157 @@ function ContactCard({
   )
 }
 
+// ---- LP position row ─────────────────────────────────────────────────────
+
+function LPPositionRow({
+  lp,
+  onEdit,
+  onDelete,
+}: {
+  lp: LPPosition
+  onEdit: (l: LPPosition) => void
+  onDelete: (l: LPPosition) => void
+}) {
+  const fund = useFund(lp.fundId)
+
+  return (
+    <div className="group flex items-start gap-3 py-3 border-b border-border last:border-0">
+      <ConfidenceDot confidence={lp.confidence} />
+      <div className="flex-1 min-w-0 space-y-1">
+        <div className="flex flex-wrap items-center gap-2">
+          {fund ? (
+            <Link
+              to={`/funds/${fund.id}`}
+              className="text-sm font-medium text-primary hover:underline underline-offset-2"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {fund.name}
+            </Link>
+          ) : (
+            <span className="text-sm font-medium text-foreground">{lp.fundId}</span>
+          )}
+          {fund && (
+            <span className="text-xs text-muted-foreground">{fund.gpFirm}</span>
+          )}
+        </div>
+        <div className="flex flex-wrap gap-3 text-xs text-muted-foreground">
+          <span>
+            Commitment:{' '}
+            <span className="text-foreground font-mono">
+              {lp.commitmentAmountUsd !== null ? formatUsd(lp.commitmentAmountUsd) : '—'}
+            </span>
+          </span>
+          <span>
+            Date:{' '}
+            <span className="text-foreground">{formatDate(lp.commitmentDate)}</span>
+          </span>
+        </div>
+        {lp.notes && (
+          <p className="text-xs text-muted-foreground leading-relaxed">{lp.notes}</p>
+        )}
+        {lp.sourceUrls.length > 0 && (
+          <div className="flex flex-wrap gap-1.5 pt-1">
+            {lp.sourceUrls.map((url) => (
+              <FaviconChip key={url} url={url} />
+            ))}
+          </div>
+        )}
+      </div>
+      <div className="flex items-center gap-1 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity shrink-0">
+        <button
+          onClick={() => onEdit(lp)}
+          aria-label="Edit LP position"
+          className="rounded p-1 text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+        >
+          <Pencil className="h-3.5 w-3.5" />
+        </button>
+        <button
+          onClick={() => onDelete(lp)}
+          aria-label="Delete LP position"
+          className="rounded p-1 text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition-colors"
+        >
+          <Trash2 className="h-3.5 w-3.5" />
+        </button>
+      </div>
+    </div>
+  )
+}
+
+// ---- Direct investment row ───────────────────────────────────────────────
+
+function DirectInvestmentRow({
+  di,
+  onEdit,
+  onDelete,
+}: {
+  di: DirectInvestment
+  onEdit: (d: DirectInvestment) => void
+  onDelete: (d: DirectInvestment) => void
+}) {
+  return (
+    <div className="group flex items-start gap-3 py-3 border-b border-border last:border-0">
+      <ConfidenceDot confidence={di.confidence} />
+      <div className="flex-1 min-w-0 space-y-1">
+        <div className="flex flex-wrap items-center gap-2">
+          <span className="text-sm font-medium text-foreground">{di.companyName}</span>
+          {di.sector && (
+            <Badge variant="secondary" className="text-[10px]">{di.sector}</Badge>
+          )}
+          {di.stage && (
+            <Badge variant="outline" className="text-[10px] text-muted-foreground">{di.stage}</Badge>
+          )}
+        </div>
+        <div className="flex flex-wrap gap-3 text-xs text-muted-foreground">
+          {di.checkSizeUsd !== null && (
+            <span>
+              Check:{' '}
+              <span className="text-foreground font-mono">{formatUsd(di.checkSizeUsd)}</span>
+            </span>
+          )}
+          {di.roundSizeUsd !== null && (
+            <span>
+              Round:{' '}
+              <span className="text-foreground font-mono">{formatUsd(di.roundSizeUsd)}</span>
+            </span>
+          )}
+          {di.dealDate && (
+            <span>
+              Date:{' '}
+              <span className="text-foreground">{formatDate(di.dealDate)}</span>
+            </span>
+          )}
+        </div>
+        {di.notes && (
+          <p className="text-xs text-muted-foreground leading-relaxed">{di.notes}</p>
+        )}
+        {di.sourceUrls.length > 0 && (
+          <div className="flex flex-wrap gap-1.5 pt-1">
+            {di.sourceUrls.map((url) => (
+              <FaviconChip key={url} url={url} />
+            ))}
+          </div>
+        )}
+      </div>
+      <div className="flex items-center gap-1 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity shrink-0">
+        <button
+          onClick={() => onEdit(di)}
+          aria-label="Edit investment"
+          className="rounded p-1 text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+        >
+          <Pencil className="h-3.5 w-3.5" />
+        </button>
+        <button
+          onClick={() => onDelete(di)}
+          aria-label="Delete investment"
+          className="rounded p-1 text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition-colors"
+        >
+          <Trash2 className="h-3.5 w-3.5" />
+        </button>
+      </div>
+    </div>
+  )
+}
+
 // ---- main component ------------------------------------------------------
 
 export function FamilyOfficeDetail() {
@@ -197,6 +354,8 @@ export function FamilyOfficeDetail() {
   const navigate = useNavigate()
   const fo = useFO(id)
   const foContacts = useContactsForFO(id ?? '')
+  const lpPositions = useLPPositionsForFO(id ?? '')
+  const directInvestments = useDirectInvestmentsForFO(id ?? '')
   const isFav = useIsFavorite(id ?? '')
   const isEdited = useIsEdited(id ?? '')
   const isCreated = useIsCreated(id ?? '')
@@ -205,12 +364,24 @@ export function FamilyOfficeDetail() {
   const toggleFavorite = useStore((s) => s.toggleFavorite)
   const deleteFO = useStore((s) => s.deleteFO)
   const deleteContact = useStore((s) => s.deleteContact)
+  const deleteLPPosition = useStore((s) => s.deleteLPPosition)
+  const deleteDirectInvestment = useStore((s) => s.deleteDirectInvestment)
 
   const [editFOOpen, setEditFOOpen] = useState(false)
   const [deleteFOOpen, setDeleteFOOpen] = useState(false)
   const [addContactOpen, setAddContactOpen] = useState(false)
   const [editingContact, setEditingContact] = useState<Contact | null>(null)
   const [deletingContact, setDeletingContact] = useState<Contact | null>(null)
+
+  // LP dialog state
+  const [addLPOpen, setAddLPOpen] = useState(false)
+  const [editingLP, setEditingLP] = useState<LPPosition | null>(null)
+  const [deletingLP, setDeletingLP] = useState<LPPosition | null>(null)
+
+  // DI dialog state
+  const [addDIOpen, setAddDIOpen] = useState(false)
+  const [editingDI, setEditingDI] = useState<DirectInvestment | null>(null)
+  const [deletingDI, setDeletingDI] = useState<DirectInvestment | null>(null)
 
   if (!fo) {
     return (
@@ -370,7 +541,8 @@ export function FamilyOfficeDetail() {
       <div className="space-y-4">
 
         {/* LP Positions */}
-        <Section title="LP Positions">
+        <Section title="LP Positions" icon={Layers}>
+          {/* Free-text notes (legacy) */}
           {fo.lpActivityNotes ? (
             <p className="text-sm text-foreground leading-relaxed">{fo.lpActivityNotes}</p>
           ) : (
@@ -378,13 +550,45 @@ export function FamilyOfficeDetail() {
               No LP-in-VC-fund activity in public sources.
             </p>
           )}
-          <p className="mt-4 text-xs text-muted-foreground border-t border-border pt-3">
-            Structured LP fund tracking coming in Sprint 4.
-          </p>
+
+          {/* Structured LP commitments */}
+          <div className="mt-5">
+            <h3 className="text-sm font-semibold text-foreground mb-2">
+              Structured LP commitments
+            </h3>
+            {lpPositions.length > 0 ? (
+              <div className="-mt-1">
+                {lpPositions.map((lp) => (
+                  <LPPositionRow
+                    key={lp.id}
+                    lp={lp}
+                    onEdit={(l) => setEditingLP(l)}
+                    onDelete={(l) => setDeletingLP(l)}
+                  />
+                ))}
+              </div>
+            ) : (
+              <p className="text-sm text-muted-foreground italic mb-3">
+                No structured LP commitments tracked yet.
+              </p>
+            )}
+            <div className="mt-3">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setAddLPOpen(true)}
+                className="gap-1.5"
+              >
+                <Plus className="h-3.5 w-3.5" />
+                Add LP position
+              </Button>
+            </div>
+          </div>
         </Section>
 
         {/* Direct VC Investments */}
-        <Section title="Direct VC Investments">
+        <Section title="Direct VC Investments" icon={TrendingUp}>
+          {/* Free-text notes (legacy) */}
           {fo.directInvestNotes ? (
             <p className="text-sm text-foreground leading-relaxed">{fo.directInvestNotes}</p>
           ) : (
@@ -392,9 +596,40 @@ export function FamilyOfficeDetail() {
               No direct VC investment data in public sources.
             </p>
           )}
-          <p className="mt-4 text-xs text-muted-foreground border-t border-border pt-3">
-            Structured deal tracking coming in Sprint 4.
-          </p>
+
+          {/* Structured deals */}
+          <div className="mt-5">
+            <h3 className="text-sm font-semibold text-foreground mb-2">
+              Structured deals
+            </h3>
+            {directInvestments.length > 0 ? (
+              <div className="-mt-1">
+                {directInvestments.map((di) => (
+                  <DirectInvestmentRow
+                    key={di.id}
+                    di={di}
+                    onEdit={(d) => setEditingDI(d)}
+                    onDelete={(d) => setDeletingDI(d)}
+                  />
+                ))}
+              </div>
+            ) : (
+              <p className="text-sm text-muted-foreground italic mb-3">
+                No structured deals tracked yet.
+              </p>
+            )}
+            <div className="mt-3">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setAddDIOpen(true)}
+                className="gap-1.5"
+              >
+                <Plus className="h-3.5 w-3.5" />
+                Add deal
+              </Button>
+            </div>
+          </div>
         </Section>
 
         {/* Contacts */}
@@ -497,6 +732,70 @@ export function FamilyOfficeDetail() {
           confirmLabel="Delete"
           destructive
           onConfirm={() => deleteContact(deletingContact.id)}
+        />
+      )}
+
+      {/* Add LP position dialog */}
+      <LPPositionDialog
+        open={addLPOpen}
+        onOpenChange={setAddLPOpen}
+        mode="create"
+        familyOfficeId={fo.id}
+      />
+
+      {/* Edit LP position dialog */}
+      {editingLP && (
+        <LPPositionDialog
+          open={!!editingLP}
+          onOpenChange={(open) => { if (!open) setEditingLP(null) }}
+          mode="edit"
+          familyOfficeId={fo.id}
+          initial={editingLP}
+        />
+      )}
+
+      {/* Delete LP position confirm */}
+      {deletingLP && (
+        <ConfirmDialog
+          open={!!deletingLP}
+          onOpenChange={(open) => { if (!open) setDeletingLP(null) }}
+          title="Delete LP commitment?"
+          description="This LP commitment record will be removed."
+          confirmLabel="Delete"
+          destructive
+          onConfirm={() => deleteLPPosition(deletingLP.id)}
+        />
+      )}
+
+      {/* Add direct investment dialog */}
+      <DirectInvestmentDialog
+        open={addDIOpen}
+        onOpenChange={setAddDIOpen}
+        mode="create"
+        familyOfficeId={fo.id}
+      />
+
+      {/* Edit direct investment dialog */}
+      {editingDI && (
+        <DirectInvestmentDialog
+          open={!!editingDI}
+          onOpenChange={(open) => { if (!open) setEditingDI(null) }}
+          mode="edit"
+          familyOfficeId={fo.id}
+          initial={editingDI}
+        />
+      )}
+
+      {/* Delete direct investment confirm */}
+      {deletingDI && (
+        <ConfirmDialog
+          open={!!deletingDI}
+          onOpenChange={(open) => { if (!open) setDeletingDI(null) }}
+          title="Delete investment?"
+          description={`Remove the ${deletingDI.companyName} deal from this family office?`}
+          confirmLabel="Delete"
+          destructive
+          onConfirm={() => deleteDirectInvestment(deletingDI.id)}
         />
       )}
     </div>
