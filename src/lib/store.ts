@@ -10,6 +10,7 @@
  * v1 → v2: adds fundOverrides, fundCreated, fundHidden,
  *           lpOverrides, lpCreated, lpHidden,
  *           diOverrides, diCreated, diHidden
+ * v2 → v3: adds interactionsCreated, tasksCreated (Sprint 5)
  */
 
 import { create } from 'zustand'
@@ -25,6 +26,8 @@ import {
   type Fund,
   type LPPosition,
   type DirectInvestment,
+  type Interaction,
+  type Task,
 } from '@/data/familyOffices'
 import { parseDateLoose } from '@/lib/utils'
 
@@ -48,6 +51,9 @@ export interface PersistedState {
   diOverrides: Record<string, Partial<DirectInvestment>>
   diCreated: DirectInvestment[]
   diHidden: string[]
+  // Sprint 5
+  interactionsCreated: Interaction[]
+  tasksCreated: Task[]
 }
 
 // ─── Store actions ────────────────────────────────────────────────────────────
@@ -85,6 +91,17 @@ interface StoreActions {
   updateDirectInvestment: (id: string, patch: Partial<DirectInvestment>) => void
   deleteDirectInvestment: (id: string) => void
   restoreDirectInvestment: (id: string) => void
+
+  // Interaction mutations (Sprint 5)
+  createInteraction: (input: Omit<Interaction, 'id'>) => string
+  updateInteraction: (id: string, patch: Partial<Omit<Interaction, 'id'>>) => void
+  deleteInteraction: (id: string) => void
+
+  // Task mutations (Sprint 5)
+  createTask: (input: Omit<Task, 'id'>) => string
+  updateTask: (id: string, patch: Partial<Omit<Task, 'id'>>) => void
+  deleteTask: (id: string) => void
+  toggleTaskDone: (id: string) => void
 
   // Data management
   resetAll: () => void
@@ -146,6 +163,9 @@ const emptyState: PersistedState = {
   diOverrides: {},
   diCreated: [],
   diHidden: [],
+  // Sprint 5
+  interactionsCreated: [],
+  tasksCreated: [],
 }
 
 // ─── Store ───────────────────────────────────────────────────────────────────
@@ -392,6 +412,62 @@ export const useStore = create<StoreState>()(
         set((s) => ({ diHidden: s.diHidden.filter((x) => x !== id) }))
       },
 
+      // ── Interaction mutations (Sprint 5) ─────────────────────────────────────
+
+      createInteraction(input) {
+        const id = crypto.randomUUID()
+        const newInteraction: Interaction = { id, ...input }
+        set((s) => ({ interactionsCreated: [...s.interactionsCreated, newInteraction] }))
+        return id
+      },
+
+      updateInteraction(id, patch) {
+        set((s) => ({
+          interactionsCreated: s.interactionsCreated.map((i) =>
+            i.id === id ? { ...i, ...patch } : i
+          ),
+        }))
+      },
+
+      deleteInteraction(id) {
+        set((s) => ({
+          interactionsCreated: s.interactionsCreated.filter((i) => i.id !== id),
+        }))
+      },
+
+      // ── Task mutations (Sprint 5) ─────────────────────────────────────────────
+
+      createTask(input) {
+        const id = crypto.randomUUID()
+        const newTask: Task = { id, ...input }
+        set((s) => ({ tasksCreated: [...s.tasksCreated, newTask] }))
+        return id
+      },
+
+      updateTask(id, patch) {
+        set((s) => ({
+          tasksCreated: s.tasksCreated.map((t) =>
+            t.id === id ? { ...t, ...patch } : t
+          ),
+        }))
+      },
+
+      deleteTask(id) {
+        set((s) => ({
+          tasksCreated: s.tasksCreated.filter((t) => t.id !== id),
+        }))
+      },
+
+      toggleTaskDone(id) {
+        set((s) => ({
+          tasksCreated: s.tasksCreated.map((t) => {
+            if (t.id !== id) return t
+            const done = !t.done
+            return { ...t, done, doneAt: done ? new Date().toISOString() : null }
+          }),
+        }))
+      },
+
       // ── Data management ─────────────────────────────────────────────────────
 
       resetAll() {
@@ -416,6 +492,8 @@ export const useStore = create<StoreState>()(
           diOverrides,
           diCreated,
           diHidden,
+          interactionsCreated,
+          tasksCreated,
         } = get()
         return JSON.stringify(
           {
@@ -435,6 +513,8 @@ export const useStore = create<StoreState>()(
             diOverrides,
             diCreated,
             diHidden,
+            interactionsCreated,
+            tasksCreated,
           },
           null,
           2
@@ -461,6 +541,8 @@ export const useStore = create<StoreState>()(
             diOverrides: parsed.diOverrides ?? {},
             diCreated: parsed.diCreated ?? [],
             diHidden: parsed.diHidden ?? [],
+            interactionsCreated: parsed.interactionsCreated ?? [],
+            tasksCreated: parsed.tasksCreated ?? [],
           })
         } catch {
           throw new Error('Invalid JSON — could not import.')
@@ -469,7 +551,7 @@ export const useStore = create<StoreState>()(
     }),
     {
       name: 'family-offices-crm:v1', // localStorage key stays same; version field bumped below
-      version: 2,
+      version: 3,
       storage: createJSONStorage(() => localStorage),
       migrate(persistedState, fromVersion) {
         const s = persistedState as Partial<PersistedState>
@@ -484,6 +566,11 @@ export const useStore = create<StoreState>()(
           s.diOverrides = s.diOverrides ?? {}
           s.diCreated = s.diCreated ?? []
           s.diHidden = s.diHidden ?? []
+        }
+        if (fromVersion < 3) {
+          // v2 → v3: add Sprint 5 fields
+          s.interactionsCreated = s.interactionsCreated ?? []
+          s.tasksCreated = s.tasksCreated ?? []
         }
         return s as PersistedState
       },
@@ -775,5 +862,146 @@ export function useStats() {
     seedDIs: seedDIs.length,
     createdDIs: s.diCreated.length,
     hiddenDIs: s.diHidden.length,
+    // Sprint 5
+    totalInteractions: s.interactionsCreated.length,
+    openTasks: s.tasksCreated.filter((t) => !t.done).length,
+    completedTasks: s.tasksCreated.filter((t) => t.done).length,
   }))
+}
+
+// ── Sprint 5 selectors ─────────────────────────────────────────────────────────
+
+/** Days between two dates (absolute value). */
+function daysBetween(a: Date, b: Date): number {
+  return Math.abs(a.getTime() - b.getTime()) / (1000 * 60 * 60 * 24)
+}
+
+/** All interactions sorted by date desc. */
+export function useAllInteractions(): Interaction[] {
+  return useStore((s) =>
+    [...s.interactionsCreated].sort((a, b) => b.date.localeCompare(a.date))
+  )
+}
+
+/** Interactions for one FO, sorted by date desc. */
+export function useInteractionsForFO(foId: string): Interaction[] {
+  return useStore((s) =>
+    s.interactionsCreated
+      .filter((i) => i.familyOfficeId === foId)
+      .sort((a, b) => b.date.localeCompare(a.date))
+  )
+}
+
+/** All tasks. */
+export function useAllTasks(): Task[] {
+  return useStore((s) => s.tasksCreated)
+}
+
+/** Tasks for one FO (tasks where familyOfficeId matches foId). */
+export function useTasksForFO(foId: string): Task[] {
+  return useStore((s) =>
+    s.tasksCreated.filter((t) => t.familyOfficeId === foId)
+  )
+}
+
+/** Open tasks (done === false). */
+export function useOpenTasks(): Task[] {
+  return useStore((s) => s.tasksCreated.filter((t) => !t.done))
+}
+
+/** Open tasks with dueDate from today through 7 days out. */
+export function useTasksDueThisWeek(): Task[] {
+  return useStore((s) => {
+    const today = new Date()
+    today.setHours(0, 0, 0, 0)
+    const weekOut = new Date(today)
+    weekOut.setDate(weekOut.getDate() + 7)
+    return s.tasksCreated.filter((t) => {
+      if (t.done || !t.dueDate) return false
+      const d = new Date(t.dueDate + 'T00:00:00')
+      return d >= today && d <= weekOut
+    })
+  })
+}
+
+/**
+ * FO ids where no interaction has been logged in thresholdDays days.
+ * An FO with zero interactions counts as stale.
+ */
+export function useStaleFOs(thresholdDays = 90): string[] {
+  return useStore((s) => {
+    const allFOIds = [
+      ...seedFOs.filter((f) => !s.foHidden.includes(f.id)).map((f) => f.id),
+      ...s.foCreated.map((f) => f.id),
+    ]
+    const today = new Date()
+    return allFOIds.filter((foId) => {
+      const interactions = s.interactionsCreated.filter((i) => i.familyOfficeId === foId)
+      if (interactions.length === 0) return true
+      const latest = interactions.reduce(
+        (best, i) => (i.date > best ? i.date : best),
+        interactions[0].date
+      )
+      const latestDate = new Date(latest + 'T00:00:00')
+      return daysBetween(today, latestDate) > thresholdDays
+    })
+  })
+}
+
+/** Most recent interaction date for an FO, or null. */
+export function useLastInteractionDate(foId: string): string | null {
+  return useStore((s) => {
+    const interactions = s.interactionsCreated.filter((i) => i.familyOfficeId === foId)
+    if (interactions.length === 0) return null
+    return interactions.reduce(
+      (best, i) => (i.date > best ? i.date : best),
+      interactions[0].date
+    )
+  })
+}
+
+/** Dashboard stats convenience hook. */
+export function useDashboardStats() {
+  return useStore((s) => {
+    const today = new Date()
+    today.setHours(0, 0, 0, 0)
+    const weekOut = new Date(today)
+    weekOut.setDate(weekOut.getDate() + 7)
+
+    const openTasks = s.tasksCreated.filter((t) => !t.done)
+
+    const tasksDueThisWeek = openTasks.filter((t) => {
+      if (!t.dueDate) return false
+      const d = new Date(t.dueDate + 'T00:00:00')
+      return d >= today && d <= weekOut
+    }).length
+
+    // Stale FOs count
+    const allFOIds = [
+      ...seedFOs.filter((f) => !s.foHidden.includes(f.id)).map((f) => f.id),
+      ...s.foCreated.map((f) => f.id),
+    ]
+    const staleFOs = allFOIds.filter((foId) => {
+      const interactions = s.interactionsCreated.filter((i) => i.familyOfficeId === foId)
+      if (interactions.length === 0) return true
+      const latest = interactions.reduce(
+        (best, i) => (i.date > best ? i.date : best),
+        interactions[0].date
+      )
+      const latestDate = new Date(latest + 'T00:00:00')
+      return daysBetween(today, latestDate) > 90
+    }).length
+
+    const recentInteractions = [...s.interactionsCreated]
+      .sort((a, b) => b.date.localeCompare(a.date))
+      .slice(0, 5)
+
+    return {
+      tasksDueThisWeek,
+      openTasks: openTasks.length,
+      staleFOs,
+      totalInteractions: s.interactionsCreated.length,
+      recentInteractions,
+    }
+  })
 }

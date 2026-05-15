@@ -120,6 +120,17 @@ export function Layout({ children }: LayoutProps) {
               >
                 Funds
               </Link>
+              <Link
+                to="/tasks"
+                className={
+                  'rounded-md px-3 py-1.5 text-xs font-medium transition-colors ' +
+                  (location.pathname.startsWith('/tasks')
+                    ? 'bg-primary/10 text-primary'
+                    : 'text-muted-foreground hover:text-foreground hover:bg-muted')
+                }
+              >
+                Tasks
+              </Link>
             </nav>
           </div>
 
@@ -192,7 +203,7 @@ export function Layout({ children }: LayoutProps) {
       <footer className="border-t border-border mt-auto">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 h-10 flex items-center">
           <p className="text-xs text-muted-foreground">
-            v0.4.0 &mdash; Sprint 4 &mdash; Funds, LP Positions, Direct Investments
+            v0.5.0 &mdash; Sprint 5 &mdash; Interactions, Tasks, Dashboard
           </p>
         </div>
       </footer>

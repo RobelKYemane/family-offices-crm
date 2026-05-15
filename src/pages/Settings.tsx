@@ -134,6 +134,14 @@ export function Settings() {
             <StatRow label="User-created direct investments" value={stats.createdDIs} />
             <StatRow label="Hidden direct investments" value={stats.hiddenDIs} />
           </div>
+          <div className="pt-3 mt-2 border-t border-border space-y-1">
+            <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide pb-1">
+              Interactions &amp; Tasks
+            </p>
+            <StatRow label="Total interactions logged" value={stats.totalInteractions} />
+            <StatRow label="Open tasks" value={stats.openTasks} />
+            <StatRow label="Completed tasks" value={stats.completedTasks} />
+          </div>
           <div className="pt-3 mt-2 border-t border-border">
             <StatRow
               label="Storage used"

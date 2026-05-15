@@ -5,6 +5,7 @@ import { FamilyOfficeDetail } from '@/pages/FamilyOfficeDetail'
 import { Settings } from '@/pages/Settings'
 import { FundList } from '@/pages/FundList'
 import { FundDetail } from '@/pages/FundDetail'
+import { Tasks } from '@/pages/Tasks'
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Route path="/fo/:id" element={<FamilyOfficeDetail />} />
           <Route path="/funds" element={<FundList />} />
           <Route path="/funds/:id" element={<FundDetail />} />
+          <Route path="/tasks" element={<Tasks />} />
           <Route path="/settings" element={<Settings />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>

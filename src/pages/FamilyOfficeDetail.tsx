@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useParams, Link, useNavigate } from 'react-router-dom'
 import {
   ArrowLeft,
@@ -15,9 +15,19 @@ import {
   Plus,
   TrendingUp,
   Layers,
+  Calendar,
+  Phone,
+  UserPlus,
+  StickyNote,
+  Hash,
+  MessageSquare,
+  CheckSquare,
+  Square,
+  ChevronDown,
+  ChevronUp,
 } from 'lucide-react'
 import { familyOffices as seedFOs } from '@/data/familyOffices'
-import type { Contact, LPPosition, DirectInvestment } from '@/data/familyOffices'
+import type { Contact, LPPosition, DirectInvestment, Interaction, Task, InteractionType } from '@/data/familyOffices'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
@@ -33,6 +43,8 @@ import { FODialog } from '@/components/FODialog'
 import { ContactDialog } from '@/components/ContactDialog'
 import { LPPositionDialog } from '@/components/LPPositionDialog'
 import { DirectInvestmentDialog } from '@/components/DirectInvestmentDialog'
+import { InteractionDialog } from '@/components/InteractionDialog'
+import { TaskDialog } from '@/components/TaskDialog'
 import { ConfirmDialog } from '@/components/ConfirmDialog'
 import { formatAum, formatUsd, formatDate, countryFlag, cn } from '@/lib/utils'
 import {
@@ -45,6 +57,8 @@ import {
   useLPPositionsForFO,
   useDirectInvestmentsForFO,
   useFund,
+  useInteractionsForFO,
+  useTasksForFO,
 } from '@/lib/store'
 
 const seedIdSet = new Set(seedFOs.map((f) => f.id))
@@ -104,6 +118,39 @@ function ConfidenceDot({ confidence }: { confidence: 'rumored' | 'confirmed' | '
       className={cn('inline-block h-2 w-2 rounded-full shrink-0 mt-1', cls)}
     />
   )
+}
+
+// ---- interaction helpers -------------------------------------------------
+
+function interactionTypeIcon(type: InteractionType): React.ElementType {
+  switch (type) {
+    case 'meeting': return Calendar
+    case 'call': return Phone
+    case 'email': return Mail
+    case 'intro': return UserPlus
+    case 'note': return StickyNote
+    default: return Hash
+  }
+}
+
+function interactionTypeLabel(type: InteractionType): string {
+  return type.charAt(0).toUpperCase() + type.slice(1)
+}
+
+function todayISO(): string {
+  const d = new Date()
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
+}
+
+function dueDateColor(dueDate: string | null, done: boolean): string {
+  if (done || !dueDate) return 'text-muted-foreground'
+  const today = todayISO()
+  if (dueDate < today) return 'text-red-500 dark:text-red-400 font-medium'
+  const diff =
+    (new Date(dueDate + 'T00:00:00').getTime() - new Date(today + 'T00:00:00').getTime()) /
+    (1000 * 60 * 60 * 24)
+  if (diff <= 3) return 'text-amber-500 dark:text-amber-400 font-medium'
+  return 'text-muted-foreground'
 }
 
 // ---- section card --------------------------------------------------------
@@ -347,6 +394,172 @@ function DirectInvestmentRow({
   )
 }
 
+// ---- interaction row ─────────────────────────────────────────────────────
+
+function InteractionRow({
+  interaction,
+  contactName,
+  onEdit,
+  onDelete,
+}: {
+  interaction: Interaction
+  contactName: string | null
+  onEdit: (i: Interaction) => void
+  onDelete: (i: Interaction) => void
+}) {
+  const [expanded, setExpanded] = useState(false)
+  const TypeIcon = interactionTypeIcon(interaction.type)
+
+  return (
+    <div className="group py-3 border-b border-border last:border-0">
+      <div className="flex items-start gap-3">
+        {/* Type chip + icon */}
+        <span className="inline-flex items-center gap-1 rounded-full border border-border bg-muted/50 px-2 py-0.5 text-[10px] font-medium text-muted-foreground shrink-0 mt-0.5">
+          <TypeIcon className="h-2.5 w-2.5" />
+          {interactionTypeLabel(interaction.type)}
+        </span>
+
+        <div className="flex-1 min-w-0 space-y-0.5">
+          <div className="flex items-center gap-2 flex-wrap">
+            <span className="text-xs text-muted-foreground">
+              {formatDate(interaction.date)}
+            </span>
+            {contactName && (
+              <span className="text-xs text-muted-foreground">
+                &middot; {contactName}
+              </span>
+            )}
+          </div>
+          <p className="text-sm font-medium text-foreground leading-snug">{interaction.summary}</p>
+          {interaction.notes && (
+            <div>
+              <p
+                className={cn(
+                  'text-xs text-muted-foreground leading-relaxed',
+                  !expanded && 'line-clamp-2'
+                )}
+              >
+                {interaction.notes}
+              </p>
+              {interaction.notes.length > 100 && (
+                <button
+                  onClick={() => setExpanded((v) => !v)}
+                  className="text-xs text-primary hover:underline underline-offset-2 mt-0.5 inline-flex items-center gap-0.5"
+                >
+                  {expanded ? (
+                    <>Show less <ChevronUp className="h-3 w-3" /></>
+                  ) : (
+                    <>Show more <ChevronDown className="h-3 w-3" /></>
+                  )}
+                </button>
+              )}
+            </div>
+          )}
+          {interaction.followUpAt && (
+            <p className="text-xs text-amber-600 dark:text-amber-400">
+              Follow-up: {formatDate(interaction.followUpAt)}
+            </p>
+          )}
+        </div>
+
+        <div className="flex items-center gap-1 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity shrink-0">
+          <button
+            onClick={() => onEdit(interaction)}
+            aria-label="Edit interaction"
+            className="rounded p-1 text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+          >
+            <Pencil className="h-3.5 w-3.5" />
+          </button>
+          <button
+            onClick={() => onDelete(interaction)}
+            aria-label="Delete interaction"
+            className="rounded p-1 text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition-colors"
+          >
+            <Trash2 className="h-3.5 w-3.5" />
+          </button>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+// ---- task row ────────────────────────────────────────────────────────────
+
+function TaskRow({
+  task,
+  onEdit,
+  onDelete,
+  onToggle,
+}: {
+  task: Task
+  onEdit: (t: Task) => void
+  onDelete: (t: Task) => void
+  onToggle: (id: string) => void
+}) {
+  const dateColor = dueDateColor(task.dueDate, task.done)
+  return (
+    <div className="group flex items-start gap-3 py-2.5 border-b border-border last:border-0">
+      <button
+        onClick={() => onToggle(task.id)}
+        aria-label={task.done ? 'Mark as open' : 'Mark as done'}
+        className="mt-0.5 shrink-0 text-muted-foreground hover:text-primary transition-colors"
+      >
+        {task.done ? (
+          <CheckSquare className="h-4 w-4 text-primary" />
+        ) : (
+          <Square className="h-4 w-4" />
+        )}
+      </button>
+
+      <div className="flex-1 min-w-0 space-y-0.5">
+        <p
+          className={cn(
+            'text-sm font-medium text-foreground',
+            task.done && 'line-through text-muted-foreground'
+          )}
+        >
+          {task.title}
+        </p>
+        <div className="flex flex-wrap gap-x-2 gap-y-0.5 text-xs">
+          {task.dueDate && (
+            <span className={dateColor}>Due {formatDate(task.dueDate)}</span>
+          )}
+          {task.done && task.doneAt && (
+            <span className="text-muted-foreground">
+              Done{' '}
+              {new Date(task.doneAt).toLocaleDateString('en-US', {
+                month: 'short',
+                day: 'numeric',
+                year: 'numeric',
+              })}
+            </span>
+          )}
+        </div>
+        {task.notes && (
+          <p className="text-xs text-muted-foreground leading-relaxed">{task.notes}</p>
+        )}
+      </div>
+
+      <div className="flex items-center gap-1 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity shrink-0">
+        <button
+          onClick={() => onEdit(task)}
+          aria-label="Edit task"
+          className="rounded p-1 text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+        >
+          <Pencil className="h-3.5 w-3.5" />
+        </button>
+        <button
+          onClick={() => onDelete(task)}
+          aria-label="Delete task"
+          className="rounded p-1 text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition-colors"
+        >
+          <Trash2 className="h-3.5 w-3.5" />
+        </button>
+      </div>
+    </div>
+  )
+}
+
 // ---- main component ------------------------------------------------------
 
 export function FamilyOfficeDetail() {
@@ -356,6 +569,8 @@ export function FamilyOfficeDetail() {
   const foContacts = useContactsForFO(id ?? '')
   const lpPositions = useLPPositionsForFO(id ?? '')
   const directInvestments = useDirectInvestmentsForFO(id ?? '')
+  const interactions = useInteractionsForFO(id ?? '')
+  const tasks = useTasksForFO(id ?? '')
   const isFav = useIsFavorite(id ?? '')
   const isEdited = useIsEdited(id ?? '')
   const isCreated = useIsCreated(id ?? '')
@@ -366,6 +581,9 @@ export function FamilyOfficeDetail() {
   const deleteContact = useStore((s) => s.deleteContact)
   const deleteLPPosition = useStore((s) => s.deleteLPPosition)
   const deleteDirectInvestment = useStore((s) => s.deleteDirectInvestment)
+  const deleteInteraction = useStore((s) => s.deleteInteraction)
+  const deleteTask = useStore((s) => s.deleteTask)
+  const toggleTaskDone = useStore((s) => s.toggleTaskDone)
 
   const [editFOOpen, setEditFOOpen] = useState(false)
   const [deleteFOOpen, setDeleteFOOpen] = useState(false)
@@ -382,6 +600,34 @@ export function FamilyOfficeDetail() {
   const [addDIOpen, setAddDIOpen] = useState(false)
   const [editingDI, setEditingDI] = useState<DirectInvestment | null>(null)
   const [deletingDI, setDeletingDI] = useState<DirectInvestment | null>(null)
+
+  // Interaction dialog state
+  const [addInteractionOpen, setAddInteractionOpen] = useState(false)
+  const [addInteractionType, setAddInteractionType] = useState<InteractionType>('meeting')
+  const [editingInteraction, setEditingInteraction] = useState<Interaction | null>(null)
+  const [deletingInteraction, setDeletingInteraction] = useState<Interaction | null>(null)
+
+  // Task dialog state
+  const [addTaskOpen, setAddTaskOpen] = useState(false)
+  const [editingTask, setEditingTask] = useState<Task | null>(null)
+  const [deletingTask, setDeletingTask] = useState<Task | null>(null)
+
+  // Keyboard shortcut "n" — quick note
+  useEffect(() => {
+    function handleKeyDown(e: KeyboardEvent) {
+      if (e.key !== 'n') return
+      const target = e.target as HTMLElement
+      const tag = target.tagName.toLowerCase()
+      if (tag === 'input' || tag === 'textarea' || tag === 'select' || target.isContentEditable) return
+      // Don't fire if a dialog is already open
+      if (document.querySelector('[role="dialog"]')) return
+      e.preventDefault()
+      setAddInteractionType('note')
+      setAddInteractionOpen(true)
+    }
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [])
 
   if (!fo) {
     return (
@@ -674,9 +920,93 @@ export function FamilyOfficeDetail() {
           </Section>
         )}
 
-        {/* Interactions & Tasks — Sprint 5 placeholder */}
-        <Section title="Interactions &amp; Tasks">
-          <p className="text-sm text-muted-foreground italic">Coming in Sprint 5.</p>
+        {/* Interactions — Sprint 5 */}
+        <Section title="Interactions" icon={MessageSquare}>
+          <div className="flex items-center justify-between mb-3">
+            <p className="text-xs text-muted-foreground">
+              Press <kbd className="rounded border border-border bg-muted px-1 py-0.5 text-[10px] font-mono">n</kbd> to quick-log a note.
+            </p>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => {
+                setAddInteractionType('meeting')
+                setAddInteractionOpen(true)
+              }}
+              className="gap-1.5"
+            >
+              <Plus className="h-3.5 w-3.5" />
+              Add
+            </Button>
+          </div>
+
+          {interactions.length > 0 ? (
+            <div className="-mt-1">
+              {interactions.map((interaction) => {
+                const contact = foContacts.find((c) => c.id === interaction.contactId)
+                return (
+                  <InteractionRow
+                    key={interaction.id}
+                    interaction={interaction}
+                    contactName={contact?.name ?? null}
+                    onEdit={(i) => setEditingInteraction(i)}
+                    onDelete={(i) => setDeletingInteraction(i)}
+                  />
+                )
+              })}
+            </div>
+          ) : (
+            <p className="text-sm text-muted-foreground italic">
+              No interactions logged yet. Press 'n' or click + Add to log your first.
+            </p>
+          )}
+        </Section>
+
+        {/* Tasks — Sprint 5 */}
+        <Section title="Tasks" icon={CheckSquare}>
+          <div className="flex items-center justify-between mb-3">
+            <span />
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => setAddTaskOpen(true)}
+              className="gap-1.5"
+            >
+              <Plus className="h-3.5 w-3.5" />
+              Add
+            </Button>
+          </div>
+
+          {tasks.length > 0 ? (() => {
+            // Sort: open first by dueDate asc (undated last), then done by doneAt desc (cap at 5)
+            const open = tasks
+              .filter((t) => !t.done)
+              .sort((a, b) => {
+                if (!a.dueDate && !b.dueDate) return 0
+                if (!a.dueDate) return 1
+                if (!b.dueDate) return -1
+                return a.dueDate.localeCompare(b.dueDate)
+              })
+            const done = tasks
+              .filter((t) => t.done)
+              .sort((a, b) => (b.doneAt ?? '').localeCompare(a.doneAt ?? ''))
+              .slice(0, 5)
+            return (
+              <div className="-mt-1">
+                {[...open, ...done].map((task) => (
+                  <TaskRow
+                    key={task.id}
+                    task={task}
+                    onEdit={(t) => setEditingTask(t)}
+                    onDelete={(t) => setDeletingTask(t)}
+                    onToggle={toggleTaskDone}
+                  />
+                ))}
+              </div>
+            )
+          })() : (
+            <p className="text-sm text-muted-foreground italic">No tasks yet.</p>
+          )}
         </Section>
       </div>
 
@@ -796,6 +1126,71 @@ export function FamilyOfficeDetail() {
           confirmLabel="Delete"
           destructive
           onConfirm={() => deleteDirectInvestment(deletingDI.id)}
+        />
+      )}
+
+      {/* Add interaction dialog */}
+      <InteractionDialog
+        open={addInteractionOpen}
+        onOpenChange={setAddInteractionOpen}
+        mode="create"
+        familyOfficeId={fo.id}
+        defaultType={addInteractionType}
+      />
+
+      {/* Edit interaction dialog */}
+      {editingInteraction && (
+        <InteractionDialog
+          open={!!editingInteraction}
+          onOpenChange={(open) => { if (!open) setEditingInteraction(null) }}
+          mode="edit"
+          familyOfficeId={fo.id}
+          initial={editingInteraction}
+        />
+      )}
+
+      {/* Delete interaction confirm */}
+      {deletingInteraction && (
+        <ConfirmDialog
+          open={!!deletingInteraction}
+          onOpenChange={(open) => { if (!open) setDeletingInteraction(null) }}
+          title="Delete interaction?"
+          description={`Remove "${deletingInteraction.summary}"?`}
+          confirmLabel="Delete"
+          destructive
+          onConfirm={() => deleteInteraction(deletingInteraction.id)}
+        />
+      )}
+
+      {/* Add task dialog */}
+      <TaskDialog
+        open={addTaskOpen}
+        onOpenChange={setAddTaskOpen}
+        mode="create"
+        familyOfficeId={fo.id}
+      />
+
+      {/* Edit task dialog */}
+      {editingTask && (
+        <TaskDialog
+          open={!!editingTask}
+          onOpenChange={(open) => { if (!open) setEditingTask(null) }}
+          mode="edit"
+          familyOfficeId={fo.id}
+          initial={editingTask}
+        />
+      )}
+
+      {/* Delete task confirm */}
+      {deletingTask && (
+        <ConfirmDialog
+          open={!!deletingTask}
+          onOpenChange={(open) => { if (!open) setDeletingTask(null) }}
+          title="Delete task?"
+          description={`Remove "${deletingTask.title}"?`}
+          confirmLabel="Delete"
+          destructive
+          onConfirm={() => deleteTask(deletingTask.id)}
         />
       )}
     </div>

@@ -1,19 +1,22 @@
 import { useState, useMemo } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Search, X, ChevronUp, ChevronDown, SlidersHorizontal, Star, Eye, Clock } from 'lucide-react'
+import { Search, X, ChevronUp, ChevronDown, SlidersHorizontal, Star, Eye, Clock, ListTodo, AlertTriangle, Activity, CheckSquare, EyeOff } from 'lucide-react'
 import { familyOffices as seedFOs } from '@/data/familyOffices'
 import type { FamilyOffice } from '@/data/familyOffices'
 import { Badge } from '@/components/ui/badge'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
-import { formatAum, countryFlag } from '@/lib/utils'
+import { formatAum, countryFlag, formatDate } from '@/lib/utils'
 import { cn } from '@/lib/utils'
 import {
   useAllFOs,
   useHiddenFOs,
   useStore,
   useActive24moIds,
+  useDashboardStats,
+  useStaleFOs,
 } from '@/lib/store'
+import { AgingDot } from '@/components/AgingDot'
 
 type SortField = 'name' | 'aum' | 'activity'
 type SortDir = 'asc' | 'desc'
@@ -92,6 +95,16 @@ function StarButton({ foId }: { foId: string }) {
   )
 }
 
+const DASHBOARD_LS_KEY = 'fo-crm:dashboard-hidden'
+
+function getDashboardHidden(): boolean {
+  try {
+    return localStorage.getItem(DASHBOARD_LS_KEY) === 'true'
+  } catch {
+    return false
+  }
+}
+
 export function FamilyOfficeList() {
   const navigate = useNavigate()
   const allFOs = useAllFOs()
@@ -100,6 +113,8 @@ export function FamilyOfficeList() {
   const favorites = useStore((s) => s.favorites)
   const foOverrides = useStore((s) => s.foOverrides)
   const foCreated = useStore((s) => s.foCreated)
+  const dashboardStats = useDashboardStats()
+  const staleFOIds = useStaleFOs(90)
 
   const foCreatedIds = useMemo(() => new Set(foCreated.map((f) => f.id)), [foCreated])
   const foOverrideIds = useMemo(
@@ -117,10 +132,21 @@ export function FamilyOfficeList() {
   const [filtersOpen, setFiltersOpen] = useState(false)
   const [favoritesOnly, setFavoritesOnly] = useState(false)
   const [active24mo, setActive24mo] = useState(false)
+  const [staleOnly, setStaleOnly] = useState(false)
   const [showHidden, setShowHidden] = useState(false)
+  const [dashboardHidden, setDashboardHidden] = useState(getDashboardHidden)
+
+  function toggleDashboard() {
+    setDashboardHidden((v) => {
+      const next = !v
+      try { localStorage.setItem(DASHBOARD_LS_KEY, String(next)) } catch { /* noop */ }
+      return next
+    })
+  }
 
   // Pre-compute set of FO ids active in last 24 months — single store subscription.
   const active24moIds = useActive24moIds()
+  const staleFOIdSet = useMemo(() => new Set(staleFOIds), [staleFOIds])
 
   // Derive filter options from the merged (visible) list
   const allCountries = useMemo(
@@ -148,6 +174,7 @@ export function FamilyOfficeList() {
       .filter((fo) => {
         if (favoritesOnly && !favorites.includes(fo.id)) return false
         if (active24mo && !active24moIds.has(fo.id)) return false
+        if (staleOnly && !staleFOIdSet.has(fo.id)) return false
         if (
           q &&
           !fo.name.toLowerCase().includes(q) &&
@@ -177,7 +204,7 @@ export function FamilyOfficeList() {
         const bVal = b.lastKnownActivityYear ?? 0
         return sortDir === 'asc' ? aVal - bVal : bVal - aVal
       })
-  }, [allFOs, search, selectedCountries, selectedStatuses, selectedTags, sortField, sortDir, favoritesOnly, favorites, active24mo, active24moIds])
+  }, [allFOs, search, selectedCountries, selectedStatuses, selectedTags, sortField, sortDir, favoritesOnly, favorites, active24mo, active24moIds, staleOnly, staleFOIdSet])
 
   function handleSort(field: SortField) {
     if (sortField === field) {
@@ -204,7 +231,8 @@ export function FamilyOfficeList() {
     selectedStatuses.size > 0 ||
     selectedTags.size > 0 ||
     favoritesOnly ||
-    active24mo
+    active24mo ||
+    staleOnly
 
   function clearFilters() {
     setSearch('')
@@ -213,6 +241,7 @@ export function FamilyOfficeList() {
     setSelectedTags(new Set())
     setFavoritesOnly(false)
     setActive24mo(false)
+    setStaleOnly(false)
   }
 
   const totalCount = allFOs.length
@@ -226,6 +255,109 @@ export function FamilyOfficeList() {
           {filtered.length} of {totalCount}
         </span>
       </div>
+
+      {/* Dashboard widget */}
+      {!dashboardHidden ? (
+        <div className="rounded-lg border border-border bg-card p-4 space-y-3">
+          <div className="flex items-center justify-between">
+            <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">Dashboard</p>
+            <button
+              onClick={toggleDashboard}
+              className="inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground transition-colors"
+            >
+              <EyeOff className="h-3 w-3" />
+              Hide
+            </button>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+            {/* Tasks due this week */}
+            <button
+              onClick={() => navigate('/tasks')}
+              className="flex flex-col gap-0.5 rounded-md border border-border bg-muted/30 p-3 text-left hover:border-primary/40 hover:bg-muted/60 transition-all"
+            >
+              <span className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                <ListTodo className="h-3 w-3" />
+                Due this week
+              </span>
+              <span className="text-2xl font-bold text-foreground tabular-nums">
+                {dashboardStats.tasksDueThisWeek}
+              </span>
+              <span className="text-[10px] text-muted-foreground">
+                {dashboardStats.openTasks} total open
+              </span>
+            </button>
+
+            {/* Stale FOs */}
+            <button
+              onClick={() => setStaleOnly((v) => !v)}
+              className={cn(
+                'flex flex-col gap-0.5 rounded-md border p-3 text-left transition-all',
+                staleOnly
+                  ? 'border-red-400 bg-red-50 dark:bg-red-950/30'
+                  : 'border-border bg-muted/30 hover:border-primary/40 hover:bg-muted/60'
+              )}
+            >
+              <span className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                <AlertTriangle className="h-3 w-3" />
+                Stale FOs (90d+)
+              </span>
+              <span className={cn('text-2xl font-bold tabular-nums', staleOnly ? 'text-red-500 dark:text-red-400' : 'text-foreground')}>
+                {dashboardStats.staleFOs}
+              </span>
+              <span className="text-[10px] text-muted-foreground">
+                {staleOnly ? 'Filtered' : 'Click to filter'}
+              </span>
+            </button>
+
+            {/* Total interactions */}
+            <div className="flex flex-col gap-0.5 rounded-md border border-border bg-muted/30 p-3">
+              <span className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                <Activity className="h-3 w-3" />
+                Total interactions
+              </span>
+              <span className="text-2xl font-bold text-foreground tabular-nums">
+                {dashboardStats.totalInteractions}
+              </span>
+              <span className="text-[10px] text-muted-foreground">logged</span>
+            </div>
+
+            {/* Recent activity */}
+            <div className="flex flex-col gap-1 rounded-md border border-border bg-muted/30 p-3">
+              <span className="flex items-center gap-1.5 text-xs text-muted-foreground mb-0.5">
+                <CheckSquare className="h-3 w-3" />
+                Recent activity
+              </span>
+              {dashboardStats.recentInteractions.length === 0 ? (
+                <p className="text-xs text-muted-foreground italic">No interactions yet.</p>
+              ) : (
+                dashboardStats.recentInteractions.map((i) => {
+                  const foName = allFOs.find((f) => f.id === i.familyOfficeId)?.name ?? i.familyOfficeId
+                  return (
+                    <button
+                      key={i.id}
+                      onClick={() => navigate(`/fo/${i.familyOfficeId}`)}
+                      className="text-left group"
+                    >
+                      <p className="text-[11px] text-foreground truncate group-hover:text-primary transition-colors">
+                        {foName}
+                      </p>
+                      <p className="text-[10px] text-muted-foreground">{formatDate(i.date)}</p>
+                    </button>
+                  )
+                })
+              )}
+            </div>
+          </div>
+        </div>
+      ) : (
+        <button
+          onClick={toggleDashboard}
+          className="inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground transition-colors"
+        >
+          <Activity className="h-3 w-3" />
+          Show dashboard
+        </button>
+      )}
 
       {/* Info pill */}
       {!infoDismissed && (
@@ -307,6 +439,22 @@ export function FamilyOfficeList() {
             Active 24mo
             {active24mo && active24moIds.size > 0 && (
               <span className="tabular-nums opacity-80">{active24moIds.size}</span>
+            )}
+          </button>
+
+          <button
+            onClick={() => setStaleOnly((v) => !v)}
+            className={cn(
+              'inline-flex items-center gap-1.5 rounded-full border px-2.5 py-0.5 text-xs font-medium transition-colors',
+              staleOnly
+                ? 'border-red-400 bg-red-400/10 text-red-600 dark:text-red-400'
+                : 'border-border text-muted-foreground hover:border-foreground/30 hover:text-foreground'
+            )}
+          >
+            <AlertTriangle className="h-3 w-3" />
+            Stale 90d+
+            {staleOnly && (
+              <span className="tabular-nums opacity-80">{staleFOIds.length}</span>
             )}
           </button>
 
@@ -474,7 +622,10 @@ export function FamilyOfficeList() {
                           foOverrideIds={foOverrideIds}
                         />
                         <div>
-                          <p className="font-medium text-foreground">{fo.name}</p>
+                          <div className="flex items-center gap-1.5">
+                            <AgingDot foId={fo.id} />
+                            <p className="font-medium text-foreground">{fo.name}</p>
+                          </div>
                           <p className="text-xs text-muted-foreground mt-0.5">{fo.family}</p>
                         </div>
                       </div>
@@ -539,7 +690,10 @@ export function FamilyOfficeList() {
                       foOverrideIds={foOverrideIds}
                     />
                     <div className="min-w-0">
-                      <p className="font-semibold text-foreground text-sm leading-snug">{fo.name}</p>
+                      <div className="flex items-center gap-1.5">
+                        <AgingDot foId={fo.id} />
+                        <p className="font-semibold text-foreground text-sm leading-snug">{fo.name}</p>
+                      </div>
                       <p className="text-xs text-muted-foreground mt-0.5 truncate">
                         {fo.family}
                       </p>

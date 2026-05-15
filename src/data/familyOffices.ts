@@ -87,3 +87,33 @@ export const funds: Fund[] = fundsData as Fund[]
 export const lpPositions: LPPosition[] = lpPositionsData as LPPosition[]
 
 export const directInvestments: DirectInvestment[] = diData as DirectInvestment[]
+
+// ─── Sprint 5: Interactions & Tasks ──────────────────────────────────────────
+
+export type InteractionType = 'meeting' | 'call' | 'email' | 'intro' | 'note' | 'other'
+
+export interface Interaction {
+  id: string
+  familyOfficeId: string
+  contactId: string | null
+  type: InteractionType
+  date: string                   // ISO 'YYYY-MM-DD' required
+  summary: string                // short headline
+  notes: string                  // longer detail, optional
+  followUpAt: string | null      // ISO date for follow-up reminder, optional
+}
+
+export interface Task {
+  id: string
+  familyOfficeId: string | null  // null = unscoped task
+  contactId: string | null
+  title: string
+  dueDate: string | null         // ISO 'YYYY-MM-DD', optional
+  done: boolean
+  doneAt: string | null          // ISO datetime when checked off
+  notes: string
+}
+
+// No seed for these — only created-by-user
+export const interactionsSeed: Interaction[] = []
+export const tasksSeed: Task[] = []
