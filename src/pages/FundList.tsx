@@ -1,13 +1,16 @@
-import { useState, useMemo } from 'react'
+import { useState, useMemo, lazy, Suspense } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { Search, X, Plus } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
-import { FundDialog } from '@/components/FundDialog'
 import { formatUsd, cn } from '@/lib/utils'
 import { useAllFunds, useAllLPPositions } from '@/lib/store'
 import type { Fund, FundStatus } from '@/data/familyOffices'
+
+const FundDialog = lazy(() =>
+  import('@/components/FundDialog').then((m) => ({ default: m.FundDialog }))
+)
 
 function FundStatusBadge({ status }: { status: FundStatus }) {
   if (status === 'raising')
@@ -256,11 +259,15 @@ export function FundList() {
         )}
       </div>
 
-      <FundDialog
-        open={newFundOpen}
-        onOpenChange={setNewFundOpen}
-        mode="create"
-      />
+      {newFundOpen && (
+        <Suspense fallback={null}>
+          <FundDialog
+            open={newFundOpen}
+            onOpenChange={setNewFundOpen}
+            mode="create"
+          />
+        </Suspense>
+      )}
     </div>
   )
 }

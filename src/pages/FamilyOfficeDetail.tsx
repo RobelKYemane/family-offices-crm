@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, lazy, Suspense } from 'react'
 import { useParams, Link, useNavigate } from 'react-router-dom'
 import {
   ArrowLeft,
@@ -39,12 +39,6 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { FaviconChip } from '@/components/FaviconChip'
-import { FODialog } from '@/components/FODialog'
-import { ContactDialog } from '@/components/ContactDialog'
-import { LPPositionDialog } from '@/components/LPPositionDialog'
-import { DirectInvestmentDialog } from '@/components/DirectInvestmentDialog'
-import { InteractionDialog } from '@/components/InteractionDialog'
-import { TaskDialog } from '@/components/TaskDialog'
 import { ConfirmDialog } from '@/components/ConfirmDialog'
 import { formatAum, formatUsd, formatDate, countryFlag, cn } from '@/lib/utils'
 import {
@@ -60,6 +54,26 @@ import {
   useInteractionsForFO,
   useTasksForFO,
 } from '@/lib/store'
+
+// Dialogs are not on the critical path — lazy load each one.
+const FODialog = lazy(() =>
+  import('@/components/FODialog').then((m) => ({ default: m.FODialog }))
+)
+const ContactDialog = lazy(() =>
+  import('@/components/ContactDialog').then((m) => ({ default: m.ContactDialog }))
+)
+const LPPositionDialog = lazy(() =>
+  import('@/components/LPPositionDialog').then((m) => ({ default: m.LPPositionDialog }))
+)
+const DirectInvestmentDialog = lazy(() =>
+  import('@/components/DirectInvestmentDialog').then((m) => ({ default: m.DirectInvestmentDialog }))
+)
+const InteractionDialog = lazy(() =>
+  import('@/components/InteractionDialog').then((m) => ({ default: m.InteractionDialog }))
+)
+const TaskDialog = lazy(() =>
+  import('@/components/TaskDialog').then((m) => ({ default: m.TaskDialog }))
+)
 
 const seedIdSet = new Set(seedFOs.map((f) => f.id))
 
@@ -1010,15 +1024,19 @@ export function FamilyOfficeDetail() {
         </Section>
       </div>
 
-      {/* Edit FO dialog */}
-      <FODialog
-        open={editFOOpen}
-        onOpenChange={setEditFOOpen}
-        mode="edit"
-        initial={fo}
-      />
+      {/* Edit FO dialog — lazy loaded */}
+      {editFOOpen && (
+        <Suspense fallback={null}>
+          <FODialog
+            open={editFOOpen}
+            onOpenChange={setEditFOOpen}
+            mode="edit"
+            initial={fo}
+          />
+        </Suspense>
+      )}
 
-      {/* Delete FO confirm */}
+      {/* Delete FO confirm — ConfirmDialog is tiny, keep eager */}
       <ConfirmDialog
         open={deleteFOOpen}
         onOpenChange={setDeleteFOOpen}
@@ -1034,22 +1052,28 @@ export function FamilyOfficeDetail() {
       />
 
       {/* Add contact dialog */}
-      <ContactDialog
-        open={addContactOpen}
-        onOpenChange={setAddContactOpen}
-        mode="create"
-        familyOfficeId={fo.id}
-      />
+      {addContactOpen && (
+        <Suspense fallback={null}>
+          <ContactDialog
+            open={addContactOpen}
+            onOpenChange={setAddContactOpen}
+            mode="create"
+            familyOfficeId={fo.id}
+          />
+        </Suspense>
+      )}
 
       {/* Edit contact dialog */}
       {editingContact && (
-        <ContactDialog
-          open={!!editingContact}
-          onOpenChange={(open) => { if (!open) setEditingContact(null) }}
-          mode="edit"
-          familyOfficeId={fo.id}
-          initial={editingContact}
-        />
+        <Suspense fallback={null}>
+          <ContactDialog
+            open={!!editingContact}
+            onOpenChange={(open) => { if (!open) setEditingContact(null) }}
+            mode="edit"
+            familyOfficeId={fo.id}
+            initial={editingContact}
+          />
+        </Suspense>
       )}
 
       {/* Delete contact confirm */}
@@ -1066,22 +1090,28 @@ export function FamilyOfficeDetail() {
       )}
 
       {/* Add LP position dialog */}
-      <LPPositionDialog
-        open={addLPOpen}
-        onOpenChange={setAddLPOpen}
-        mode="create"
-        familyOfficeId={fo.id}
-      />
+      {addLPOpen && (
+        <Suspense fallback={null}>
+          <LPPositionDialog
+            open={addLPOpen}
+            onOpenChange={setAddLPOpen}
+            mode="create"
+            familyOfficeId={fo.id}
+          />
+        </Suspense>
+      )}
 
       {/* Edit LP position dialog */}
       {editingLP && (
-        <LPPositionDialog
-          open={!!editingLP}
-          onOpenChange={(open) => { if (!open) setEditingLP(null) }}
-          mode="edit"
-          familyOfficeId={fo.id}
-          initial={editingLP}
-        />
+        <Suspense fallback={null}>
+          <LPPositionDialog
+            open={!!editingLP}
+            onOpenChange={(open) => { if (!open) setEditingLP(null) }}
+            mode="edit"
+            familyOfficeId={fo.id}
+            initial={editingLP}
+          />
+        </Suspense>
       )}
 
       {/* Delete LP position confirm */}
@@ -1098,22 +1128,28 @@ export function FamilyOfficeDetail() {
       )}
 
       {/* Add direct investment dialog */}
-      <DirectInvestmentDialog
-        open={addDIOpen}
-        onOpenChange={setAddDIOpen}
-        mode="create"
-        familyOfficeId={fo.id}
-      />
+      {addDIOpen && (
+        <Suspense fallback={null}>
+          <DirectInvestmentDialog
+            open={addDIOpen}
+            onOpenChange={setAddDIOpen}
+            mode="create"
+            familyOfficeId={fo.id}
+          />
+        </Suspense>
+      )}
 
       {/* Edit direct investment dialog */}
       {editingDI && (
-        <DirectInvestmentDialog
-          open={!!editingDI}
-          onOpenChange={(open) => { if (!open) setEditingDI(null) }}
-          mode="edit"
-          familyOfficeId={fo.id}
-          initial={editingDI}
-        />
+        <Suspense fallback={null}>
+          <DirectInvestmentDialog
+            open={!!editingDI}
+            onOpenChange={(open) => { if (!open) setEditingDI(null) }}
+            mode="edit"
+            familyOfficeId={fo.id}
+            initial={editingDI}
+          />
+        </Suspense>
       )}
 
       {/* Delete direct investment confirm */}
@@ -1130,23 +1166,29 @@ export function FamilyOfficeDetail() {
       )}
 
       {/* Add interaction dialog */}
-      <InteractionDialog
-        open={addInteractionOpen}
-        onOpenChange={setAddInteractionOpen}
-        mode="create"
-        familyOfficeId={fo.id}
-        defaultType={addInteractionType}
-      />
+      {addInteractionOpen && (
+        <Suspense fallback={null}>
+          <InteractionDialog
+            open={addInteractionOpen}
+            onOpenChange={setAddInteractionOpen}
+            mode="create"
+            familyOfficeId={fo.id}
+            defaultType={addInteractionType}
+          />
+        </Suspense>
+      )}
 
       {/* Edit interaction dialog */}
       {editingInteraction && (
-        <InteractionDialog
-          open={!!editingInteraction}
-          onOpenChange={(open) => { if (!open) setEditingInteraction(null) }}
-          mode="edit"
-          familyOfficeId={fo.id}
-          initial={editingInteraction}
-        />
+        <Suspense fallback={null}>
+          <InteractionDialog
+            open={!!editingInteraction}
+            onOpenChange={(open) => { if (!open) setEditingInteraction(null) }}
+            mode="edit"
+            familyOfficeId={fo.id}
+            initial={editingInteraction}
+          />
+        </Suspense>
       )}
 
       {/* Delete interaction confirm */}
@@ -1163,22 +1205,28 @@ export function FamilyOfficeDetail() {
       )}
 
       {/* Add task dialog */}
-      <TaskDialog
-        open={addTaskOpen}
-        onOpenChange={setAddTaskOpen}
-        mode="create"
-        familyOfficeId={fo.id}
-      />
+      {addTaskOpen && (
+        <Suspense fallback={null}>
+          <TaskDialog
+            open={addTaskOpen}
+            onOpenChange={setAddTaskOpen}
+            mode="create"
+            familyOfficeId={fo.id}
+          />
+        </Suspense>
+      )}
 
       {/* Edit task dialog */}
       {editingTask && (
-        <TaskDialog
-          open={!!editingTask}
-          onOpenChange={(open) => { if (!open) setEditingTask(null) }}
-          mode="edit"
-          familyOfficeId={fo.id}
-          initial={editingTask}
-        />
+        <Suspense fallback={null}>
+          <TaskDialog
+            open={!!editingTask}
+            onOpenChange={(open) => { if (!open) setEditingTask(null) }}
+            mode="edit"
+            familyOfficeId={fo.id}
+            initial={editingTask}
+          />
+        </Suspense>
       )}
 
       {/* Delete task confirm */}

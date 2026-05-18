@@ -1,11 +1,14 @@
-import { useState } from 'react'
+import { useState, lazy, Suspense } from 'react'
 import { CheckSquare, Square, Pencil, Trash2, Plus, AlertCircle } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { ConfirmDialog } from '@/components/ConfirmDialog'
-import { TaskDialog } from '@/components/TaskDialog'
 import { useStore, useAllTasks, useAllFOs } from '@/lib/store'
 import type { Task } from '@/data/familyOffices'
 import { cn, formatDate } from '@/lib/utils'
+
+const TaskDialog = lazy(() =>
+  import('@/components/TaskDialog').then((m) => ({ default: m.TaskDialog }))
+)
 
 type Filter = 'open' | 'done' | 'all'
 type ScopeFilter = 'all' | 'scoped' | 'unscoped'
@@ -228,20 +231,26 @@ export function Tasks() {
         </div>
       )}
 
-      {/* Dialogs */}
-      <TaskDialog
-        open={addOpen}
-        onOpenChange={setAddOpen}
-        mode="create"
-      />
+      {/* Dialogs — lazy loaded */}
+      {addOpen && (
+        <Suspense fallback={null}>
+          <TaskDialog
+            open={addOpen}
+            onOpenChange={setAddOpen}
+            mode="create"
+          />
+        </Suspense>
+      )}
 
       {editingTask && (
-        <TaskDialog
-          open={!!editingTask}
-          onOpenChange={(open) => { if (!open) setEditingTask(null) }}
-          mode="edit"
-          initial={editingTask}
-        />
+        <Suspense fallback={null}>
+          <TaskDialog
+            open={!!editingTask}
+            onOpenChange={(open) => { if (!open) setEditingTask(null) }}
+            mode="edit"
+            initial={editingTask}
+          />
+        </Suspense>
       )}
 
       {deletingTask && (

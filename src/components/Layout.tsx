@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, lazy, Suspense } from 'react'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { Sun, Moon, Plus, MoreVertical, Download, Upload, RotateCcw, Settings } from 'lucide-react'
 import { Button } from '@/components/ui/button'
@@ -10,9 +10,12 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { FODialog } from '@/components/FODialog'
 import { ConfirmDialog } from '@/components/ConfirmDialog'
 import { useStore } from '@/lib/store'
+
+const FODialog = lazy(() =>
+  import('@/components/FODialog').then((m) => ({ default: m.FODialog }))
+)
 
 interface LayoutProps {
   children: React.ReactNode
@@ -203,17 +206,21 @@ export function Layout({ children }: LayoutProps) {
       <footer className="border-t border-border mt-auto">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 h-10 flex items-center">
           <p className="text-xs text-muted-foreground">
-            v0.5.0 &mdash; Sprint 5 &mdash; Interactions, Tasks, Dashboard
+            v0.6.0 &mdash; Sprint 6 &mdash; Code splitting, PWA
           </p>
         </div>
       </footer>
 
-      {/* New FO dialog */}
-      <FODialog
-        open={newFOOpen}
-        onOpenChange={setNewFOOpen}
-        mode="create"
-      />
+      {/* New FO dialog — lazy loaded */}
+      {newFOOpen && (
+        <Suspense fallback={null}>
+          <FODialog
+            open={newFOOpen}
+            onOpenChange={setNewFOOpen}
+            mode="create"
+          />
+        </Suspense>
+      )}
 
       {/* Reset confirm */}
       <ConfirmDialog

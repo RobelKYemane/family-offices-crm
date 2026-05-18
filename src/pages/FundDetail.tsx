@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, lazy, Suspense } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { ArrowLeft, Building2, Pencil, Trash2, MoreVertical } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
@@ -12,8 +12,11 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { FaviconChip } from '@/components/FaviconChip'
-import { FundDialog } from '@/components/FundDialog'
 import { ConfirmDialog } from '@/components/ConfirmDialog'
+
+const FundDialog = lazy(() =>
+  import('@/components/FundDialog').then((m) => ({ default: m.FundDialog }))
+)
 import { formatUsd, formatDate, cn } from '@/lib/utils'
 import {
   useFund,
@@ -304,13 +307,17 @@ export function FundDetail() {
         </Card>
       )}
 
-      {/* Edit dialog */}
-      <FundDialog
-        open={editOpen}
-        onOpenChange={setEditOpen}
-        mode="edit"
-        initial={fund}
-      />
+      {/* Edit dialog — lazy loaded */}
+      {editOpen && (
+        <Suspense fallback={null}>
+          <FundDialog
+            open={editOpen}
+            onOpenChange={setEditOpen}
+            mode="edit"
+            initial={fund}
+          />
+        </Suspense>
+      )}
 
       {/* Delete confirm */}
       <ConfirmDialog
