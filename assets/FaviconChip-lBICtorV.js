@@ -1,0 +1,6 @@
+import{s as i,x as h}from"./index-B5Z-dvNf.js";import{l as r}from"./ui-Bdkx7VLe.js";import{e as d}from"./vendor-DoZgSIKQ.js";import{E as m}from"./external-link-CqqaPIsy.js";/**
+ * @license lucide-react v0.468.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */const g=i("Building2",[["path",{d:"M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z",key:"1b4qmf"}],["path",{d:"M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2",key:"i71pzd"}],["path",{d:"M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2",key:"10jefs"}],["path",{d:"M10 6h4",key:"1itunk"}],["path",{d:"M10 10h4",key:"tcdvrf"}],["path",{d:"M10 14h4",key:"kelpxr"}],["path",{d:"M10 18h4",key:"1ulq68"}]]);function u({url:e,className:o}){const[a,s]=d.useState(!0);let t="";try{t=new URL(e).hostname}catch{t=e}const n=`https://www.google.com/s2/favicons?domain=${t}&sz=16`;return r.jsxs("a",{href:e,target:"_blank",rel:"noreferrer noopener",className:"inline-flex items-center gap-1.5 rounded-full border border-border bg-muted/40 px-3 py-1 text-xs text-foreground hover:bg-muted hover:border-foreground/20 transition-colors "+(o??""),children:[a?r.jsx("img",{src:n,alt:"",width:12,height:12,loading:"lazy",className:"h-3 w-3 shrink-0",onError:()=>s(!1)}):r.jsx(m,{className:"h-3 w-3 text-muted-foreground shrink-0"}),h(e)]})}export{g as B,u as F};
